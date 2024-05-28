@@ -1,0 +1,975 @@
+{
+	"AUTH": {
+		"EMAIL": "Email",
+		"PASSWORD": "Password",
+		"USERNAME": "Username",
+		"SIGN_IN": {
+			"TITLE": "Sign in",
+			"DESC": "Welcome back to StudyFlow",
+			"SUBMIT_BTN": "Sign in",
+			"FORGOT_PASSWORD": "Forgot password?",
+			"DONT_HAVE_ACCOUNT": {
+				"FIRST": "Don't have an account?",
+				"SECOND": "Sign up"
+			},
+			"PROVIDERS": {
+				"GOOGLE": "Sign in with Google",
+				"APPLE": "Sign in with Apple",
+				"GITHUB": "Sign in with Github"
+			}
+		},
+		"SIGN_UP": {
+			"TITLE": "Sign up",
+			"DESC": "Create your free account",
+			"SUBMIT_BTN": "Sign up",
+			"TERMS": {
+				"FIRST": "By signing up you agree to our",
+				"SECOND": "Terms of Service."
+			},
+			"HAVE_ACCOUNT": {
+				"FIRST": "Already have an account?",
+				"SECOND": "Sign in"
+			},
+			"PROVIDERS": {
+				"GOOGLE": "Sign up with Google",
+				"APPLE": "Sign up with Apple",
+				"GITHUB": "Sign up with Github"
+			}
+		}
+	},
+	"EDIT_WORKSPACE": {
+		"TITLE": "Edit workspace",
+		"DESC": "Here you can change the name of the workspace and its icon.",
+		"PICTURE": {
+			"LABEL": "WORKSPACE ICON",
+			"TITLE": "Change icon",
+			"BTN": "Choose image"
+		},
+		"DATA": {
+			"INPUTS": {
+				"NAME": "WORKSPACE NAME",
+				"COLOR": "WORKSPACE COLOR ICON"
+			},
+			"PLACEHOLDERS": {
+				"NAME": "eg. Universe"
+			},
+			"INFO": "Changing the color only affects the appearance of the workspace icon only when no image has been added",
+			"BTN": "Update",
+			"BTN_PENDING": "Updating"
+		},
+		"DELETE": {
+			"TITLE": "Delete the workspace",
+			"DESC": "Once a workspace and the data belonging to it are deleted, there is no way to recover them.",
+			"LABEL": "CONFIRM WORKSPACE NAME",
+			"BTN": "Delete",
+			"DIALOG": {
+				"TITLE": "Delete the workspace",
+				"DESC": "All data will be permanently deleted, and all users belonging to this workspace will lose access to it",
+				"WARNING": "Deletion of workspace is permanent and cannot be undone, click „Delete workspace” to delete the workspace",
+				"BUTTON": "DELETE WORKSPACE",
+				"PENDING_BTN": "Deleting. Please wait"
+			}
+		},
+		"MEMBERS": {
+			"TITLE": "Members",
+			"DESC": "Here you can manage the members of the workspace. You can change their roles as well as remove them from the workspace.",
+			"TABELE": {
+				"USERNAME": "USERNAME",
+				"PERMISSON_SMALL": "PERMISSONS",
+				"PERMISSON_BIG": "WORKSPACE PERMISSIONS"
+			},
+			"OPTIONS": {
+				"REMOVE_BTN": "Remove",
+				"REMOVE": {
+					"TITLE": "Remove from workspace",
+					"NOTE": "You can invite this user to this workspace again at any time. To confirm click „Remove from workspace”",
+					"BTN": "Remove from workspace",
+					"BTN_PENDING": "Removing"
+				}
+			}
+		}
+	},
+	"NEW_WORKSPACE": {
+		"INPUTS": {
+			"NAME": "Workspace name",
+			"FILE": "Workspace icon (optional)"
+		},
+		"PLACEHOLDERS": {
+			"NAME": "eg. Universe"
+		},
+		"IMAGE": "Only .jpeg, .jpg, .png, .webp, .gif types are supported",
+		"BTN_ADD": "Create",
+		"BTN_PENDING": "Creating. Please wait"
+	},
+	"CHANGE_PROFILE_IMAGE": {
+		"TITLE": "Send a photo!",
+		"BUTTON": "Choose a photo",
+		"HOVER": "Add photo"
+	},
+	"ONBOARDING_FORM": {
+		"FIRST_STEP": {
+			"TITLE": {
+				"FIRST": "Let's get you",
+				"SECOND": "ready"
+			},
+			"PHOTO": "Add photo",
+			"INPUTS": {
+				"NAME": "First name",
+				"SURNAME": "Surname"
+			},
+			"PLACEHOLDERS": {
+				"NAME": "John",
+				"SURNAME": "Smith"
+			}
+		},
+		"SECOND_STEP": {
+			"TITLE": "How will you use",
+			"INFO": "We use this information to personalize your experience.",
+			"WORK": "For work",
+			"STUDY": "For study",
+			"PERSONAL": "For personal use"
+		},
+		"THIRD_STEP": {
+			"TITLE": "Create a workspace",
+			"INPUTS": {
+				"NAME": "Workspace name",
+				"FILE": "Workspace icon (optional)"
+			},
+			"PLACEHOLDERS": {
+				"NAME": "eg. Universe"
+			},
+			"IMAGE": "Only .jpeg, .jpg, .png, .webp, .gif types are supported"
+		},
+		"FINISH": {
+			"TITLE": "That's it!",
+			"DESC_FIRST": "You can already start using",
+			"DESC_SECOND": " by clicking the button below"
+		},
+		"START_BTN": "Start",
+		"NEXT_BTN": "Continue",
+		"IS_DONE": "just a moment more"
+	},
+	"UPLOAD_FILE": {
+		"UPLOAD": "Upload"
+	},
+	"INVITE": {
+		"HINT": "Add to workspace",
+		"INVITE": "Invite",
+		"TITLE": "Invite to",
+		"DESC": "Copy the invitation link and send it to the people you want to invite to this workspace. You can set up roles and generate a new link."
+	},
+
+	"LEAVE_FROM_WORKSAPCE": {
+		"HINT": "Leave the workspace",
+		"LEAVE": "Leave",
+		"TITLE": "Leave",
+		"DESC": "You can leave the workspace at any time and return to it whenever you're invited back.",
+		"WARNING": "All tasks and mind maps from this workspace that have been added to the “Starred” tab will be removed from it. The same applies to activities assigned to you.",
+		"LOADING_BTN": "Leaving. Please wait"
+	},
+	"MESSAGES": {
+		"ERRORS": {
+			"DEFAULT": "Oh no.. Something went wrong. Please try again",
+			"TAKEN_USERNAME": "This username is already taken",
+			"TAKEN_EMAIL": "This email is already in use",
+			"DB_ERROR": "We are currently having problems. Please try again later",
+			"WRONG_DATA": "The data you provided is incorrect. Please provide the correct ones",
+			"NO_USER": "User was not found. Please enter a valid email",
+			"WRONG_PASSWORD": "The entered password is incorrect. Please enter the correct one",
+			"ABORDED": "Login aborded",
+			"UPLOAD_FAILE": "Failed to upload your file. Please try again",
+			"IMAGE_PROFILE_UPDATE": "Failed to update your profile image. Please try again",
+			"IMAGE_PROFILE_DELETE": "Failed to delete your profile image. Please try again",
+			"WORKSPACE_ICON_ADDED": "Failed to add workscape icon. Please try again",
+			"NO_USER_API": "User not Found",
+			"UNAUTHORIZED": "Unauthorized. Please sign in",
+			"NO_PASSWORD": "Unable to update password. Read the warning",
+			"PASSWORD_DISMATCH": "The current password you entered is incorrect",
+			"SAME_NAME_WORKSPACE": "The workspace with the given name already exists",
+			"TOO_MANY_WORKSPACES": "The limit on the number of workspaces that can be created has been reached",
+			"NO_PERMISSION": "You don't have perrmios for this acction",
+			"NO_WORKSPACE": "Workspace not found",
+			"WRONG_WORKSPACE_NAME": "Please provide the correct name of the workspace",
+			"THE_SAME_TAG": "A tag with this name already exists",
+			"NO_TAG": "Tag not found",
+			"IMAGE_TO_EDITOR": "Nie udało się dodać zdjęcia, Spróbuj ponownie",
+			"NO_TASK_FOUND": "Task not found",
+			"NO_MIND_MAP_FOUND": "Mind map not found",
+			"CANT_LEAVE": "Owner of workspace cannot leave from worksapce. You have to delete workspace from settings page",
+			"CANT_GET_USERS": "Failed to update activity status",
+			"CANT_UPDATE_SEEN_NOTIFY": "Failed to update the read status of notifications",
+			"NO_CHAT": "Conversation not found",
+			"NO_MESSAGE": "Failed to edit the message. Please try again.",
+			"CANT_LOAD_MORE": "Unable to load more messages. Please try again.",
+			"TEST_ACCOUNT_RESET_PASSWORD": "Cannot reset password for test account",
+			"TEST_ACCOUNT_DELETE_ACCOUNT": "Cannot delete test account",
+			"TEST_ACCOUNT_DELETE_WORKSPACE": "Cannot delete test workspace"
+		},
+		"SUCCES": {
+			"SIGN_UP": "Account was created!",
+			"SIGN_IN": "You have been log in!",
+			"IMAGE_PROFILE_UPDATE": "Your profile image has been updated!",
+			"IMAGE_PROFILE_DELETE": "Your profile image has been deleted!",
+			"ONBOARDING_COMPLETE": "Welcome in StudyFlow!",
+			"PROFILE_EDITED": "Profile has been updated!",
+			"DELETED_INFO": "Your account has beed deleted",
+			"PASSWORD_CHANGED": "Password has benn changed",
+			"NEW_WORKSAPCE": "The workspace has been created!",
+			"WORKSPACE_PICTURE_UPDATED": "The workspace icon has been updated!",
+			"WORKSPACE_PICTURE_DELETED": "The workspace icon has been removed",
+			"UPDATED_WORKSAPCE": "Workspace has been updated!",
+			"DELETED_WORKSPACE_INFO": "Workspace has been deleted",
+			"REGENERATED_LINK": "Link has been updated",
+			"TASK_ADDED": "Task has been added",
+			"TASK_DELETED": "Task has been deleted",
+			"MIND_MAP_ADDED": "Mind map has been added",
+			"MIND_MAP_DELETED": "Mind map has been deleted",
+			"RESET_POMODORO_SETTINGS": "Settings reset",
+			"UPDATE_POMODORO_SETTINGS": "New settings saved",
+			"LEAVE_FROM_WORKSAPCE": "Successfully left the workspace"
+		},
+		"PENDING": {
+			"LOADING": "Please wait"
+		},
+		"SCHEMA": {
+			"PASSWORD": {
+				"MIN": "Password must have at least 6 characters",
+				"UPPERCASE": "Password must contain at least one uppercase letter",
+				"LOWERCASE": "Password must contain at least one lowercase letter",
+				"DIGIT": "Password must contain at least one digit",
+				"NOT_THE_SAME": "Passwords do not match",
+				"THE_SAME": "New password cannot be the same as your current password"
+			},
+			"EMAIL": "Please enter a valid email",
+			"USERNAME": {
+				"SHORT": "Username is too short",
+				"SPECIAL_CHARS": "Username must only contain letters and digits"
+			},
+			"IMAGE": {
+				"MAX": "Max image size is 5MB",
+				"SUPPORTED": "Only .jpg, .jpeg, .png and .webp formats are supported."
+			},
+			"WORKSPACE": {
+				"SHORT": "Workspace name is too short",
+				"LONG": "Workspace name is too long",
+				"SPECIAL_CHARS": "Workspace name must only contain letters and digits",
+				"WRONG_NAME": "The given name is different from the name of the workspace"
+			},
+			"LANGUAGE": "Please select a language",
+			"CHOOSE_ONE": "Please select one of the options",
+			"LINK": "Please provide the correct link",
+			"TAG": {
+				"SHORT": "Tag name is too short",
+				"LONG": "Tag name is too long",
+				"SPECIAL_CHARS": "Tag name must only contain letters and digits"
+			}
+		}
+	},
+	"SIDEBAR": {
+		"MAIN": {
+			"HOME_HOVER": "Home",
+			"CALENDAR_HOVER": "Calendar",
+			"LOG_OUT_HOVER": "Log out",
+			"SETTINGS_HOVER": "Settings",
+			"POMODORO_HOVER": "Pomodoro",
+			"STARRED_HOVER": "Starred",
+			"ASSIGNED_TO_ME_HOVER": "Assigned to me",
+			"NEW_WORKSAPCE_HOVER": "New workscape",
+			"NEW_WORKSAPCE_DIALOG_TITLE": "Create new workscape",
+			"NEW_WORKSAPCE_DIALOG_DESC": "Remember that you can have a maximum of 5 active workspaces at the same time."
+		},
+		"SETTINGS": {
+			"GENERAL": "General",
+			"ACCOUNT": "Account",
+			"SECURITY": "Security",
+			"THEME": "Theme",
+			"WORKSPACE": "Workspace"
+		},
+		"POMODORO": {
+			"TIMER": "Timer",
+			"SETTINGS": "Settings"
+		},
+		"WORKSPACE_OPTIONS": {
+			"SHORTCUTS": "Shortcuts",
+			"TASKS": "Tasks",
+			"MIND_MAPS": "Mind maps",
+			"SCHEDULES": "Schedules",
+			"STUDY": "Study",
+			"FILES": "Files",
+			"DEFAULT_NAME": "Untitled",
+			"ACTIONS": "Actions",
+			"ADD_TASK": "Add task",
+			"ADD_TASK_PENDING": "Creating task",
+			"ADD_MIND_MAP": "Add mind map",
+			"ADD_MIND_MAP_PENDING": "Creating mind map"
+		},
+		"ASSIGNED_TO_ME": {
+			"LABEL": {
+				"ALL": "All",
+				"TASKS": "Tasks",
+				"MIND_MAPS": "Mind maps"
+			},
+			"TYPE": "Type",
+			"WORKSPACE": "Workspace"
+		}
+	},
+	"SETTINGS": {
+		"THEME": {
+			"TITLE": "Theme",
+			"DESC": "Select how you would like your interface to look. Select theme from dark, light or system.",
+			"LIGHT_TITLE": "Light",
+			"DARK_TITLE": "Dark",
+			"SYSTEM_TITLE": "System",
+			"LIGHT_FOOTER": "DEFAULT light",
+			"DARK_FOOTER": "DEFAULT dark",
+			"SYSTEM_FOOTER": "DEFAULT system",
+			"ACTIVE": "Active"
+		},
+		"ACCOUNT": {
+			"TITLE": "Account",
+			"DESC": "Manage your StudyFlow account. All changes to your account will be applied to all workspaces.",
+			"IMAGE": "PROFILE IMAGE",
+			"USERNAME": "USERNAME",
+			"FIRST_NAME": "FIRST NAME (OPTIONAL)",
+			"SURNAME": "SURNAME (OPTIONAL)",
+			"USERNAME_PLACEHOLDER": "Username",
+			"FIRST_NAME_PLACEHOLDER": "First name",
+			"SURNAME_PLACEHOLDER": "Surname",
+			"LANG": "LANGUAGE",
+			"NO_LANGUAGE": "No language found.",
+			"SEARCH_LANGUAGE": "Search language...",
+			"SELECT_LANGUAGE": "Select langauge",
+			"UPDATE_BTN": "Update",
+			"PENDING_BTN": "Updating. Please wait",
+			"DELETE_TITLE": "Delete account",
+			"DELETE_DESC": "Once the account and data are deleted, there is no way to recover them.",
+			"DELETE_LABEL": "DELETE MY ACCOUNT AND DATA",
+			"DELETE_PLACEHOLDER": "Confirm your email",
+			"DELETE_BTN": "Delete",
+			"DIALOG": {
+				"TITLE": "Delete account",
+				"DESC": "You will lose access to all your workspaces and projects",
+				"WARNING": "Account deletion is permanent and cannot be undone, click „Delete my account” to delete your account.",
+				"BUTTON": "DELETE MY ACCOUNT",
+				"PENDING_BTN": "Deleting. Please wait"
+			}
+		},
+		"SECURITY": {
+			"TITLE": "Security",
+			"DESC": "You can change your password here. Remember that it should contain at least 6 characters, at least one upper and lower case letter and at least one number.",
+			"WARNING": {
+				"FIRST": "The password can be changed",
+				"SECOND": "only for accounts created through the form on the site",
+				"THIRD": ". If you have created an account via the Google or Github button, ",
+				"FOURTH": "it is not possible to change the password",
+				"FIFTH": "due to another method of account authorization."
+			},
+			"FORM": {
+				"CURRENT": {
+					"LABEL": "CURRENT PASSWORD",
+					"PLACEHOLDER": "Current password"
+				},
+				"NEW": {
+					"LABEL": "NEW PASSWORD",
+					"PLACEHOLDER": "New password"
+				},
+				"REPEAT": {
+					"LABEL": "CONFIRM PASSWORD",
+					"PLACEHOLDER": "Confirm password"
+				},
+				"BTN": "Change password",
+				"BTN_PENDING": "Changing password"
+			}
+		}
+	},
+	"COMMON": {
+		"WELCOME_BACK": "Welcome back",
+		"LANG_HOVER": "Change language",
+		"THEME_HOVER": "Change theme",
+		"DARK": "Dark",
+		"LIGHT": "Light",
+		"SYSTEM": "System",
+		"LOG_OUT": "Log out",
+		"SETTINGS": "Settings",
+		"WARNING": "WARNING",
+		"NOTICE": "NOTICE",
+		"DEFAULT_NAME": {
+			"MIND_MAP": "Untitled Mind Map",
+			"TASK": "Untitled Task"
+		},
+		"ACTIVE_WORKSACPES": {
+			"FIRST": "You have created",
+			"SECOND": "out of",
+			"THIRD": "possible to create workspaces"
+		},
+		"BACK_BTN": "Back",
+		"SAVING_STATUS": {
+			"SAVED": "Saved",
+			"SAVING": "Saving",
+			"UNSAVED": "Unsaved"
+		},
+		"TAG": {
+			"FILTER": "Filter",
+			"NEW_TAG": "New tag",
+			"TAG": "Tag",
+			"ERROR": "Oops... Something went wrong",
+			"ERROR_BTN": "Try again",
+			"NOT_FOUND": "Not found",
+			"TAGS_HEADING": "TAGS",
+			"NEW_HEADING": "NEW",
+			"ADD_TAG": "Add tag",
+			"COLORS": "Colors",
+			"TAG_NAME": "Name",
+			"BTNS": {
+				"CREATE": "Create",
+				"CANCEL": "Cancel",
+				"DELETE": "Delete",
+				"UPDATE": "Update"
+			}
+		},
+		"EDITED_ITEM_SENTENCE": {
+			"MIND_MAP": "Mind map edited",
+			"TASK": "Task edited",
+			"BY": "by",
+			"IN": " - in"
+		}
+	},
+	"PERMISSONS": {
+		"WAIT": "Please wait",
+		"PERMISSONS": "Permissons",
+		"COPY": "Copy link",
+		"OWNER": {
+			"TITLE": "Owner"
+		},
+		"ADMIN": {
+			"TITLE": "Admin",
+			"DESC": "It has all possible rights, including to change the settings of the workspace and to manage other users."
+		},
+		"EDITOR": {
+			"TITLE": "Editor",
+			"DESC": "He has full access to the workspace and has rights to edit and delete content in the workspace. However, he does not have access to the settings of the area."
+		},
+		"VIEWER": {
+			"TITLE": "Viewer",
+			"DESC": "He has full access to the workspace, but cannot edit or delete anything. He also does not have access to the area settings."
+		}
+	},
+	"TASK": {
+		"HEADER": {
+			"PLACEHOLDER": "Untitled task",
+			"DATE": {
+				"PICK": "Pic a date",
+				"INFO": "If you select a date, the task will be added to your calendar"
+			}
+		},
+		"EDITOR": {
+			"PLACEHOLDER": "Write something cool 📝",
+			"WORDS": "number of words:",
+			"CHARS": "chars",
+			"IMAGE": {
+				"TITLE": "Add image",
+				"DESC": "You can add a photo by providing a link to it or you can import it from your device.",
+				"LINK": "Add via the link",
+				"UPLOAD": "Import from device",
+				"LINK_TAB": {
+					"PLACEHOLDER": "Photo link",
+					"BTN_ADD": "Add image",
+					"BTN_PENDING": "Checking the link"
+				},
+				"UPLOAD_TAB": {
+					"TYPES": "Only the types .jpeg, .jpg, .png, .webp, .gif are allowed",
+					"BTN_ADD": "Add image",
+					"BTN_PENDING": "Adding"
+				}
+			},
+			"HOVER": {
+				"H1": "Title 1",
+				"H2": "Title 2",
+				"H3": "Title 3",
+				"H4": "Title 4",
+				"H5": "Title 5",
+				"H6": "Title 6",
+				"BOLD": "Bold",
+				"ITALIC": "Italic",
+				"STRIKETHROUGH": "Strikethrough",
+				"UNDERLINE": "Underline",
+				"CODE": "Code",
+				"UL": "Unordered list",
+				"OL": "Ordered list",
+				"LINK": "Add hyperlink",
+				"IMAGE": "Add image",
+				"COLOR": "Highlight",
+				"COLOR_DEFAULT": "Default color",
+				"UNDO": "Undo",
+				"REDO": "Redo",
+				"DELETE": "Delete"
+			},
+			"READ_ONLY": {
+				"NO_DATE": "not recorded in the calendar",
+				"NO_TITLE": "Untitled task",
+				"NO_CONTENT": "Task without content",
+				"DELETE": "Delete",
+				"EDIT": "Edit",
+				"ADD_TO_FAV": "Add to favourites",
+				"REMOVE_FROM_FAV": "Remove from favourites",
+				"DIALOG": {
+					"TITLE": "Delete task",
+					"DESC": "Are you sure you want to delete this note? You will lose all the data it contains and the activities associated with it. Deletion is irreversible",
+					"BTN_DELETE": "Delete task",
+					"BTN_PENDING": "Deleting"
+				},
+				"CREATOR_INFO": "Created by",
+				"EDITOR_INFO": "Edited by"
+			}
+		},
+		"BTN": {
+			"SAVE_TASK": "Add task"
+		},
+		"ASSIGNMENT": {
+			"TRIGGER": "Assign",
+			"ERROR_MSG": "Something went wrong, please try again",
+			"ERROR_BTN": "Try again",
+			"PLACEHOLDER": "Filter",
+			"NOT_FOUND": "User not found",
+			"HEADING": "ASSIGN TO"
+		}
+	},
+	"MIND_MAP": {
+		"HOVER_TIP": {
+			"ADD_TILE": "Add a new tile",
+			"SAVE": "Save mind map"
+		},
+		"TAG": "Add a tag to the mind map",
+		"DELETE": {
+			"MESSAGE": {
+				"SUCCES": "Reset successful",
+				"ERROR": "Failed to save changes."
+			},
+			"HOVER": "Delete all tiles",
+			"DIALOG": {
+				"TITLE": "Delete all tiles",
+				"DESC": "Reset the mind map layout to its initial state",
+				"WARNING": "Restoring the initial state will delete all current tiles and connections. Click “Reset State” to remove all tiles and connections.",
+				"BTN_RESET": "Reset State",
+				"BTN_PENDING": "Resetting"
+			}
+		},
+		"EDGE_OPTIONS": {
+			"TITLE": "Connection Settings",
+			"DESC": "Customize how your connections look. Add text, set connection type, change color, and choose whether to animate them!",
+			"FORM": {
+				"LABEL": {
+					"LABEL": "Label",
+					"DESC": "Adding text will display a label. Leave the field empty and save changes to remove it.",
+					"PLACEHOLDER": "Add label"
+				},
+				"TYPE": {
+					"LABEL": "Connection Type",
+					"DEFAULT": "Default",
+					"STRAIGHT": "Straight",
+					"STEP_SHARP": "Step",
+					"STEP_ROUNDED": "Step (rounded corners)",
+					"DESC": "Choose how the connection behaves"
+				},
+				"COLOR": {
+					"LABEL": "Color",
+					"DESC": "Color choice affects only the label"
+				},
+				"ANIMATED": {
+					"LABEL": "Animate Connection"
+				},
+				"BTN_SAVE": "Save",
+				"BTN_DELETE_EDGE": "Delete Connection"
+			}
+		},
+		"NODE": {
+			"EDIT": "Edit",
+			"COLOR": "Color",
+			"DELETE": "Delete",
+			"SAVE": "Save Changes",
+			"CANCEL": "Cancel",
+			"PLACEHOLDER": "Add a new description"
+		},
+		"EDIT_TILT_AND_EMOJI": {
+			"ERROR": "Failed to save changes.",
+			"HOVER": "Edit information",
+			"TITLE": "Edit information",
+			"DESC": "Change the name of your mind map and set its icon",
+			"PLACEHOLDER": "Untitled mind map",
+			"SAVE": "Save",
+			"CANCEL": "Cancel"
+		},
+		"PREVIEW": {
+			"INFO": "This is the preview page. You can navigate the map space, but to edit it, go to the editing page (if you have the necessary permissions).",
+			"NO_TITLE": "Untitled mind map",
+			"DELETE": "Delete",
+			"EDIT": "Edit",
+			"ADD_TO_FAV": "Add to Favorites",
+			"REMOVE_FROM_FAV": "Remove from Favorites",
+			"DIALOG": {
+				"TITLE": "Delete mind map",
+				"DESC": "Are you sure you want to delete the mind map? You will lose all the data and associated actions. Deletion is irreversible.",
+				"BTN_DELETE": "Delete",
+				"BTN_PENDING": "Deleting"
+			},
+			"CREATOR_INFO": "Created by",
+			"EDITOR_INFO": "Edited by"
+		},
+		"ASSIGNMENT": {
+			"TRIGGER": "Assign",
+			"ERROR_MSG": "Something went wrong, please try again",
+			"ERROR_BTN": "Try again",
+			"PLACEHOLDER": "Filter",
+			"NOT_FOUND": "User not found",
+			"HEADING": "ASSIGN TO"
+		}
+	},
+
+	"POMODORO": {
+		"SETTINGS": {
+			"CARD": {
+				"TITLE": "Pomodoro Settings",
+				"DESC": "Manage your settings. Personalize your Pomodoro as you wish. You can change the number of rounds, work and break durations, as well as customize notification sounds."
+			},
+			"FORM": {
+				"TIMER": "Timer",
+				"SOUND": "Sound",
+				"WORK": {
+					"LABEL": "Work duration: {value} minutes",
+					"DESC": "Set the duration of your work"
+				},
+				"SHORT_BREAK": {
+					"LABEL": "Short break duration: {value} minutes",
+					"DESC": "Set the duration of your short break"
+				},
+				"LONG_BREAK": {
+					"LABEL": "Long break duration: {value} minutes",
+					"DESC": "Set the duration of your long break"
+				},
+				"ROUNDS": {
+					"LABEL": "Number of rounds: {value}",
+					"DESC": "Set how many rounds complete a full session (one round ends after the long break time elapses)"
+				},
+				"LONG_BREAKS_INTERVAL": {
+					"LABEL": "Interval between long breaks: {value}",
+					"DESC": "The larger the value, the longer one round lasts (greater interval between long breaks)"
+				},
+				"ALARM": {
+					"LABEL": "Notification sound",
+					"DESC": "Choose the sound to play when the time is up",
+					"ANALOG": "Analog",
+					"BELL": "Bell",
+					"BIRD": "Bird",
+					"CHURCH_BELL": "Church Bell",
+					"DIGITAL": "Digital",
+					"FANCY": "Fancy"
+				},
+				"VOLUME": {
+					"LABEL": "Notification sound volume: {value}%",
+					"DESC": "To mute the notification, set the volume to 0%"
+				},
+				"RESET": {
+					"BTN": "Reset Settings",
+					"BTN_PENDING": "Resetting"
+				},
+				"SAVE": {
+					"BTN": "Save Changes",
+					"BTN_PENDING": "Saving"
+				}
+			}
+		},
+		"TIMER": {
+			"END_TEXT": "Good job!",
+			"FOCUS": "Time to focus",
+			"BREAK": "Break time!",
+			"ROUNDS": {
+				"FIRST": "Round",
+				"SECOND": "of"
+			},
+			"NEW": "Start a new session",
+			"START": "Start",
+			"STOP": "Stop"
+		}
+	},
+
+	"STARRED": {
+		"TITLE": "Your starred items",
+		"DESC": "Here you will find all your saved mind maps and tasks.",
+		"ERROR": "An error occurred while retrieving your data. Please try again.",
+
+		"UNSTAR": "Remove star",
+		"SORT": {
+			"ASC": "Latest",
+			"DESC": "Oldest",
+			"INFO": "Sorting by edit date"
+		},
+		"NO_ITEMS": {
+			"TITLE": "You have no projects marked with a star",
+			"DESC": "Any task or mind map you star will appear here."
+		}
+	},
+
+	"ASSIGNED_TO_ME": {
+		"TITLE": "Assigned to Me",
+		"DESC": "Here you will find all assigned to You  mind maps and tasks",
+
+		"NO_ASSIGMENT": "You haven't been assigned anywhere yet",
+		"NOT_FOUND": "We couldn't find any tasks or mind maps that met the criteria"
+	},
+
+	"CALENDAR": {
+		"DAYS_OF_WEEK": {
+			"MON": "MON",
+			"TUE": "TUE",
+			"WED": "WED",
+			"THU": "THU",
+			"FRI": "FRI",
+			"SAT": "SAT",
+			"SUN": "SUN"
+		},
+		"HEADER": {
+			"PREV": "Previous",
+			"TODAY": "Today",
+			"NEXT": "Next"
+		},
+		"TASK": "Untitled Task",
+		"SHOW_MORE": {
+			"MORE": "More",
+			"TITLE": "All tasks",
+			"DESC": "All tasks from workspaces you belong to"
+		}
+	},
+
+	"TASK_SHORTCUT": {
+		"TITLE": "Create Task",
+		"HINT": "Quick add",
+		"ADDED_TASK": "Task added to project! View Task",
+		"CHOOSE_WORKSPACE": "Choose Workspace",
+		"DESC": "Add a task to the selected workspace you belong to and have the required permissions in",
+		"BTN_ADD": "Add to Workspace",
+		"BTN_NO_WORKSPACES": "I understand",
+		"BTN_PENDING": "Adding. Please wait",
+		"DUE_DATE": "Due Date",
+		"MAIN_TAB": {
+			"PLACEHOLDER": "Add title",
+			"WORKSPACE": "Workspace",
+			"WARNING": "You don't have any workspaces yet where you can add a task. Create a new workspace or join an existing workspace with at least “Editor” level permission."
+		}
+	},
+
+	"PERMISSION_INDICATOR": {
+		"TITLE": "Your current role is",
+		"DESC": "Your permissions in workspace {workspace} are currently",
+		"ROLES": {
+			"OWNER": "Owner",
+			"ADMIN": "Admin",
+			"CAN_EDIT": "Editor",
+			"READ_ONLY": "Viewer"
+		},
+		"HINT": "Permission in {workspace} is",
+		"ROLES_DESC": {
+			"OWNER": "As the Owner, you have all possible rights. You can manage content, other users, and customize workspace settings. However, as the Owner, you cannot leave this workspace; the only option is to completely delete it in the settings.",
+			"ADMIN": "As an Admin, you have all possible rights, including changing workspace settings and managing other users.",
+			"CAN_EDIT": "As an Editor, you have full access to the workspace, with rights to edit and delete content within the workspace. However, you do not have access to workspace settings.",
+			"READ_ONLY": "As a Viewer, you have full access to the workspace but do not have permissions to edit the content within it. You also do not have access to workspace settings."
+		},
+		"BTN": "Understood"
+	},
+	"USERS_STATUS_LIST": {
+		"ROLES": {
+			"OWNER": "Owner",
+			"ADMIN": "Admin",
+			"CAN_EDIT": "Editor",
+			"READ_ONLY": "Viewer",
+			"UNAVAILABLE": "UNAVAILABLE"
+		},
+		"ERROR": {
+			"MG": "Failed to retrieve workspace members information",
+			"BTN": "Try again"
+		}
+	},
+	"NOTIFICATIONS": {
+		"TITLE": "Notifications",
+		"MARK_AS_READ": "Mark all as read",
+		"NO_NOTIFICATIONS": "You don't have any notifications yet",
+		"ERROR": "An error occurred while fetching notifications",
+		"NOTIFAY_ITEM": {
+			"ROLES": {
+				"ADMIN": "Admin",
+				"CAN_EDIT": "Editor",
+				"READ_ONLY": "Viewer"
+			},
+
+			"NEW_USER_IN_WORKSPACE_TEXT": "has joined the workspace {name}",
+			"USER_LEFT_WORKSPACE_TEXT": "has left the workspace {name}",
+			"NEW_TASK_TEXT": "has added a new task in the workspace {name}",
+			"NEW_MIND_MAP_TEXT": "has added a new mind map in the workspace {name}",
+			"NEW_ROLE_TEXT": "You have been granted {role} level permissions in the workspace {name}",
+			"NEW_ASSIGMENT_TASK_TEXT": "You have been assigned to a task in the workspace {name}",
+			"NEW_ASSIGMENT_MIND_MAP_TEXT": "You have been assigned to a mind map in the workspace {name}"
+		}
+	},
+	"HOME_PAGE": {
+		"NO_DATA": "No activity found. Join a workspace or create your own. Then, all tasks and mind maps that are edited will be visible here in order from the latest.",
+		"ERROR": "An error occurred while retrieving the latest activity."
+	},
+
+	"WORKSPACE_MAIN_PAGE": {
+		"FILTER": {
+			"FILTER_BTN": "Filter",
+			"CLEAR_BTN": "Clear"
+		},
+		"COMMAND": {
+			"SEARCH": "Search",
+			"NO_RESULTS_FOUND": "No results found",
+			"ASSIGNED_TO": "ASSIGNED TO",
+			"TAG": "TAG",
+			"ASSIGNED_TO_ME": "Assigned to me"
+		},
+		"RECENT_ACTIVITY": {
+			"NO_FILTERED_DATA": "No tasks and mind maps to display for the given criteria",
+			"ERROR": "Failed to fetch recent workspace activity data",
+			"NO_DATA": "No activity found. Create your first tasks and mind maps now!"
+		},
+		"SHORTCUT_CONTAINER": {
+			"GROUP_CHAT": "Group Chat",
+			"PRIVATE_CHAT": "Private Chat",
+			"NEW_TASK": "New Task",
+			"NEW_MIND_MAP": "New Mind Map"
+		}
+	},
+
+	"CHAT": {
+		"NO_MESSAGES": {
+			"FIRST": "We couldn't find any messages in this chat.",
+			"SECOND": "Send the first message!"
+		},
+		"HEADER": { "TITLE": "{workspaceName} chat" },
+		"DELETE_MESSAGE": {
+			"TITLE": "Delete Message",
+			"DESC": "This operation is irreversible and will permanently delete the message.",
+			"BTN_DELETE": "Delete",
+			"BTN_CANCEL": "Cancel"
+		},
+		"EDIT": {
+			"BADGE": "(edited)",
+			"TEXT": {
+				"FIRST": "Press",
+				"SECOND": ", to cancel • Press",
+				"THIRD": ", to save"
+			}
+		},
+		"OPTIONS": {
+			"EDIT": "Edit Message",
+			"DELETE": "Delete Message"
+		},
+		"LOAD_MORE": "Load More",
+		"NOTIFICATIONS": "{notifications} new messages",
+		"NEW_MESSAGE": {
+			"PLACEHOLDER": "New message",
+			"DELETE_ATACHMENT": "Delete attachment",
+			"ATACHMENT_DEAFULT_ERROR": "Failed to add attachments.",
+			"ATACHMENT_TO_MANY_ERROR": "Failed to add attachments. The maximum number of files you can send at once is 5 images and 5 PDFs.",
+			"ATACHMENT_TO_BIG_ERROR": "Failed to add attachments. One of the files is too large.",
+			"ATACHMENT_WRONG_FILE_ERROR": "Failed to add attachments. One of the files has an unsupported format."
+		}
+	},
+
+	"CLIENT_ERROR": {
+		"TITLE": "Oh no... Something went wrong",
+		"BTN": "Try again"
+	},
+
+	"STUDY_FLOW_PAGE": {
+		"NAV": {
+			"PRODUCT": {
+				"TITLE": "Product",
+				"SUBTITLES": {
+					"MIND_MAPS": "Mind Maps",
+					"TASKS": "Tasks & Notes",
+					"ROLES": "Roles & Settings",
+					"POMODORO": "Pomodoro",
+					"CHAT": "Chat & Notifications",
+					"CALENDAR": "Integrated Calendar",
+					"EASY": "Easy Access"
+				}
+			},
+			"SIGN_IN": "Log in",
+			"SIGN_UP": "Sign up for free"
+		},
+		"HEADER": {
+			"TITLE": "Increase your productivity",
+			"LINKS": {
+				"MIND_MAPS": "Mind Maps",
+				"TASKS": "Tasks & Notes",
+				"CALENDAR": "Calendar",
+				"CHAT": "Group Chat",
+				"POMODORO": "Pomodoro"
+			}
+		},
+		"SECTION": {
+			"BEST_FRIEND": {
+				"TITLE": "Your new best friend",
+				"DESC": "Supercharge your team's productivity with StudyFlow - the ultimate toolkit consolidating all your essential tools in one unified workspace."
+			},
+			"MIND_MAPS": {
+				"TITLE": "Mind Maps",
+				"DESC": "Mind Maps empower users to craft visually engaging projects, simplifying the visualization of intricate issues. With an intuitive interface, navigation is seamless, and users can make extensive visual tweaks effortlessly. Furthermore, they boast a tagging system and user assignments, enhancing organization and fostering collaboration"
+			},
+			"TASKS": {
+				"TITLE": "Tasks & Notes",
+				"DESC": "Tasks offer users a seamless platform for creating new notes and projects. With an advanced text editor, work becomes effortless, and progress is automatically saved. Moreover, users can assign tasks to specific individuals within the workspace, categorize them with tags, and set due dates for seamless calendar integration, ensuring efficient task management"
+			},
+			"ROLES": {
+				"TITLE": "Roles & Settings",
+				"DESC": "The application boasts an integrated role system, streamlining workspace management effortlessly. Moreover, users can conveniently oversee both account and space settings, accessible to those holding admin or owner-level privileges. Within each workspace, users can effortlessly adjust space configurations and oversee user management tasks, including role adjustments and removals"
+			},
+			"POMODORO": {
+				"TITLE": "Pomodoro",
+				"DESC": "The application includes a built-in Pomodoro feature to aid in work or study sessions. It allows users to customize settings such as session duration, number of rounds, break times, and notification sounds, providing a tailored approach to productivity management"
+			},
+			"NEXT_GENERATION": {
+				"TITLE": "The next generation of team collaboration",
+				"DESC": "Share here, there, and everywhere. Shareable links make it easy to send projects for review, invite others into your workspace, or hop on a real-time chat with stakeholders anywhere"
+			},
+			"CHAT": {
+				"TITLE": "Chat & Notifiactions",
+				"DESC": "Collaborate in real-time, sharing your ideas and files while keeping everyone on the same page. Also, thanks to the notification system, you'll always be up-to-date and nothing will pass you by"
+			},
+			"CALENDAR": {
+				"TITLE": "Integraed Calendar",
+				"DESC": "Stay organized with our Integrated Calendar feature, which displays all tasks assigned with specific dates. Collaborate seamlessly as you manage your schedule, ensuring everyone stays informed and on track. This feature empowers efficient coordination and keeps everyone aligned with project timelines and deadlines"
+			},
+			"EASY_TO_FIND": {
+				"TITLE": "Easy Access",
+				"DESC": "Easily locate anything you need with our intuitive search functionality. With tabs like “Assigned to Me” and robust data filtering tools, finding specific project is effortless. Additionally, projects tagging and star-marking features ensure that important tasks or mind maps are always at your fingertips, facilitating seamless navigation and quick access to essential information"
+			}
+		},
+		"FOOTER": {
+			"FIRST": "Made with",
+			"SECOND": "love"
+		}
+	},
+
+	"NOT_FOUND": {
+		"TITLE": "Uh-oh! Lost in Space?",
+		"TEXT": {
+			"FIRST": "Check the URL again or go back to",
+			"SECOND": "home page"
+		}
+	},
+
+	"ROUTES": {
+		"DASHBOARD": "Home",
+		"SETTINGS": "Settings",
+		"SECURITY": "Security",
+		"THEME": "Theme",
+		"TASKS": "Tasks",
+		"UNTITLED": "Untitled",
+		"POMODORO": "Pomodoro",
+		"STARRED": "Starred",
+		"ASSIGNED-TO-ME": "Assigned to me",
+		"CALENDAR": "Calendar",
+		"CHAT": "Chat"
+	}
+}

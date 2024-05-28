@@ -1,0 +1,973 @@
+{
+	"AUTH": {
+		"EMAIL": "البريد الإلكتروني",
+		"PASSWORD": "كلمة المرور",
+		"USERNAME": "اسم المستخدم",
+		"SIGN_IN": {
+			"TITLE": "تسجيل الدخول",
+			"DESC": "مرحبًا بعودتك إلى StudyFlow",
+			"SUBMIT_BTN": "تسجيل الدخول",
+			"FORGOT_PASSWORD": "هل نسيت كلمة المرور؟",
+			"DONT_HAVE_ACCOUNT": {
+				"FIRST": "ليس لديك حساب؟",
+				"SECOND": "أنشئ حسابًا"
+			},
+			"PROVIDERS": {
+				"GOOGLE": "تسجيل الدخول بواسطة Google",
+				"APPLE": "تسجيل الدخول بواسطة Apple",
+				"GITHUB": "تسجيل الدخول بواسطة Github"
+			}
+		},
+		"SIGN_UP": {
+			"TITLE": "إنشاء حساب",
+			"DESC": "أنشئ حسابًا مجانًا",
+			"SUBMIT_BTN": "إنشاء حساب",
+			"TERMS": {
+				"FIRST": "بإنشاء حساب فإنك توافق على",
+				"SECOND": "شروط الاستخدام"
+			},
+			"HAVE_ACCOUNT": {
+				"FIRST": "هل لديك حساب بالفعل؟",
+				"SECOND": "تسجيل الدخول"
+			},
+			"PROVIDERS": {
+				"GOOGLE": "إنشاء حساب بواسطة Google",
+				"APPLE": "إنشاء حساب بواسطة Apple",
+				"GITHUB": "إنشاء حساب بواسطة Github"
+			}
+		}
+	},
+	"EDIT_WORKSPACE": {
+		"TITLE": "تحرير مساحة العمل",
+		"DESC": "هنا يمكنك تغيير اسم مساحة العمل وأيقونتها.",
+		"PICTURE": {
+			"LABEL": "أيقونة مساحة العمل",
+			"TITLE": "تغيير الأيقونة",
+			"BTN": "اختر صورة"
+		},
+		"DATA": {
+			"INPUTS": {
+				"NAME": "اسم مساحة العمل",
+				"COLOR": "لون أيقونة مساحة العمل"
+			},
+			"PLACEHOLDERS": {
+				"NAME": "مثلاً، الكون"
+			},
+			"INFO": "تغيير اللون يؤثر فقط على مظهر الأيقونة في حالة عدم إضافة صورة",
+			"BTN": "تحديث",
+			"BTN_PENDING": "جاري التحديث"
+		},
+		"DELETE": {
+			"TITLE": "حذف مساحة العمل",
+			"DESC": "بعد حذف مساحة العمل والبيانات المرتبطة بها، لا يمكن استرجاعها.",
+			"LABEL": "تأكيد اسم مساحة العمل",
+			"BTN": "حذف",
+			"DIALOG": {
+				"TITLE": "حذف مساحة العمل",
+				"DESC": "سيتم حذف جميع البيانات بشكل دائم، وسيتم فقدان جميع المستخدمين التابعين لهذه المساحة إمكانية الوصول إليها.",
+				"WARNING": "حذف مساحة العمل هو إجراء دائم ولا يمكن التراجع عنه. انقر على «حذف مساحة العمل» لإزالة هذه المساحة.",
+				"BUTTON": "حذف مساحة العمل",
+				"PENDING_BTN": "جاري الحذف. يرجى الانتظار"
+			}
+		},
+		"MEMBERS": {
+			"TITLE": "الأعضاء",
+			"DESC": "هنا يمكنك إدارة أعضاء مساحة العمل. يمكنك تغيير أدوارهم أو إزالتهم من مساحة العمل.",
+			"TABELE": {
+				"USERNAME": "الاسم",
+				"PERMISSON_SMALL": "الأذونات",
+				"PERMISSON_BIG": "أذونات مساحة العمل"
+			},
+			"OPTIONS": {
+				"REMOVE_BTN": "إزالة",
+				"REMOVE": {
+					"TITLE": "إزالة من مساحة العمل",
+					"NOTE": "يمكنك دائمًا إعادة دعوة هذا المستخدم إلى مساحة العمل هذه. للتأكيد انقر على «إزالة من مساحة العمل».",
+					"BTN": "إزالة من مساحة العمل",
+					"BTN_PENDING": "جاري الإزالة"
+				}
+			}
+		}
+	},
+	"NEW_WORKSPACE": {
+		"INPUTS": {
+			"NAME": "اسم مساحة العمل",
+			"FILE": "أيقونة مساحة العمل (اختياري)"
+		},
+		"PLACEHOLDERS": {
+			"NAME": "مثلاً، الكون"
+		},
+		"IMAGE": "الأنواع المسموح بها فقط هي .jpeg، .jpg، .png، .webp، .gif",
+		"BTN_ADD": "إنشاء",
+		"BTN_PENDING": "جاري الإنشاء. يرجى الانتظار"
+	},
+	
+	"CHANGE_PROFILE_IMAGE": {
+		"TITLE": "Wyślij zdjęcie!",
+		"BUTTON": "Wybierz zdjęcie",
+		"HOVER": "Dodaj zdjęcie"
+	},
+	"ONBOARDING_FORM": {
+		"FIRST_STEP": {
+			"TITLE": {
+				"FIRST": "Przygotujmy",
+				"SECOND": "Cię"
+			},
+			"PHOTO": "Dodaj zdjęcie",
+			"INPUTS": {
+				"NAME": "Imię",
+				"SURNAME": "Nazwisko"
+			},
+			"PLACEHOLDERS": {
+				"NAME": "Jan",
+				"SURNAME": "Kowalski"
+			}
+		},
+		"SECOND_STEP": {
+			"TITLE": "Jak będziesz używać",
+			"INFO": "Używamy tych informacji, aby spersonalizować Twoje doświadczenie.",
+			"WORK": "Do pracy",
+			"STUDY": "Do nauki",
+			"PERSONAL": "Do użytku osobistego"
+		},
+		"THIRD_STEP": {
+			"TITLE": "Utwórz obszar roboczy",
+			"INPUTS": {
+				"NAME": "Nazwa obszaru roboczego",
+				"FILE": "Ikona obszaru roboczego (opcjonalna)"
+			},
+			"PLACEHOLDERS": {
+				"NAME": "np. Uniwersum"
+			},
+			"IMAGE": "Dozowolne są tylko typy .jpeg, .jpg, .png, .webp, .gif"
+		},
+		"FINISH": {
+			"TITLE": "To już wszystko!",
+			"DESC_FIRST": "Możesz już zacząć korzystać z",
+			"DESC_SECOND": ", klikając poniższy przycisk"
+		},
+		"START_BTN": "Rozpocznij",
+		"NEXT_BTN": "Kontynuj",
+		"IS_DONE": "Jeszcze tylko chwila"
+	},
+	"UPLOAD_FILE": {
+		"UPLOAD": "Prześlij"
+	},
+	"INVITE": {
+		"HINT": "Dodaj do przestrzeni roboczej",
+		"INVITE": "Zaproś",
+		"TITLE": "Zaproś do",
+		"DESC": "Skopiuj link zaproszenia i wyślij do osób które chcesz zaprsić do tej przestrzeni roboczej. Mozesz ustawić role oraz wygenerować nowy link."
+	},
+	"LEAVE_FROM_WORKSAPCE": {
+		"HINT": "Opuść przestrzeń roboczą",
+		"LEAVE": "Opuść",
+		"TITLE": "Opuść",
+		"DESC": "Możesz w każdej chwili opuścić przestrzeń roboczą i w każdym momencie wrócić do niej, jeśli zostaniesz ponownie zaproszony.",
+		"WARNING": "Wszystkie zadania i mapy myśli z tego obszaru roboczego, które zostały dodane do zakładki “Wyróżnione” zostaną z niej usunięte. To samo tyczy sie przypisanych do Ciebie aktywnośći.",
+		"LOADING_BTN": "Opuszcanie. Proszę czekać"
+	},
+
+	"MESSAGES": {
+		"ERRORS": {
+			"DEFAULT": "O nie.. Coś poszło nie tak",
+			"TAKEN_USERNAME": "Ta nazwa użytkownika jest już zajęta",
+			"TAKEN_EMAIL": "Ten e-mail jest już w użyciu",
+			"DB_ERROR": "Obecnie mamy problemy. Proszę sprbować ponownie później",
+			"WRONG_DATA": "Podane dane są nieprawidłowe. Proszę o podanie poprawnych danych",
+			"NO_USER": "Nie znaleziono użytkownika. Proszę podać poprawny email",
+			"WRONG_PASSWORD": "Podane hasło jest nieprawidłowe. Proszę podać poprawne",
+			"ABORDED": "Logowanie przerwane",
+			"UPLOAD_FAILE": "Nie udało sie wysłać pliku. Proszę spróbować ponownie",
+			"IMAGE_PROFILE_UPDATE": "Nie udało się zaktualizować Twojego zdjęcia profilowego. Proszę sprbować ponownie",
+			"IMAGE_PROFILE_DELETE": "Nie udało się usunać Twojego zdjęcia profilowego. Proszę sprbować ponownie",
+			"WORKSPACE_ICON_ADDED": "Nie udało się dodać ikony obszaru roboczego. Proszę spróbować ponownie",
+			"NO_USER_API": "Nie znaleziono użytkownika",
+			"UNAUTHORIZED": "Brak dostępu. Proszę się zalogować",
+			"NO_PASSWORD": "Nie można zaktualizować hasła. Przeczytaj ostrzeżenie",
+			"PASSWORD_DISMATCH": "Wprowadzone hasło jest nieprawidłowe",
+			"SAME_NAME_WORKSPACE": "Obszar roboczy o podanej nazwie już istnieje",
+			"TOO_MANY_WORKSPACES": "Osiągnięto limit możliwej do stworzenia ilości przestrzeni roboczych",
+			"NO_PERMISSION": "Nie masz zezwolenia na wykonanie tych akcji",
+			"NO_WORKSPACE": "Nie znaleziono przestrzeni roboczej",
+			"WRONG_WORKSPACE_NAME": "Proszę podać poprawną nazwę obszaru roboczego",
+			"THE_SAME_TAG": "Tag o takiej nazwie już istnieje",
+			"NO_TAG": "Nie znaleziono tagu",
+			"WRONG_IMAGE_LINK": "Proszę podać poprawny link",
+			"IMAGE_TO_EDITOR": "Nie udało się dodać zdjęcia, Spróbuj ponownie",
+			"NO_TASK_FOUND": "Nie znaleziono zadania",
+			"NO_MIND_MAP_FOUND": "Nie znaleziono mapy myśli",
+			"CANT_LEAVE": "Założyciel przestrzeni roboczej nie może z niej wyjść. Możesz usunąć ją poprzez strone ustawień",
+			"CANT_GET_USERS": "Nie udało sie zaktualizować statusu aktywności",
+			"CANT_UPDATE_SEEN_NOTIFY": "Nie udało sie zaktualizować statusu odczytania powiadomień",
+			"NO_CHAT": "Nie znaleziono konwersacji",
+			"NO_MESSAGE": "Nie udało się zedytować wiadomości. Spróbuj ponownie",
+			"CANT_LOAD_MORE": "Nie udało załadować się więcej wiadomości. Spróbuj ponownie",
+			"TEST_ACCOUNT_RESET_PASSWORD": "Nie można zmienić hasła na koncie testowym",
+			"TEST_ACCOUNT_DELETE_ACCOUNT": "Nie można usunać konta testowego",
+			"TEST_ACCOUNT_DELETE_WORKSPACE": "Nie można usunąć testowej przestrzeni roboczej"
+		},
+		"SUCCES": {
+			"SIGN_UP": "Konto zostało utworzone!",
+			"SIGN_IN": "Zostałeś zalogowany!",
+			"IMAGE_PROFILE_UPDATE": "Twoje zdjęcie profilowe zostało zaktualizowane!",
+			"IMAGE_PROFILE_DELETE": "Twoje zdjęcie profilowe zostało usunięte!",
+			"ONBOARDING_COMPLETE": "Witamy w StudyFlow!",
+			"PROFILE_EDITED": "Profil zaostał zaktualizowany!",
+			"DELETED_INFO": "Twoje konto zostało usunięte",
+			"PASSWORD_CHANGED": "Hasło zostało zmienione",
+			"NEW_WORKSAPCE": "Obszar roboczy został utworzony!",
+			"WORKSPACE_PICTURE_UPDATED": "Ikona obszaru roboczego została zaktualizowana!",
+			"WORKSPACE_PICTURE_DELETED": "Ikona obszaru roboczego została usunięta",
+			"UPDATED_WORKSAPCE": "Obszar roboczy został zaktualizowany!",
+			"DELETED_WORKSPACE_INFO": "Obszar roboczy został usunięty",
+			"REGENERATED_LINK": "Link został zaktualizowany",
+			"TASK_ADDED": "Zadanie zostało dodane",
+			"TASK_DELETED": "Zadanie zostało usunięte",
+			"MIND_MAP_ADDED": "Mapa myśli została dodana",
+			"MIND_MAP_DELETED": "Mapa myśli została usunięta",
+			"RESET_POMODORO_SETTINGS": "Zresetowano ustawienia",
+			"UPDATE_POMODORO_SETTINGS": "Zapisano nowe ustawienia",
+			"LEAVE_FROM_WORKSAPCE": "Pomyślnie opuszczono przestrzeń roboczą"
+		},
+		"PENDING": {
+			"LOADING": "Proszę czekać"
+		},
+		"SCHEMA": {
+			"PASSWORD": {
+				"MIN": "Hasło musi mieć przynajmniej 6 znaków",
+				"UPPERCASE": "Hasło musi zawierać przynajmniej jedna wielką literę",
+				"LOWERCASE": "Hasło musi zawierać przynajmniej jedna małą literę",
+				"DIGIT": "Hasło musi zawierać przynajmniej jedna cyfrę",
+				"NOT_THE_SAME": "Hasła nie są takie same",
+				"THE_SAME": "Nowe hasło nie może być takie samo jak obecne hasło."
+			},
+			"EMAIL": "Proszę podać poprawny adres email",
+			"USERNAME": {
+				"SHORT": "Nazwa użytkownika jest zbyt krótka",
+				"SPECIAL_CHARS": "Nazwa użytkownika może składać się tylko z liter i cyfr"
+			},
+			"IMAGE": {
+				"MAX": "Max image size is 4MB",
+				"SUPPORTED": "Only .jpg, .jpeg, .png and .webp formats are supported."
+			},
+			"WORKSPACE": {
+				"SHORT": "Nazwa obszaru roboczego jest zbyt krótka",
+				"LONG": "Nazwa obszaru roboczego jest za długa",
+				"SPECIAL_CHARS": "Nazwa obszaru roboczego może składać się tylko z liter i cyfr",
+				"WRONG_NAME": "Podana nazwa różni się od nazwy obszaru roboczego"
+			},
+			"LANGUAGE": "Proszę wybrać język",
+			"CHOOSE_ONE": "Proszę zaznaczyć jedną z opcji",
+			"LINK": "Proszę podać poprawny link",
+			"IMAGE_REQUIRED": "Proszę podać zdjęcie",
+			"TAG": {
+				"SHORT": "Nazwa tagu jest zbyt krótka",
+				"LONG": "Nazwa tagu jest za długa",
+				"SPECIAL_CHARS": "Nazwa tagu może składać się tylko z liter i cyfr"
+			}
+		}
+	},
+	"SIDEBAR": {
+		"MAIN": {
+			"HOME_HOVER": "Strona główna",
+			"CALENDAR_HOVER": "Kalendarz",
+			"LOG_OUT_HOVER": "Wyloguj się",
+			"SETTINGS_HOVER": "Ustawienia",
+			"POMODORO_HOVER": "Pomodoro",
+			"STARRED_HOVER": "Wyróżnione",
+			"ASSIGNED_TO_ME_HOVER": "Przypisane do mnie",
+			"NEW_WORKSAPCE_HOVER": "Nowa przestrzeń robocza",
+			"NEW_WORKSAPCE_DIALOG_TITLE": "Stwórz nowy obszar roboczy",
+			"NEW_WORKSAPCE_DIALOG_DESC": "Pamiętaj, że możesz mieć maksymalnie 5 aktywnych przestrzeni roboczych w tym samym czasie."
+		},
+		"SETTINGS": {
+			"GENERAL": "Ogólne",
+			"ACCOUNT": "Konto",
+			"SECURITY": "Bezpieczeństwo",
+			"THEME": "Motyw",
+			"WORKSPACE": "Przestrzeń robocza"
+		},
+		"POMODORO": {
+			"TIMER": "Zegar",
+			"SETTINGS": "Ustawienia"
+		},
+		"WORKSPACE_OPTIONS": {
+			"SHORTCUTS": "Skróty",
+			"TASKS": "Zadania",
+			"MIND_MAPS": "Mapy myśli",
+			"SCHEDULES": "Plany tygodnia",
+			"STUDY": "Nauka",
+			"FILES": "Pliki",
+			"DEFAULT_NAME": "Bez tytułu",
+			"ACTIONS": "Akcje",
+			"ADD_TASK": "Dodaj zadanie",
+			"ADD_TASK_PENDING": "Tworze zadanie",
+			"ADD_MIND_MAP": "Dodaj mapę myśli",
+			"ADD_MIND_MAP_PENDING": "Tworze mapę myśli"
+		},
+		"ASSIGNED_TO_ME": {
+			"LABEL": {
+				"ALL": "Wszystkie",
+				"TASKS": "Zadania",
+				"MIND_MAPS": "Mapy myśli"
+			},
+			"TYPE": "TYP",
+			"WORKSPACE": "Obszar roboczy"
+		}
+	},
+	"SETTINGS": {
+		"THEME": {
+			"TITLE": "Motyw",
+			"DESC": "Wybierz wygląd interfejsu. Wybierz motyw spośród ciemnego, jasnego lub systemowego.",
+			"LIGHT_TITLE": "Jasny",
+			"DARK_TITLE": "Ciemny",
+			"SYSTEM_TITLE": "System",
+			"LIGHT_FOOTER": "Domyślny jasny",
+			"DARK_FOOTER": "Domyślny ciemny",
+			"SYSTEM_FOOTER": "Domyślny system",
+			"ACTIVE": "Wybrany"
+		},
+		"ACCOUNT": {
+			"TITLE": "Konto",
+			"DESC": "Zarządzaj swoim kontem StudyFlow. Wszystkie zmiany na Twoim koncie zostaną zastosowane do wszytskich obszarów roboczych.",
+			"IMAGE": "ZDJĘCIE PROFILOWE",
+			"USERNAME": "NAZWA UŻYTKOWNIKA",
+			"FIRST_NAME": "IMIĘ (OPCJONALNIE)",
+			"SURNAME": "NAZWISKO (OPCJONALNIE)",
+			"USERNAME_PLACEHOLDER": "Nazwa użytkownika",
+			"FIRST_NAME_PLACEHOLDER": "Imię",
+			"SURNAME_PLACEHOLDER": "Nazwisko",
+			"LANG": "JĘZYK",
+			"NO_LANGUAGE": "Nie znaleziono języka.",
+			"SEARCH_LANGUAGE": "Wyszukaj język...",
+			"SELECT_LANGUAGE": "Wybierz język",
+			"UPDATE_BTN": "Aktualizuj",
+			"PENDING_BTN": "Aktualizacja. Proszę czekać",
+			"DELETE_TITLE": "Usuń konto",
+			"DELETE_DESC": "Po usunięciu konta i danych nie ma możliwości ich odzyskania.",
+			"DELETE_LABEL": "USUŃ MOJE KONTO I DANE",
+			"DELETE_PLACEHOLDER": "Potwierdź swój email",
+			"DELETE_BTN": "Usuń",
+			"DIALOG": {
+				"TITLE": "Usuń konto",
+				"DESC": "Utracisz dostęp do wszystkich swoich obszarów roboczych, podobszarów i projektów",
+				"WARNING": "Usunięcie konta jest trwałe i nie można go cofnąć, kliknij „Usuń moje konto”, aby usunąć swoje konto.",
+				"BUTTON": "USUŃ MOJE KONTO",
+				"PENDING_BTN": "Usuwanie. Proszę czekać"
+			}
+		},
+		"SECURITY": {
+			"TITLE": "Bezpieczeństwo",
+			"DESC": "Tutaj możesz zmienić swoje hasło. Pamiętaj aby miało przynajmniej 6 znaków, przynajmniej jedną małą i wielką literę oraz przynajmniej jedną cyfrę.",
+			"WARNING": {
+				"FIRST": "Hasło może być zmienione",
+				"SECOND": "tylko dla kont utworzonych za pośrednictwem formularza na stronie",
+				"THIRD": ". Jeśli utworzyłeś/aś konto za pomocą przycisku Googla lub Githuba",
+				"FOURTH": "nie istnieje możliwość zmiany hasła",
+				"FIFTH": ", z powodu innej metody autoryzacji konta."
+			},
+			"FORM": {
+				"CURRENT": {
+					"LABEL": "OBECNE HASŁO",
+					"PLACEHOLDER": "Obecne hasło"
+				},
+				"NEW": {
+					"LABEL": "Nowe hasło",
+					"PLACEHOLDER": "Nowe hasło"
+				},
+				"REPEAT": {
+					"LABEL": "POTWIERDŹ HASŁO",
+					"PLACEHOLDER": "Potwierdź hasło"
+				},
+				"BTN": "Zmień hasło",
+				"BTN_PENDING": "Zmieniam hasło"
+			}
+		}
+	},
+	"COMMON": {
+		"WELCOME_BACK": "مرحبًا بعودتك",
+		"LANG_HOVER": "تغيير اللغة",
+		"THEME_HOVER": "تغيير السمة",
+		"DARK": "داكن",
+		"LIGHT": "فاتح",
+		"SYSTEM": "النظام",
+		"LOG_OUT": "تسجيل الخروج",
+		"SETTINGS": "الإعدادات",
+		"WARNING": "تحذير",
+		"NOTICE": "تنبيه",
+		"DEFAULT_NAME": {
+			"MIND_MAP": "خريطة ذهنية بدون عنوان",
+			"TASK": "مهمة بدون عنوان"
+		},
+		"ACTIVE_WORKSACPES": {
+			"FIRST": "لقد أنشأت",
+			"SECOND": "من",
+			"THIRD": "مساحات العمل الممكنة"
+		},
+		"BACK_BTN": "عودة",
+		"SAVING_STATUS": {
+			"SAVED": "تم الحفظ",
+			"SAVING": "جارٍ الحفظ",
+			"UNSAVED": "غير محفوظ"
+		},
+		"TAG": {
+			"FILTER": "بحث",
+			"NEW_TAG": "علامة جديدة",
+			"TAG": "علامة",
+			"ERROR": "عذرًا... حدث خطأ ما",
+			"ERROR_BTN": "حاول مرة أخرى",
+			"NOT_FOUND": "لم يتم العثور على شيء",
+			"TAGS_HEADING": "العلامات",
+			"NEW_HEADING": "جديد",
+			"ADD_TAG": "أضف علامة",
+			"COLORS": "الألوان",
+			"TAG_NAME": "الاسم",
+			"BTNS": {
+				"CREATE": "إنشاء",
+				"CANCEL": "إلغاء",
+				"DELETE": "حذف",
+				"UPDATE": "تحديث"
+			}
+		},
+		"EDITED_ITEM_SENTENCE": {
+			"MIND_MAP": "تم تحرير الخريطة الذهنية",
+			"TASK": "تم تحرير المهمة",
+			"BY": "بواسطة",
+			"IN": " - في"
+		}
+	},
+	
+	"PERMISSONS": {
+		"WAIT": "Proszę czekać",
+		"PERMISSONS": "Uprawnienia",
+		"COPY": "Skopiuj link",
+		"OWNER": {
+			"TITLE": "Właściciel"
+		},
+		"ADMIN": {
+			"TITLE": "Admin",
+			"DESC": "Posiada wszystkie możliwe prawa, również do zmiany ustawień obszaru roboczego, jak i do zarządzania innymi użytkownikami."
+		},
+		"EDITOR": {
+			"TITLE": "Wykonawca",
+			"DESC": "Ma pełen dostęp do przestrzeni roboczej, ma prawa do edycji i usuwania treści w przestrzeni roboczej. Nie ma jednak dostępu do ustawien obszaru."
+		},
+		"VIEWER": {
+			"TITLE": "Przeglądający",
+			"DESC": "Ma pełen dostęp do przestrzeni roboczej, jednak nie może nic edytować jak i usuwuać. Nie ma również dostępu do ustawien obszaru."
+		}
+	},
+	"TASK": {
+		"HEADER": {
+			"PLACEHOLDER": "Zadanie bez tytułu",
+			"DATE": {
+				"PICK": "Wbierz datę",
+				"INFO": "Jeśli wybierzesz date, zadanie zostanie dodane do kalendarza"
+			}
+		},
+		"EDITOR": {
+			"PLACEHOLDER": "Napisz coś fajnego 📝",
+			"WORDS": "liczba wyrazów:",
+			"CHARS": "znaków",
+			"IMAGE": {
+				"TITLE": "Dodaj zdjęcie",
+				"DESC": "Możesz dodać zdjęcie poprzez podanie linka do niego lub możesz zaimportować je z urządzenia.",
+				"LINK": "Dodaj za pomocą linku",
+				"UPLOAD": "Zaimportuj z urządzenia",
+				"LINK_TAB": {
+					"PLACEHOLDER": "Link do zdjęcia",
+					"BTN_ADD": "Dodaj zdjęcie",
+					"BTN_PENDING": "Sprawdzam link"
+				},
+				"UPLOAD_TAB": {
+					"TYPES": "Dozowolne są tylko typy .jpeg, .jpg, .png, .webp, .gif",
+					"BTN_ADD": "Dodaj zdjęcie",
+					"BTN_PENDING": "Dodaje"
+				}
+			},
+			"HOVER": {
+				"H1": "Tytuł 1",
+				"H2": "Tytuł 2",
+				"H3": "Tytuł 3",
+				"H4": "Tytuł 4",
+				"H5": "Tytuł 5",
+				"H6": "Tytuł 6",
+				"BOLD": "Pogrubienie",
+				"ITALIC": "Kursywa",
+				"STRIKETHROUGH": "Przekreślenie",
+				"UNDERLINE": "Podkreślenie",
+				"CODE": "Kod",
+				"UL": "Lista nieuporządkowana",
+				"OL": "Lista uporządkowana",
+				"LINK": "Dodaj hiperłącze",
+				"IMAGE": "Dodaj zdjęcie",
+				"COLOR": "Wyróżnienie",
+				"COLOR_DEFAULT": "Domyślny kolor",
+				"UNDO": "Cofnij",
+				"REDO": "Wykonaj ponownie",
+				"DELETE": "Usuń"
+			},
+			"READ_ONLY": {
+				"NO_DATE": "nie zapisno w kalendarzu",
+				"NO_TITLE": "Zadanie bez tytułu",
+				"NO_CONTENT": "Zadanie bez treści",
+				"DELETE": "Usuń",
+				"EDIT": "Edytuj",
+				"ADD_TO_FAV": "Dodaj do ulubionych",
+				"REMOVE_FROM_FAV": "Usuń z ulubionych",
+				"DIALOG": {
+					"TITLE": "Usuń zadanie",
+					"DESC": "Jesteś pewien, że chcesz usunąć tę notatkę? Stracisz wszystkie dane w niej zawarte oraz związane z nią czynności. Usunięcie jest nieodwracalne",
+					"BTN_DELETE": "Usuń",
+					"BTN_PENDING": "Usuwanie"
+				},
+				"CREATOR_INFO": "Utworzone przez",
+				"EDITOR_INFO": "Edytowane przez"
+			}
+		},
+		"BTN": {
+			"SAVE_TASK": "Dodaj zadanie"
+		},
+		"ASSIGNMENT": {
+			"TRIGGER": "Przypisz",
+			"ERROR_MSG": "Coś poszło nie tak, spróbuj ponownie",
+			"ERROR_BTN": "Spróbuj ponownie",
+			"PLACEHOLDER": "Filtruj",
+			"NOT_FOUND": "Nie znaleziono użytkownika",
+			"HEADING": "PRZYPISZ DO"
+		}
+	},
+	"MIND_MAP": {
+		"HOVER_TIP": {
+			"ADD_TILE": "Dodaj nowy kafelek",
+			"SAVE": "Zapisz mapę myśli"
+		},
+		"TAG": "Dodaj tag do mapy myśli",
+		"DELETE": {
+			"MESSAGE": {
+				"SUCCES": "Zresetowano stan",
+				"ERROR": "Nie udało sie zapisać zmian."
+			},
+			"HOVER": "Usuń wszystkie kafelki",
+			"DIALOG": {
+				"TITLE": "Usuń wszystkie kafelki",
+				"DESC": "Zresetuj układ mapy myŚli do początkowego stanu",
+				"WARNING": "Przywrócenie stanu początkowego, usunie wszystkie obecne kafelki i połączenia. Kliknij „Zresetuj stan”, aby usunąć wszystkie kafelki i połączenia.",
+				"BTN_RESET": "Zresetuj stan",
+				"BTN_PENDING": "Resetowanie"
+			}
+		},
+		"EDGE_OPTIONS": {
+			"TITLE": "Ustawienia łączeń",
+			"DESC": "Personalizuj jak mają wyglądać Twoje połączenia. Dodaj teskt, ustaw typ połączenia, zmień kolor i wybierz czy chcesz je animować!",
+			"FORM": {
+				"LABEL": {
+					"LABEL": "Etykieta",
+					"DESC": "Dodanie tekstu sprawi, że pokaże się etykieta. Pozostaw puste pole, i zapisz zmiany aby ją usunać",
+					"PLACEHOLDER": "Dodaj etykietę"
+				},
+				"TYPE": {
+					"LABEL": "Typ łączenia",
+					"DEFAULT": "Domyślny",
+					"STRAIGHT": "Po prostej",
+					"STEP_SHARP": "Po kroku",
+					"STEP_ROUNDED": "Po kroku (zaokrąglone rogi)",
+					"DESC": "Wybierz sposób w jaki zachowuje się łączenie"
+				},
+				"COLOR": {
+					"LABEL": "Kolor",
+					"DESC": "Wybór koloru wpływa tylko na etykietę"
+				},
+				"ANIMATED": {
+					"LABEL": "Animuj łączenie"
+				},
+				"BTN_SAVE": "Zapisz",
+				"BTN_DELETE_EDGE": "Usuń połączenie"
+			}
+		},
+		"NODE": {
+			"EDIT": "Edytuj",
+			"COLOR": "Kolor",
+			"DELETE": "Usuń",
+			"SAVE": "Zapisz zmiany",
+			"CANCEL": "Anuluj",
+			"PLACEHOLDER": "Dodaj nowy opis"
+		},
+		"EDIT_TILT_AND_EMOJI": {
+			"ERROR": "Nie udało sie zapisać zmian.",
+			"HOVER": "Edytuj informacje",
+			"TITLE": "Edytuj informacje",
+			"DESC": "Zmień nazwę swojej mapy myśli i ustaw jej ikonę",
+			"PLACEHOLDER": "Mapa myśli bez tytułu",
+			"SAVE": "Zapisz",
+			"CANCEL": "Anuluj"
+		},
+		"PREVIEW": {
+			"INFO": "Jest to storna podglądu, możesz poruszać przestrzenią mapy, jednak aby ja edytować przejdz do strony edycji (jeśli posiadasz takie prawa)",
+			"NO_TITLE": "Mapa myśli bez tytułu",
+			"DELETE": "Usuń",
+			"EDIT": "Edytuj",
+			"ADD_TO_FAV": "Dodaj do ulubionych",
+			"REMOVE_FROM_FAV": "Usuń z ulubionych",
+			"DIALOG": {
+				"TITLE": "Usuń mapę myśli",
+				"DESC": "Jesteś pewien, że chcesz usunąć mapę myśli? Stracisz wszystkie dane w niej zawarte oraz związane z nią czynności. Usunięcie jest nieodwracalne",
+				"BTN_DELETE": "Usuń",
+				"BTN_PENDING": "Usuwanie"
+			},
+			"CREATOR_INFO": "Utworzone przez",
+			"EDITOR_INFO": "Edytowane przez"
+		},
+		"ASSIGNMENT": {
+			"TRIGGER": "Przypisz",
+			"ERROR_MSG": "Coś poszło nie tak, spróbuj ponownie",
+			"ERROR_BTN": "Spróbuj ponownie",
+			"PLACEHOLDER": "Filtruj",
+			"NOT_FOUND": "Nie znaleziono użytkownika",
+			"HEADING": "PRZYPISZ DO"
+		}
+	},
+	"POMODORO": {
+		"SETTINGS": {
+			"CARD": {
+				"TITLE": "Ustawienia pomodoro",
+				"DESC": "Zarządzaj swoimi ustawieniami. Spersonalizuj swoje Pomodoro tak, jak tylko chcesz. Możesz zmienić ilość rund, czas trwania pracy i przerw, a także dostosować dźwięki powiadomień."
+			},
+			"FORM": {
+				"TIMER": "Zegar",
+				"SOUND": "Czas",
+				"WORK": {
+					"LABEL": "Czas trwania pracy: {value} minut",
+					"DESC": "Ustaw czas trwania swojej pracy"
+				},
+				"SHORT_BREAK": {
+					"LABEL": "Czas trwania krótkiej przerwy: {value} minut",
+					"DESC": "Ustaw czas trwania krótkiej przerwy"
+				},
+				"LONG_BREAK": {
+					"LABEL": "Czas trwania długiej przerwy: {value} minut",
+					"DESC": "Ustaw czas trwania długiej przerwy"
+				},
+				"ROUNDS": {
+					"LABEL": "Ilość rund: {value}",
+					"DESC": "Ustaw po ilu rundach kończysz całą sesje (jedna runda kończy się po upłynięciu czasu długiej przerwy)"
+				},
+				"LONG_BREAKS_INTERVAL": {
+					"LABEL": "Odstęp od wystąpień długiej przerwy: {value}",
+					"DESC": "Im większa wartość, tym jedna runda trwa dłużej (większy odstęp od wystąpiena długiej przerwy)"
+				},
+				"ALARM": {
+					"LABEL": "Dźwięk powiadomienia",
+					"DESC": "Wybierz jaki dźwięk ma być odtworzony gdy skończy się czas",
+					"ANALOG": "Analogowy",
+					"BELL": "Dzownek",
+					"BIRD": "Ptak",
+					"CHURCH_BELL": "Dzwon kościelny",
+					"DIGITAL": "Cyfrowy",
+					"FANCY": "Wymyślny"
+				},
+				"VOLUME": {
+					"LABEL": "Głośność dźwięku powiadomienia: {value}%",
+					"DESC": "Aby wyciszyć powiadomienie ustaw dźwięk na 0%"
+				},
+				"RESET": {
+					"BTN": "Zresetuj ustawienia",
+					"BTN_PENDING": "Resetowanie"
+				},
+				"SAVE": {
+					"BTN": "Zapisz zmiany",
+					"BTN_PENDING": "Zapisywanie"
+				}
+			}
+		},
+		"TIMER": {
+			"END_TEXT": "Dobra robota!",
+			"FOCUS": "Czas na koncentrację",
+			"BREAK": "Czas na przerwe!",
+			"ROUNDS": {
+				"FIRST": "Runda",
+				"SECOND": "z"
+			},
+			"NEW": "Rozpocznij nową sesje",
+			"START": "Uruchom",
+			"STOP": "Zatrzymaj"
+		}
+	},
+	"STARRED": {
+		"TITLE": "Twoje wyróżnione elementy",
+		"DESC": "Tutaj znajdziesz wszystkie swoje zapisane mapy myśli i zadania",
+		"ERROR": "Wystąpił błąd podczas pobierania Twoich danych. Proszę spróbuj ponownie.",
+
+		"UNSTAR": "Usuń gwiazdkę",
+		"SORT": {
+			"ASC": "Najnowsze",
+			"DESC": "Najstarsze",
+			"INFO": "Sortowanie względem daty edycji"
+		},
+		"NO_ITEMS": {
+			"TITLE": "Nie posiadasz żadnych projektów oznaczonych gwiazdką",
+			"DESC": "Jakiekolwiek zadanie lub mapa myśli, którą oznaczysz gwiazdką, pojawi się tutaj."
+		}
+	},
+
+	"ASSIGNED_TO_ME": {
+		"TITLE": "Przypisane do mnie",
+		"DESC": "Tutaj znajdziesz wszystkie przypisane do Ciebie mapy myśli i zadania",
+
+		"NO_ASSIGMENT": "Nie zostałeś jeszcze nigdzie przypisany",
+		"NOT_FOUND": "Nie znaleźliśmy żadnego zadania ani mapy myśli które spełniały by kryteria"
+	},
+
+	"CALENDAR": {
+		"DAYS_OF_WEEK": {
+			"MON": "PON",
+			"TUE": "WT",
+			"WED": "ŚR",
+			"THU": "CZW",
+			"FRI": "PT",
+			"SAT": "SOB",
+			"SUN": "NDZ"
+		},
+		"HEADER": {
+			"PREV": "Poprzedni",
+			"TODAY": "Dzisiaj",
+			"NEXT": "Następny"
+		},
+		"TASK": "Zadanie bez tytułu",
+		"SHOW_MORE": {
+			"MORE": "Więcej",
+			"TITLE": "Wszystkie zadania",
+			"DESC": "Wszystkie zadania z przestrzeni roboczych, do których należysz"
+		}
+	},
+	"TASK_SHORTCUT": {
+		"TITLE": "Utwórz zadanie",
+		"HINT": "Szybkie dodawanie",
+		"ADDED_TASK": "Dodano zadanie do projektu! Zobacz zadanie",
+		"CHOOSE_WORKSPACE": "Wybierz przestrzeń roboczą",
+		"DESC": "Dodaj zadanie do wybranej przestrzeni roboczej, do której należysz i posiadasz w niej wymagane uprawnienia",
+		"BTN_ADD": "Dodaj do obszaru",
+		"BTN_NO_WORKSPACES": "Rozumiem",
+		"BTN_PENDING": "Dodawanie. Proszę czekać",
+		"DUE_DATE": "TERMIN",
+		"MAIN_TAB": {
+			"PLACEHOLDER": "Dodaj tytuł",
+			"WORKSPACE": "Obszar roboczy",
+			"WARNING": "Nie posiadasz jeszcze żadnego obszaru roboczego, w ktorym mogłbyś dodać zadanie. Utwórz nowy obszar roboczy, badź dołącz do istniejącego obszaru z uprawnieniem poziomu minimum “Wykonawcy”."
+		}
+	},
+	"PERMISSION_INDICATOR": {
+		"TITLE": "Twoja obecna rola to",
+		"DESC": "Twoje uprawnienia w przestrzeni roboczej {workspace} to aktualnie",
+		"ROLES": {
+			"OWNER": "Założyciel",
+			"ADMIN": "Admin",
+			"CAN_EDIT": "Edytor",
+			"READ_ONLY": "Przeglądający"
+		},
+		"HINT": "Uprawnienie w {workspace} to",
+		"ROLES_DESC": {
+			"OWNER": "Jako Założyciel, posiadasz wszystkie możliwe prawa, możesz zarządzać treścią, innymi użytkownikami oraz dostosować ustawienia przestrzeni roboczej. Nie możesz, jednak jako Założyciel opuścić tej przestrzeni, jedyną możliwośćią jest całkowite usunięcie jej w ustawieniach.",
+			"ADMIN": "Jako Admin, posiadasz wszystkie możliwe prawa, również do zmiany ustawień obszaru roboczego, jak i do zarządzania innymi użytkownikami.",
+			"CAN_EDIT": "Jako Wykonawca, posiadasz pełen dostęp do przestrzeni roboczej, posiadasz prawa do edycji i usuwania treści w przestrzeni roboczej. Nie posiadasz jednak dostępu do ustawień obszaru.",
+			"READ_ONLY": "Jako Przeglądający, posiadasz pełen dostęp do przestrzeni roboczej, jednak nie masz uprawnień na edycje zawartośći w tej przestrzeni. Nie posiadasz równieżcdostępu do ustawień obszaru."
+		},
+		"BTN": "Rozumiem"
+	},
+	"USERS_STATUS_LIST": {
+		"ROLES": {
+			"OWNER": "Założyciel",
+			"ADMIN": "Admin",
+			"CAN_EDIT": "Edytor",
+			"READ_ONLY": "Przeglądający",
+			"UNAVAILABLE": "Niedostępny"
+		},
+		"ERROR": {
+			"MG": "Nie udało się pobrać informacji o czołonkach przestrzeni roboczej",
+			"BTN": "Spróbuj ponownie"
+		}
+	},
+	"NOTIFICATIONS": {
+		"TITLE": "Powiadomienia",
+		"MARK_AS_READ": "Oznacz wszystkie jako przeczytane",
+		"NO_NOTIFICATIONS": "Nie posiadasz jeszcze żadnych powiadomień",
+		"ERROR": "Wystąpił błąd podczas pobierania powaidomień",
+		"NOTIFAY_ITEM": {
+			"ROLES": {
+				"ADMIN": "Admin",
+				"CAN_EDIT": "Edytor",
+				"READ_ONLY": "Przeglądający"
+			},
+
+			"NEW_USER_IN_WORKSPACE_TEXT": "dołączył(a) do przestrzeni roboczej {name}",
+			"USER_LEFT_WORKSPACE_TEXT": "opuścił(a) przestrzeń roboczą {name}",
+			"NEW_TASK_TEXT": "dodał(a) nowe zadanie w przestrzeni roboczej {name}",
+			"NEW_MIND_MAP_TEXT": "dodał(a) nową mapę myśli w przestrzeni roboczej {name}",
+			"NEW_ROLE_TEXT": "otrzymałeś(aś) uprawnienia poziomu {role} w przestrzeni roboczej {name}",
+			"NEW_ASSIGMENT_TASK_TEXT": "zostałeś(aś) przypisany(na) do zadania w przestrzeni roboczej  {name}",
+			"NEW_ASSIGMENT_MIND_MAP_TEXT": "zostałeś(aś) przypisany(na) do mapy myśli w przestrzeni roboczej {name}"
+		}
+	},
+	"HOME_PAGE": {
+		"NO_DATA": "Nie znaleziono żadnej aktywoności. Dołącz do przestrzeni roboczej lub stwóz swoją własną. Następnie wszystkie zadania i mapy myśli, które zostaną edytowane będa tutaj widoczne w kolejności od najnowszej.",
+		"ERROR": "Wystąpił błąd podczas pobierania ostatniej aktywnośći."
+	},
+	"WORKSPACE_MAIN_PAGE": {
+		"FILTER": {
+			"FILTER_BTN": "Filtr",
+			"CLEAR_BTN": "Wyczyść"
+		},
+		"COMMAND": {
+			"SEARCH": "Szukaj",
+			"NO_RESULTS_FOUND": "Nic nie znaleziono",
+			"ASSIGNED_TO": "PRZYPISANE DO",
+			"TAG": "TAG",
+			"ASSIGNED_TO_ME": "Przypisane do mnie"
+		},
+		"RECENT_ACTIVITY": {
+			"NO_FILTERED_DATA": "Brak zadań i map myśli do wyświetlenia dla podanych kryteriów",
+			"ERROR": "Nie udało pobrać się danych ostatniej aktywnośći w przestrzeni roboczej",
+			"NO_DATA": "Nie znaleziono żadnej aktywoności. Utwórz pierwsze zadania i mapy myśli już teraz!"
+		},
+		"SHORTCUT_CONTAINER": {
+			"GROUP_CHAT": "Czat grupowy",
+			"PRIVATE_CHAT": "Czat prywatny",
+			"NEW_TASK": "Nowe zadanie",
+			"NEW_MIND_MAP": "Nowa mapa myśli"
+		}
+	},
+
+	"CHAT": {
+		"NO_MESSAGES": {
+			"FIRST": "Nie znaleźliśmy żadnych wiadomości w tym czacie.",
+			"SECOND": "Wyślij pierwszą wiadomość!"
+		},
+		"HEADER": { "TITLE": "{workspaceName} czat" },
+		"DELETE_MESSAGE": {
+			"TITLE": "Usuń wiadomość",
+			"DESC": "Ta operacja jest nieodwracalna i spowoduje trwałe usunięcie wiadomości.",
+			"BTN_DELETE": "Usuń",
+			"BTN_CANCEL": "Anuluj"
+		},
+		"EDIT": {
+			"BADGE": "(edytowane)",
+			"TEXT": {
+				"FIRST": "Naciśnij klawisz",
+				"SECOND": ", aby anulować • klawisz",
+				"THIRD": ", aby zapisać"
+			}
+		},
+		"OPTIONS": {
+			"EDIT": "Edytuj wiadomość",
+			"DELETE": "Usuń wiadomość"
+		},
+		"LOAD_MORE": "Załaduj więcej",
+		"NOTIFICATIONS": "{notifications} nowych wiadomości",
+		"NEW_MESSAGE": {
+			"PLACEHOLDER": "Nowa wiadomość",
+			"DELETE_ATACHMENT": "Usuń załącznik",
+			"ATACHMENT_DEAFULT_ERROR": "Nie udało się dodać załączników.",
+			"ATACHMENT_TO_MANY_ERROR": "Nie udało się dodać załączników. Maksymalna ilość plików jaką możesz wysłać za jednym razem to 5 zdjęć i 5 plików pdf",
+			"ATACHMENT_TO_BIG_ERROR": "Nie udało się dodać załączników. Jeden z plików jest zbyt duży",
+			"ATACHMENT_WRONG_FILE_ERROR": "Nie udało się dodać załączników. Jeden z plików posiada niedozowlony format"
+		}
+	},
+
+	"CLIENT_ERROR": {
+		"TITLE": "O nie... Coś poszło nie tak",
+		"BTN": "Spróbuj ponownie"
+	},
+
+	"STUDY_FLOW_PAGE": {
+		"NAV": {
+			"PRODUCT": {
+				"TITLE": "Produkt",
+				"SUBTITLES": {
+					"MIND_MAPS": "Mapy Myśli",
+					"TASKS": "Zadania & Notatki",
+					"ROLES": "Role & Ustawienia",
+					"POMODORO": "Pomodoro",
+					"CHAT": "Czat & Powiadomienia",
+					"CALENDAR": "Zintegrowany kalendarz",
+					"EASY": "Łatwy dostęp"
+				}
+			},
+			"SIGN_IN": "Zaloguj się",
+			"SIGN_UP": "Zarejestruj się za darmo"
+		},
+		"HEADER": {
+			"TITLE": "Zwiększ swoją produktywność",
+			"LINKS": {
+				"MIND_MAPS": "Mapy myśli",
+				"TASKS": "Zadania & notatki",
+				"CALENDAR": "Kalendarz",
+				"CHAT": "Czat grupowy",
+				"POMODORO": "Pomodoro"
+			}
+		},
+		"SECTION": {
+			"BEST_FRIEND": {
+				"TITLE": "Twój nowy najlepszy przyjaciel",
+				"DESC": "Zwiększ produktywność swojego zespołu dzięki StudyFlow - ostatecznemu narzędziu, które konsoliduje wszystkie niezbędne narzędzia w jednej zintegrowannej przestrzeni roboczej."
+			},
+			"MIND_MAPS": {
+				"TITLE": "Mapy Myśli",
+				"DESC": "Mapy myśli umożliwiają użytkownikom tworzenie wizualnie atrakcyjnych projektów, upraszczając wizualizację złożonych problemów. Dzięki intuicyjnemu interfejsowi nawigacja jest płynna, a użytkownicy mogą łatwo wprowadzać obszerne modyfikacje wizualne. Ponadto posiadają system tagowania i przypisywania użytkowników, poprawiając organizację i wspierając współpracę."
+			},
+			"TASKS": {
+				"TITLE": "Zadania & Notatki",
+				"DESC": "Zadania oferują użytkownikom płynną platformę do tworzenia nowych notatek i projektów. Dzięki zaawansowanemu edytorowi tekstu praca staje się łatwa, a postępy są automatycznie zapisywane. Ponadto użytkownicy mogą przypisywać zadania do konkretnych osób w ramach przestrzeni roboczej, kategoryzować je za pomocą tagów i ustalać terminy wykonania dla płynnej integracji z kalendarzem, zapewniając efektywne zarządzanie zadaniami."
+			},
+			"ROLES": {
+				"TITLE": "Role & Ustawienia",
+				"DESC": "Aplikacja posiada zintegrowany system ról, ułatwiając zarządzanie miejscem pracy. Ponadto użytkownicy mogą wygodnie nadzorować zarówno ustawienia konta, jak i przestrzeni, dostępne dla osób posiadających uprawnienia administratora lub właściciela. W ramach każdej przestrzeni użytkownicy mogą łatwo dostosowywać konfiguracje przestrzeni i zarządzać zadaniami związanymi z zarządzaniem użytkownikami, w tym dostosowywaniem ról i usuwaniem."
+			},
+			"POMODORO": {
+				"TITLE": "Pomodoro",
+				"DESC": "Aplikacja zawiera wbudowaną funkcję Pomodoro, która pomaga w sesjach pracy lub nauki. Umożliwia użytkownikom dostosowanie ustawień, takich jak czas trwania sesji, liczba rund, czasy przerw i dźwięki powiadomień, zapewniając spersonalizowane podejście do zarządzania produktywnością."
+			},
+			"NEXT_GENERATION": {
+				"TITLE": "Następne pokolenie współpracy zespołowej",
+				"DESC": "Dziel się tu, tam i wszędzie. Udostępnialne linki ułatwiają przesyłanie projektów do recenzji, zapraszaj innych do swojej przestrzeni roboczej lub uczestnicz w czacie na żywo z interesariuszami w dowolnym miejscu."
+			},
+			"CHAT": {
+				"TITLE": "Czat & Powiadomienia",
+				"DESC": "Współpracuj w czasie rzeczywistym, dzieląc się pomysłami i plikami, jednocześnie utrzymując wszystkich na jednej stronie. Ponadto, dzięki systemowi powiadomień, zawsze będziesz na bieżąco i nic Cię nie ominie."
+			},
+			"CALENDAR": {
+				"TITLE": "Zintegrowany Kalendarz",
+				"DESC": "Bądź zorganizowany dzięki funkcji Zintegrowanego Kalendarza, który wyświetla wszystkie zadania przypisane z określonymi datami. Współpracuj płynnie zarządzając swoim harmonogramem, zapewniając, że wszyscy są poinformowani trzymają się planu. Ta funkcja umożliwia efektywną koordynację i utrzymuje wszystkich w zgodzie z harmonogramami i terminami projektów."
+			},
+			"EASY_TO_FIND": {
+				"TITLE": "Łatwy dostęp",
+				"DESC": "Łatwo znajdź wszystko, czego potrzebujesz dzięki naszym intuicyjnym funkcją wyszukiwania. Dzięki zakładkom takim jak “Przypisane do mnie” i narzędziom do filtrowania danych, odnalezienie konkretnego projektu jest bezproblemowe. Dodatkowo funkcje tagowania i oznaczania gwiazdkami projektów zapewniają, że ważne zadania lub mapy myśli są zawsze na wyciągnięcie ręki, ułatwiając płynną nawigację i szybki dostęp do istotnych informacji."
+			}
+		},
+		"FOOTER": {
+			"FIRST": "Stworzone z",
+			"SECOND": "miłością"
+		}
+	},
+	"NOT_FOUND": {
+		"TITLE": "Ups! Zagubiony w kosmosie?",
+		"TEXT": {
+			"FIRST": "Sprawdź ponownie adres URL lub wróć do",
+			"SECOND": "strony głównej"
+		}
+	},
+
+	"ROUTES": {
+		"DASHBOARD": "Strona główna",
+		"SETTINGS": "Ustawienia",
+		"SECURITY": "Bezpieczeństwo",
+		"THEME": "Motyw",
+		"TASKS": "Zadania",
+		"UNTITLED": "Bez tytułu",
+		"POMODORO": "Pomodoro",
+		"STARRED": "Wyróżnione",
+		"ASSIGNED-TO-ME": "Przypisane do mnie",
+		"CALENDAR": "Kalendarz",
+		"CHAT": "Czat"
+	}
+}
