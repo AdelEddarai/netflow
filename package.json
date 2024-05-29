@@ -20,7 +20,6 @@
 		"@blocksuite/store": "^0.14.0",
 		"@defensestation/blocknote-code": "^1.0.4",
 		"@defensestation/blocknote-comments": "^1.0.2",
-		"@defensestation/blocknote-mermaid": "^1.0.1",
 		"@emoji-mart/data": "^1.1.2",
 		"@emoji-mart/react": "^1.1.1",
 		"@hookform/resolvers": "^3.3.1",
