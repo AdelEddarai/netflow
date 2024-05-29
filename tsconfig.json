@@ -24,7 +24,6 @@
 		"typeRoots": [
 			"./types"
 		],
-		"types": ["@defensestation/blocknote-mermaid"]
 	},
 	"include": [
 		"next-env.d.ts",
