@@ -17,7 +17,7 @@ interface Props {
   initialData: HomeRecentActivity[];
 }
 
-const TableComponent: FC<Props> = ({ userId, initialData }) => {
+const Analytics: FC<Props> = ({ userId, initialData }) => {
   const t = useTranslations('HOME_PAGE');
   const [isAllFetched, setIsAllFetched] = useState(false);
 
@@ -133,4 +133,4 @@ const TableComponent: FC<Props> = ({ userId, initialData }) => {
   );
 };
 
-export default TableComponent;
+export default Analytics;
