@@ -12,7 +12,7 @@ import { locales } from '@/i18n';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'StudyFlow',
+	title: 'SpaceFlow',
 	description:
 		'Boost your productivity with StudyFlow. Create workspaces, tasks, notes, mind maps, and communicate with other participants within your workspace.',
 };

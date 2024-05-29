@@ -2,7 +2,6 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import dayjs from 'dayjs';
 import { ExtendedMessage } from '@/types/extended';
-import ms from 'ms';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -32,15 +31,6 @@ export const showUserInforamtion = (messages: ExtendedMessage[], messageId: stri
 		return true;
 	}
 };
-
-
-export const timeAgo = (timestamp: number, timeOnly?: boolean): string => {
-	if (!timestamp) return "never";
-	return `${ms(Date.now() - new Date(timestamp).getTime())}${
-	  timeOnly ? "" : " ago"
-	}`;
-  };
-
 
 export const getMonth = (month = dayjs().month()) => {
 	const year = dayjs().year();

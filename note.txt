@@ -1,2 +1,0 @@
--- add animation in Edge
--- add video chat from getstream api

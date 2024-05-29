@@ -1,5 +1,5 @@
 import { AddTaskShortcut } from '@/components/addTaskShortcut/AddTaskShortcut';
-import Analytics from '@/components/Analytics/Analyticss';
+import Analytics from '@/components/analytics/Analyticss';
 import Welcoming from '@/components/common/Welcoming';
 import { DashboardHeader } from '@/components/header/DashboardHeader';
 import { HomeRecentActivityContainer } from '@/components/homeRecentAcrivity/HomeRecentActivityContainer';

@@ -8,8 +8,6 @@ import {
 	PencilRuler,
 	Workflow,
 	MessageSquare,
-	Presentation,
-	Store
 } from 'lucide-react';
 import { z } from 'zod';
 
@@ -67,16 +65,6 @@ export const topSidebarLinks = [
 		Icon: User,
 		hoverTextKey: 'ASSIGNED_TO_ME_HOVER',
 	},
-	{
-		href: '/dashboard/markateplace',
-		Icon: Store,
-		hoverTextKey: 'MARKETPLACE_HOVER',
-	},
-	{
-		href: '/dashboard/whiteboard',
-		Icon: Presentation,
-		hoverTextKey: 'WHITEBOARD_HOVER',
-	},
 ];
 
 export const homePageHeaderLinks = [
@@ -106,17 +94,6 @@ export const homePageHeaderLinks = [
 		Icon: Clock,
 		title: 'LINKS.POMODORO',
 	},
-	{
-		href: 'markateplce',
-		Icon: Store,
-		title: 'LINKS.MARKETPLACE',
-	},
-	{
-		href: 'whitaboard',
-		Icon: Presentation,
-		title: 'LINKS.WHITEBOARD',
-	},
-	
 ];
 
 export const homePageHeaderImgs: HomePageImage[] = [
@@ -283,10 +260,6 @@ export const navLinks = [
 		href: 'Pomodoro',
 	},
 	{
-		title: 'PRODUCT.SUBTITLES.MARKETPLACE',
-		href: 'Marketplace',
-	},
-	{
 		title: 'PRODUCT.SUBTITLES.CHAT',
 		href: 'Chat',
 	},
@@ -297,9 +270,5 @@ export const navLinks = [
 	{
 		title: 'PRODUCT.SUBTITLES.EASY',
 		href: 'Easy-To-Find',
-	},
-	{
-		title: 'PRODUCT.SUBTITLES.WHITEBOARD',
-		href: 'Easy-To-Draw',
 	},
 ];

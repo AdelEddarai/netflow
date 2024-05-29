@@ -13,7 +13,6 @@ import ReactFlow, {
 	EdgeTypes,
 	Panel,
 	ReactFlowJsonObject,
-	MiniMap,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { TextNode } from './nodes/TextNode';
@@ -205,7 +204,7 @@ export const MindMap = ({ initialInfo, workspaceId, candEdit, initialActiveTags 
 			)}
 
 			<div className=' h-full'>
-				<ReactFlow	
+				<ReactFlow
 					fitView
 					nodes={nodes}
 					edgeTypes={edgeTypes}
@@ -283,7 +282,6 @@ export const MindMap = ({ initialInfo, workspaceId, candEdit, initialActiveTags 
 					)}
 
 					<Background />
-					<MiniMap />
 				</ReactFlow>
 			</div>
 		</div>

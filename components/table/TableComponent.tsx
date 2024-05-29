@@ -9,7 +9,7 @@ import { ACTIVITY_PER_PAGE } from '@/lib/constants';
 import { Activity } from 'lucide-react';
 import { ClientError } from '../error/ClientError';
 import { useTranslations } from 'next-intl';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import Link from 'next/link';
 
 interface Props {

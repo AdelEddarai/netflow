@@ -1,107 +1,106 @@
 {
 	"AUTH": {
-		"EMAIL": "البريد الإلكتروني",
-		"PASSWORD": "كلمة المرور",
-		"USERNAME": "اسم المستخدم",
+		"EMAIL": "Email",
+		"PASSWORD": "Hasło",
+		"USERNAME": "Nazwa użytkownika",
 		"SIGN_IN": {
-			"TITLE": "تسجيل الدخول",
-			"DESC": "مرحبًا بعودتك إلى StudyFlow",
-			"SUBMIT_BTN": "تسجيل الدخول",
-			"FORGOT_PASSWORD": "هل نسيت كلمة المرور؟",
+			"TITLE": "Zaloguj się",
+			"DESC": "Witaj z powrotem w StudyFlow",
+			"SUBMIT_BTN": "Zaloguj się",
+			"FORGOT_PASSWORD": "Zapomniałeś hasła?",
 			"DONT_HAVE_ACCOUNT": {
-				"FIRST": "ليس لديك حساب؟",
-				"SECOND": "أنشئ حسابًا"
+				"FIRST": "Nie masz konta?",
+				"SECOND": "Utwórz"
 			},
 			"PROVIDERS": {
-				"GOOGLE": "تسجيل الدخول بواسطة Google",
-				"APPLE": "تسجيل الدخول بواسطة Apple",
-				"GITHUB": "تسجيل الدخول بواسطة Github"
+				"GOOGLE": "Zaloguj się z Google",
+				"APPLE": "Zaloguj się z Apple",
+				"GITHUB": "Zaloguj się z Github"
 			}
 		},
 		"SIGN_UP": {
-			"TITLE": "إنشاء حساب",
-			"DESC": "أنشئ حسابًا مجانًا",
-			"SUBMIT_BTN": "إنشاء حساب",
+			"TITLE": "Zarejestruj się",
+			"DESC": "Stwórz konto za darmo",
+			"SUBMIT_BTN": "Zarejestruj się",
 			"TERMS": {
-				"FIRST": "بإنشاء حساب فإنك توافق على",
-				"SECOND": "شروط الاستخدام"
+				"FIRST": "Zakładając konto zgadasz się na nasze",
+				"SECOND": "Warunki Korzytsania"
 			},
 			"HAVE_ACCOUNT": {
-				"FIRST": "هل لديك حساب بالفعل؟",
-				"SECOND": "تسجيل الدخول"
+				"FIRST": "Masz już konto?",
+				"SECOND": "Zaloguj się"
 			},
 			"PROVIDERS": {
-				"GOOGLE": "إنشاء حساب بواسطة Google",
-				"APPLE": "إنشاء حساب بواسطة Apple",
-				"GITHUB": "إنشاء حساب بواسطة Github"
+				"GOOGLE": "Zarejestruj się z Google",
+				"APPLE": "Zarejestruj się z Apple",
+				"GITHUB": "Zarejestruj się z Github"
 			}
 		}
 	},
 	"EDIT_WORKSPACE": {
-		"TITLE": "تحرير مساحة العمل",
-		"DESC": "هنا يمكنك تغيير اسم مساحة العمل وأيقونتها.",
+		"TITLE": "Edytuj przestrzeń roboczą",
+		"DESC": "Tutaj możesz zmienić nazwę obszaru roboczego oraz jej ikonę.",
 		"PICTURE": {
-			"LABEL": "أيقونة مساحة العمل",
-			"TITLE": "تغيير الأيقونة",
-			"BTN": "اختر صورة"
+			"LABEL": "IKONA OBSZARU ROBOCZEGO",
+			"TITLE": "Zmień ikonę",
+			"BTN": "Wybierz zdjęcie"
 		},
 		"DATA": {
 			"INPUTS": {
-				"NAME": "اسم مساحة العمل",
-				"COLOR": "لون أيقونة مساحة العمل"
+				"NAME": "NAZWA OBSZARU ROBOCZEGO",
+				"COLOR": "KOLOR IKONY OBSZARU ROBOCZEGO"
 			},
 			"PLACEHOLDERS": {
-				"NAME": "مثلاً، الكون"
+				"NAME": "np. Uniwersum"
 			},
-			"INFO": "تغيير اللون يؤثر فقط على مظهر الأيقونة في حالة عدم إضافة صورة",
-			"BTN": "تحديث",
-			"BTN_PENDING": "جاري التحديث"
+			"INFO": "Zmiana koloru wpływa tylko na wygląd ikony obszaru tylko wtedy, kiedy nie dodano zdjęcia",
+			"BTN": "Aktualizuj",
+			"BTN_PENDING": "Aktualizuje"
 		},
 		"DELETE": {
-			"TITLE": "حذف مساحة العمل",
-			"DESC": "بعد حذف مساحة العمل والبيانات المرتبطة بها، لا يمكن استرجاعها.",
-			"LABEL": "تأكيد اسم مساحة العمل",
-			"BTN": "حذف",
+			"TITLE": "Usuń przestrzeń roboczą",
+			"DESC": "Po usunięciu przestrzeni roboczej i danych do niej należących nie ma możliwości ich odzyskania.",
+			"LABEL": "POTWIERDŹ NAZWE OBSZARU ROBOCZEGO",
+			"BTN": "Usuń",
 			"DIALOG": {
-				"TITLE": "حذف مساحة العمل",
-				"DESC": "سيتم حذف جميع البيانات بشكل دائم، وسيتم فقدان جميع المستخدمين التابعين لهذه المساحة إمكانية الوصول إليها.",
-				"WARNING": "حذف مساحة العمل هو إجراء دائم ولا يمكن التراجع عنه. انقر على «حذف مساحة العمل» لإزالة هذه المساحة.",
-				"BUTTON": "حذف مساحة العمل",
-				"PENDING_BTN": "جاري الحذف. يرجى الانتظار"
+				"TITLE": "Usuń przestrzeń roboczą",
+				"DESC": "Wszystkie dane zostaną trwale usunięte, a wszyscy użytkownicy należacy do tego obszaru roboczego stracą do niej dostęp",
+				"WARNING": "Usunięcie przestrzeni roboczej jest trwałe i nie można jej cofnąć, kliknij „Usuń przestrzeń roboczą”, aby usunąć tę przestrzeń",
+				"BUTTON": "USUŃ PRZESTRZEŃ ROBOCZĄ",
+				"PENDING_BTN": "Usuwanie. Proszę czekać"
 			}
 		},
 		"MEMBERS": {
-			"TITLE": "الأعضاء",
-			"DESC": "هنا يمكنك إدارة أعضاء مساحة العمل. يمكنك تغيير أدوارهم أو إزالتهم من مساحة العمل.",
+			"TITLE": "Członkowie",
+			"DESC": "Tutaj możesz zarządzać członakmi przestrzeni roboczej. Możesz zmieniać ich role jak i usunąć z przestrzeni roboczej.",
 			"TABELE": {
-				"USERNAME": "الاسم",
-				"PERMISSON_SMALL": "الأذونات",
-				"PERMISSON_BIG": "أذونات مساحة العمل"
+				"USERNAME": "NAZWA",
+				"PERMISSON_SMALL": "UPRAWNIENIA",
+				"PERMISSON_BIG": "UPRAWNIENIA OBSZARU ROBOCZEGO"
 			},
 			"OPTIONS": {
-				"REMOVE_BTN": "إزالة",
+				"REMOVE_BTN": "Usuń",
 				"REMOVE": {
-					"TITLE": "إزالة من مساحة العمل",
-					"NOTE": "يمكنك دائمًا إعادة دعوة هذا المستخدم إلى مساحة العمل هذه. للتأكيد انقر على «إزالة من مساحة العمل».",
-					"BTN": "إزالة من مساحة العمل",
-					"BTN_PENDING": "جاري الإزالة"
+					"TITLE": "Usuń z przestrzeni roboczej",
+					"NOTE": "W każdej chwili możesz ponownie zaprosić tego użytkownika do tej przestrzeni roboczej. Aby potwierdzić kliknji „Usuń z przestrzeni roboczej”",
+					"BTN": "Usuń z przestrzeni roboczej",
+					"BTN_PENDING": "Usuwanie"
 				}
 			}
 		}
 	},
 	"NEW_WORKSPACE": {
 		"INPUTS": {
-			"NAME": "اسم مساحة العمل",
-			"FILE": "أيقونة مساحة العمل (اختياري)"
+			"NAME": "Nazwa obszaru roboczego",
+			"FILE": "Ikona obszaru roboczego (opcjonalna)"
 		},
 		"PLACEHOLDERS": {
-			"NAME": "مثلاً، الكون"
+			"NAME": "np. Uniwersum"
 		},
-		"IMAGE": "الأنواع المسموح بها فقط هي .jpeg، .jpg، .png، .webp، .gif",
-		"BTN_ADD": "إنشاء",
-		"BTN_PENDING": "جاري الإنشاء. يرجى الانتظار"
+		"IMAGE": "Dozowolne są tylko typy .jpeg, .jpg, .png, .webp, .gif",
+		"BTN_ADD": "Utwórz",
+		"BTN_PENDING": "tworzymy. Proszę czekać"
 	},
-	
 	"CHANGE_PROFILE_IMAGE": {
 		"TITLE": "Wyślij zdjęcie!",
 		"BUTTON": "Wybierz zdjęcie",
@@ -386,58 +385,58 @@
 		}
 	},
 	"COMMON": {
-		"WELCOME_BACK": "مرحبًا بعودتك",
-		"LANG_HOVER": "تغيير اللغة",
-		"THEME_HOVER": "تغيير السمة",
-		"DARK": "داكن",
-		"LIGHT": "فاتح",
-		"SYSTEM": "النظام",
-		"LOG_OUT": "تسجيل الخروج",
-		"SETTINGS": "الإعدادات",
-		"WARNING": "تحذير",
-		"NOTICE": "تنبيه",
+		"WELCOME_BACK": "Witaj ponownie",
+		"LANG_HOVER": "Zmień język",
+		"THEME_HOVER": "Zmień motyw",
+		"DARK": "Ciemny",
+		"LIGHT": "Jasny",
+		"SYSTEM": "System",
+		"LOG_OUT": "Wyloguj się",
+		"SETTINGS": "Ustawienia",
+		"WARNING": "OSTRZEŻENIE",
+		"NOTICE": "UWAGA",
 		"DEFAULT_NAME": {
-			"MIND_MAP": "خريطة ذهنية بدون عنوان",
-			"TASK": "مهمة بدون عنوان"
+			"MIND_MAP": "Mapa myśli bez tytułu",
+			"TASK": "Zadanie bez tytułu"
 		},
 		"ACTIVE_WORKSACPES": {
-			"FIRST": "لقد أنشأت",
-			"SECOND": "من",
-			"THIRD": "مساحات العمل الممكنة"
+			"FIRST": "Utworzyłeś",
+			"SECOND": "z",
+			"THIRD": "możliwych do utworzenia obszarów roboczych"
 		},
-		"BACK_BTN": "عودة",
+		"BACK_BTN": "Powrót",
 		"SAVING_STATUS": {
-			"SAVED": "تم الحفظ",
-			"SAVING": "جارٍ الحفظ",
-			"UNSAVED": "غير محفوظ"
+			"SAVED": "Zapisane",
+			"SAVING": "Zapisywanie",
+			"UNSAVED": "Niezapisane"
 		},
 		"TAG": {
-			"FILTER": "بحث",
-			"NEW_TAG": "علامة جديدة",
-			"TAG": "علامة",
-			"ERROR": "عذرًا... حدث خطأ ما",
-			"ERROR_BTN": "حاول مرة أخرى",
-			"NOT_FOUND": "لم يتم العثور على شيء",
-			"TAGS_HEADING": "العلامات",
-			"NEW_HEADING": "جديد",
-			"ADD_TAG": "أضف علامة",
-			"COLORS": "الألوان",
-			"TAG_NAME": "الاسم",
+			"FILTER": "Szukaj",
+			"NEW_TAG": "Nowy tag",
+			"TAG": "Tag",
+			"ERROR": "Ups... Coś poszło nie tak",
+			"ERROR_BTN": "Spróbuj ponownie",
+			"NOT_FOUND": "Nie znaleziono",
+			"TAGS_HEADING": "TAGI",
+			"NEW_HEADING": "NOWY",
+			"ADD_TAG": "Dodaj tag",
+			"COLORS": "Kolory",
+			"TAG_NAME": "Nazwa",
 			"BTNS": {
-				"CREATE": "إنشاء",
-				"CANCEL": "إلغاء",
-				"DELETE": "حذف",
-				"UPDATE": "تحديث"
+				"CREATE": "Utwórz",
+				"CANCEL": "Anuluj",
+				"DELETE": "Usuń",
+				"UPDATE": "Aktualizuj"
 			}
 		},
 		"EDITED_ITEM_SENTENCE": {
-			"MIND_MAP": "تم تحرير الخريطة الذهنية",
-			"TASK": "تم تحرير المهمة",
-			"BY": "بواسطة",
-			"IN": " - في"
+			"MIND_MAP": "Mapa myśli edytowana",
+			"TASK": "Zadanie edytowane",
+			"BY": "przez",
+			"IN": " - w"
 		}
 	},
-	
+
 	"PERMISSONS": {
 		"WAIT": "Proszę czekać",
 		"PERMISSONS": "Uprawnienia",
