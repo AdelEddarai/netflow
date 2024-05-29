@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
  
-const Editor = dynamic(() => import("./__components/Block"), { ssr: false });
+const Editor = dynamic(() => import("./__components/Blocks"), { ssr: false });
  
 const Page = ()=> {
   return (
