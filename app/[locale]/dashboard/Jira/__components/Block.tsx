@@ -27,8 +27,8 @@ import { RiFilePdfFill } from "react-icons/ri";
 
 import { useEffect, useMemo, useState } from "react";
 // mermaid plugin
-import { MermaidBlock } from "@defensestation/blocknote-mermaid";
-import { insertMermaid } from "@defensestation/blocknote-mermaid";
+// import { MermaidBlock } from "@defensestation/blocknote-mermaid";
+// import { insertMermaid } from "@defensestation/blocknote-mermaid";
 
 
 // comments plugin
@@ -69,9 +69,9 @@ const schema = BlockNoteSchema.create({
   blockSpecs: {
     // Adds all default blocks.
     ...defaultBlockSpecs,
-    mermaid: MermaidBlock,
-    comment: commentStyleSpec,
-    procode: CodeBlock,
+    // mermaid: MermaidBlock,
+    // comment: commentStyleSpec,
+    // procode: CodeBlock,
     // Adds the Alert block.
     alert: Alert,
     pdf: PDF,
@@ -204,7 +204,7 @@ if (editor === undefined) {
  
   // Renders the editor instance.
   return (
-    <BlockNoteView editor={editor} slashMenu={false} onChange={() => { saveToStorage(editor.document);}}>
+    <BlockNoteView editor={editor} slashMenu={false}>
       <CustomToolbar />
       <CommentToolbarController />
       {/* Replaces the default Slash Menu. */}
@@ -213,7 +213,7 @@ if (editor === undefined) {
         getItems={async (query) =>
           // Gets all default slash menu items and `insertAlert` item.
           filterSuggestionItems(
-            [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertPDF(editor), insertMermaid(), insertCode()],
+            [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertPDF(editor)],
             query
           )
         }
