@@ -39,6 +39,7 @@ import { RiAlertFill } from "react-icons/ri";
 import { HiOutlineGlobeAlt } from "react-icons/hi";
 import { Alert } from "./Alert";
 
+
 // Our schema with block specs, which contain the configs and implementations for blocks
 // that we want our editor to use.
 const schema = BlockNoteSchema.create({
@@ -228,7 +229,7 @@ export default function App() {
     if (editor) {
       setSaveStatus("saving");
       try {
-        await saveToStorage(editor.document);
+        await saveToStorage(editor.document as Block[]); // Cast to Block[] if necessary
         setSaveStatus("saved");
       } catch (error) {
         setSaveStatus("error");
