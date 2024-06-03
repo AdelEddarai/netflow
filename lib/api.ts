@@ -12,7 +12,7 @@ import { ACTIVITY_PER_PAGE } from './constants';
 
 export const domain =
 	process.env.NODE_ENV === 'production'
-		? 'https://studyflow-app.vercel.app'
+		? 'https://netflow.netlify.app'
 		: 'http://localhost:3000';
 
 export const getWorkspace = async (workspace_id: string, user_id: string) => {

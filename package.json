@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
-		"build": "prisma generate && next build",
+		"build": "next build",
 		"start": "next start",
 		"lint": "next lint"
 	},
@@ -78,8 +78,6 @@
 		"react-hook-form": "^7.47.0",
 		"react-textarea-autosize": "^8.5.3",
 		"reactflow": "^11.10.1",
-		"rechart": "^0.0.1",
-		"recharts": "^2.12.7",
 		"sharp": "^0.33.2",
 		"tailwind-merge": "^1.14.0",
 		"tailwindcss-animate": "^1.0.7",

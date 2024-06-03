@@ -1,9 +1,7 @@
 import { AddTaskShortcut } from '@/components/addTaskShortcut/AddTaskShortcut';
-import Analytics from '@/components/analytics/Analyticss';
 import Welcoming from '@/components/common/Welcoming';
 import { DashboardHeader } from '@/components/header/DashboardHeader';
 import { HomeRecentActivityContainer } from '@/components/homeRecentAcrivity/HomeRecentActivityContainer';
-import { TableComponent } from '@/components/table/TableComponent';
 import { getInitialHomeRecentActivitiy } from '@/lib/api';
 import { checkIfUserCompletedOnboarding } from '@/lib/checkIfUserCompletedOnboarding';
 
@@ -29,11 +27,6 @@ const Dashboard = async () => {
 					userId={session.user.id}
 					initialData={initialRecentActivity ? initialRecentActivity : []}
 				/>
-				
-				{/* TODO: add icon and more function in table    */}
-				<TableComponent userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />
-				<Analytics userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />
-				
 			</main>
 		</>
 	);
