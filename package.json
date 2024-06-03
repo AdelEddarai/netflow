@@ -74,6 +74,7 @@
 		"next-auth": "^4.23.2",
 		"next-intl": "^3.0.0-beta.19",
 		"next-themes": "^0.2.1",
+		"partykit": "^0.0.105",
 		"react": "^18",
 		"react-contenteditable": "^3.3.7",
 		"react-day-picker": "^8.9.1",
@@ -91,6 +92,8 @@
 		"utf-8-validate": "^6.0.3",
 		"uuid": "^9.0.1",
 		"ws": "^8.16.0",
+		"y-partykit": "^0.0.28",
+		"yjs": "^13.6.15",
 		"zod": "^3.22.2",
 		"zustand": "^4.5.2"
 	},

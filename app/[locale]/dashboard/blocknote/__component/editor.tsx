@@ -39,6 +39,18 @@ import { RiAlertFill } from "react-icons/ri";
 import { HiOutlineGlobeAlt } from "react-icons/hi";
 import { Alert } from "./Alert";
 
+import YPartyKitProvider from "y-partykit/provider";
+import * as Y from "yjs";
+
+// Sets up Yjs document and PartyKit Yjs provider.
+const doc = new Y.Doc();
+const provider = new YPartyKitProvider(
+  "blocknote-dev.yousefed.partykit.dev",
+  // Use a unique name as a "room" for your application.
+  "bytona",
+  doc
+);
+
 
 // Our schema with block specs, which contain the configs and implementations for blocks
 // that we want our editor to use.
@@ -170,7 +182,19 @@ export default function App() {
     if (initialContent === "loading") {
       return undefined;
     }
+
     return BlockNoteEditor.create({
+      collaboration: {
+        // The Yjs Provider responsible for transporting updates:
+        provider,
+        // Where to store BlockNote data in the Y.Doc:
+        fragment: doc.getXmlFragment("document-store"),
+        // Information (name and color) for this user:
+        user: {
+          name: "My Username",
+          color: "#ff0000",
+        },
+      },
       schema,
       initialContent: initialContent || [
         {
