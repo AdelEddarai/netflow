@@ -55,13 +55,10 @@ const EditMindMapPage = async ({ params: { workspace_id, mind_map_id } }: Params
         return <div>Error: Mind map not found</div>;
     }
 
-    const candEdit = userRole === 'ADMIN' || userRole === 'OWNER' || userRole === 'CAN_EDIT';
+    const candEdit =
+		userRole === 'ADMIN' || userRole === 'OWNER' || userRole === 'CAN_EDIT' ? true : false;
+	if (!candEdit) redirect(`/dashboard/workspace/${workspace_id}/tasks/task/${mind_map_id}`);
 
-    if (!candEdit) {
-        // Redirect the user if they don't have editing permission
-        redirect(`/dashboard/workspace/${workspace_id}/tasks/task/${mind_map_id}`);
-        // Note: In Next.js, this should not be a direct return as it'll interfere with the redirect.
-    }
 
     return (
         <AutosaveIndicatorProvider>
