@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import { Nav } from './nav/Nav';
 import { Header } from './header/Header';
@@ -14,11 +16,26 @@ import {
 } from '@/lib/constants';
 import { Footer } from './footer/Footer';
 
+
+import { useEffect } from "react";
+import { PiStarFourFill } from "react-icons/pi";
+import SplitAbout from './about/About';
+import Hero from './hero/Hero';
+import { AnimatedTooltipPreview } from './hero/Tooltibedemo';
+
 export const HomePage = () => {
+
+
 	return (
 		<>
 			<Nav />
 			<div className='w-full mx-auto max-w-screen-xl px-4 sm:px-6  '>
+
+				<div>
+					<Hero />
+				</div>
+
+
 				<Header />
 
 				<main>
@@ -48,6 +65,9 @@ export const HomePage = () => {
 
 					<TextSection title='NEXT_GENERATION.TITLE' desc='NEXT_GENERATION.DESC' />
 
+					<div className='mt-4 p-4 flex justify-center items-center'>
+						<AnimatedTooltipPreview />
+					</div>
 					<Section id='Chat' title='CHAT.TITLE' desc='CHAT.DESC' images={homePageChatImgs} />
 					<Section
 						id='Calendar'
@@ -64,6 +84,8 @@ export const HomePage = () => {
 					/>
 				</main>
 			</div>
+
+			<SplitAbout />
 			<Footer />
 		</>
 	);

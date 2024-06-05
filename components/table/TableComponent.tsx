@@ -74,33 +74,34 @@ export const TableComponent = ({ userId, initialData }: Props) => {
   return (
     <div className='w-full mt-10'>
       <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="px-4 py-2">Title</TableHead>
-            <TableHead className="px-4 py-2">Emoji</TableHead>
-            <TableHead className="px-4 py-2">Link</TableHead>
-            <TableHead className="px-4 py-2">Workspace</TableHead>
-            <TableHead className="px-4 py-2">Updated</TableHead>
-            <TableHead className="px-4 py-2">Starred</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {activityItems.map((activityItem) => (
-            <TableRow key={activityItem.id}>
-              <TableCell className="px-4 py-2">{activityItem.title}</TableCell>
-              <TableCell className="px-4 py-2">{activityItem.emoji}</TableCell>
-              <TableCell className="px-4 py-2">
-                <Link href={activityItem.link} className="underline">Link</Link>
-              </TableCell>
-              <TableCell className="px-4 py-2">{activityItem.workspaceName}</TableCell>
-              <TableCell className="px-4 py-2">
-                {activityItem.updated.at ? activityItem.updated.at.toString() : ""}
-              </TableCell>
-              <TableCell className="px-4 py-2">{activityItem.starred ? 'Yes' : 'No'}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="px-4 py-2">Title</TableHead>
+      <TableHead className="px-4 py-2">Emoji</TableHead>
+      <TableHead className="px-4 py-2">Link</TableHead>
+      <TableHead className="px-4 py-2">Workspace</TableHead>
+      <TableHead className="px-4 py-2">Updated</TableHead>
+      <TableHead className="px-4 py-2">Starred</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {activityItems.map((activityItem) => (
+      <TableRow key={activityItem.id}>
+        <TableCell className="px-4 py-2">{activityItem.title}</TableCell>
+        <TableCell className="px-4 py-2">{activityItem.emoji}</TableCell> {/* Display emoji directly */}
+        <TableCell className="px-4 py-2">
+          <Link href={activityItem.link} className="underline">Link</Link>
+        </TableCell>
+        <TableCell className="px-4 py-2">{activityItem.workspaceName}</TableCell>
+        <TableCell className="px-4 py-2">
+          {activityItem.updated.at ? activityItem.updated.at.toString() : ""}
+        </TableCell>
+        <TableCell className="px-4 py-2">{activityItem.starred ? 'Yes' : 'No'}</TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+
 
 
       {isFetchingNextPage && (

@@ -60,18 +60,33 @@ const config = {
 				sm: 'calc(var(--radius) - 4px)',
 			},
 			keyframes: {
-				'accordion-down': {
+				starScale: {
+					"from, to": {
+					  transform: "rotate(0) scale(0)",
+					  opacity: 0,
+					},
+					"50%": {
+					  transform: "rotate(180deg) scale(1)",
+					  opacity: 1,
+					},
+				},
+				accordionDown: {
 					from: { height: 0 },
 					to: { height: 'var(--radix-accordion-content-height)' },
 				},
-				'accordion-up': {
+				accordionUp: {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: 0 },
 				},
+				animatedBeam: {
+					"100%": { offsetDistance: "100%" },
+				},
 			},
 			animation: {
-				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out',
+				starScale: "starScale 800ms ease infinite",
+				accordionDown: 'accordion-down 0.2s ease-out',
+				accordionUp: 'accordion-up 0.2s ease-out',
+				animatedBeam: "animatedBeam 7s linear infinite",
 			},
 		},
 	},

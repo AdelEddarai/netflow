@@ -38,135 +38,116 @@
 		}
 	},
 	"EDIT_WORKSPACE": {
-		"TITLE": "Edytuj przestrzeń roboczą",
-		"DESC": "Tutaj możesz zmienić nazwę obszaru roboczego oraz jej ikonę.",
+		"TITLE": "تعديل مساحة العمل",
+		"DESC": "يمكنك هنا تغيير اسم مساحة العمل ورمزها.",
 		"PICTURE": {
-			"LABEL": "IKONA OBSZARU ROBOCZEGO",
-			"TITLE": "Zmień ikonę",
-			"BTN": "Wybierz zdjęcie"
+			"LABEL": "رمز مساحة العمل",
+			"TITLE": "تغيير الرمز",
+			"BTN": "اختر صورة"
 		},
 		"DATA": {
 			"INPUTS": {
-				"NAME": "NAZWA OBSZARU ROBOCZEGO",
-				"COLOR": "KOLOR IKONY OBSZARU ROBOCZEGO"
+				"NAME": "اسم مساحة العمل",
+				"COLOR": "لون رمز مساحة العمل"
 			},
 			"PLACEHOLDERS": {
-				"NAME": "np. Uniwersum"
+				"NAME": "مثل: الكون"
 			},
-			"INFO": "Zmiana koloru wpływa tylko na wygląd ikony obszaru tylko wtedy, kiedy nie dodano zdjęcia",
-			"BTN": "Aktualizuj",
-			"BTN_PENDING": "Aktualizuje"
+			"INFO": "يؤثر تغيير اللون على مظهر رمز مساحة العمل فقط عند عدم إضافة صورة",
+			"BTN": "تحديث",
+			"BTN_PENDING": "جارٍ التحديث"
 		},
 		"DELETE": {
-			"TITLE": "Usuń przestrzeń roboczą",
-			"DESC": "Po usunięciu przestrzeni roboczej i danych do niej należących nie ma możliwości ich odzyskania.",
-			"LABEL": "POTWIERDŹ NAZWE OBSZARU ROBOCZEGO",
-			"BTN": "Usuń",
+			"TITLE": "حذف مساحة العمل",
+			"DESC": "بعد حذف مساحة العمل والبيانات التابعة لها، لا يمكن استردادها.",
+			"LABEL": "أكد اسم مساحة العمل",
+			"BTN": "حذف",
 			"DIALOG": {
-				"TITLE": "Usuń przestrzeń roboczą",
-				"DESC": "Wszystkie dane zostaną trwale usunięte, a wszyscy użytkownicy należacy do tego obszaru roboczego stracą do niej dostęp",
-				"WARNING": "Usunięcie przestrzeni roboczej jest trwałe i nie można jej cofnąć, kliknij „Usuń przestrzeń roboczą”, aby usunąć tę przestrzeń",
-				"BUTTON": "USUŃ PRZESTRZEŃ ROBOCZĄ",
-				"PENDING_BTN": "Usuwanie. Proszę czekać"
-			}
-		},
-		"MEMBERS": {
-			"TITLE": "Członkowie",
-			"DESC": "Tutaj możesz zarządzać członakmi przestrzeni roboczej. Możesz zmieniać ich role jak i usunąć z przestrzeni roboczej.",
-			"TABELE": {
-				"USERNAME": "NAZWA",
-				"PERMISSON_SMALL": "UPRAWNIENIA",
-				"PERMISSON_BIG": "UPRAWNIENIA OBSZARU ROBOCZEGO"
-			},
-			"OPTIONS": {
-				"REMOVE_BTN": "Usuń",
-				"REMOVE": {
-					"TITLE": "Usuń z przestrzeni roboczej",
-					"NOTE": "W każdej chwili możesz ponownie zaprosić tego użytkownika do tej przestrzeni roboczej. Aby potwierdzić kliknji „Usuń z przestrzeni roboczej”",
-					"BTN": "Usuń z przestrzeni roboczej",
-					"BTN_PENDING": "Usuwanie"
-				}
+				"TITLE": "حذف مساحة العمل",
+				"DESC": "سيتم حذف جميع البيانات بشكل دائم، وسيفقد جميع المستخدمين المنتمين إلى هذه المساحة حق الوصول إليها",
+				"WARNING": "حذف مساحة العمل نهائي ولا يمكن التراجع عنه، انقر فوق \"حذف مساحة العمل\" لحذف هذه المساحة",
+				"BUTTON": "حذف مساحة العمل",
+				"PENDING_BTN": "جارٍ الحذف. يرجى الانتظار"
 			}
 		}
 	},
 	"NEW_WORKSPACE": {
 		"INPUTS": {
-			"NAME": "Nazwa obszaru roboczego",
-			"FILE": "Ikona obszaru roboczego (opcjonalna)"
+			"NAME": "اسم مساحة العمل",
+			"FILE": "رمز مساحة العمل (اختياري)"
 		},
 		"PLACEHOLDERS": {
-			"NAME": "np. Uniwersum"
+			"NAME": "مثل: الكون"
 		},
-		"IMAGE": "Dozowolne są tylko typy .jpeg, .jpg, .png, .webp, .gif",
-		"BTN_ADD": "Utwórz",
-		"BTN_PENDING": "tworzymy. Proszę czekać"
+		"IMAGE": "مسموح فقط بالأنواع التالية: .jpeg، .jpg، .png، .webp، .gif",
+		"BTN_ADD": "إنشاء",
+		"BTN_PENDING": "جارٍ الإنشاء. يرجى الانتظار"
 	},
 	"CHANGE_PROFILE_IMAGE": {
-		"TITLE": "Wyślij zdjęcie!",
-		"BUTTON": "Wybierz zdjęcie",
-		"HOVER": "Dodaj zdjęcie"
+		"TITLE": "ارفع صورة!",
+		"BUTTON": "اختر صورة",
+		"HOVER": "أضف صورة"
 	},
 	"ONBOARDING_FORM": {
 		"FIRST_STEP": {
 			"TITLE": {
-				"FIRST": "Przygotujmy",
-				"SECOND": "Cię"
+				"FIRST": "لنبدأ",
+				"SECOND": "معك"
 			},
-			"PHOTO": "Dodaj zdjęcie",
+			"PHOTO": "أضف صورة",
 			"INPUTS": {
-				"NAME": "Imię",
-				"SURNAME": "Nazwisko"
+				"NAME": "الاسم",
+				"SURNAME": "اللقب"
 			},
 			"PLACEHOLDERS": {
-				"NAME": "Jan",
-				"SURNAME": "Kowalski"
+				"NAME": "محمد",
+				"SURNAME": "العربي"
 			}
 		},
 		"SECOND_STEP": {
-			"TITLE": "Jak będziesz używać",
-			"INFO": "Używamy tych informacji, aby spersonalizować Twoje doświadczenie.",
-			"WORK": "Do pracy",
-			"STUDY": "Do nauki",
-			"PERSONAL": "Do użytku osobistego"
+			"TITLE": "كيف ستستخدمه",
+			"INFO": "نستخدم هذه المعلومات لتخصيص تجربتك.",
+			"WORK": "للعمل",
+			"STUDY": "للدراسة",
+			"PERSONAL": "للاستخدام الشخصي"
 		},
 		"THIRD_STEP": {
-			"TITLE": "Utwórz obszar roboczy",
+			"TITLE": "إنشاء مساحة عمل",
 			"INPUTS": {
-				"NAME": "Nazwa obszaru roboczego",
-				"FILE": "Ikona obszaru roboczego (opcjonalna)"
+				"NAME": "اسم مساحة العمل",
+				"FILE": "رمز مساحة العمل (اختياري)"
 			},
 			"PLACEHOLDERS": {
-				"NAME": "np. Uniwersum"
+				"NAME": "مثل: الكون"
 			},
-			"IMAGE": "Dozowolne są tylko typy .jpeg, .jpg, .png, .webp, .gif"
+			"IMAGE": "مسموح فقط بالأنواع التالية: .jpeg، .jpg، .png، .webp، .gif"
 		},
 		"FINISH": {
-			"TITLE": "To już wszystko!",
-			"DESC_FIRST": "Możesz już zacząć korzystać z",
-			"DESC_SECOND": ", klikając poniższy przycisk"
+			"TITLE": "هذا كل شيء!",
+			"DESC_FIRST": "يمكنك الآن البدء في استخدام",
+			"DESC_SECOND": ", بالنقر فوق الزر أدناه"
 		},
-		"START_BTN": "Rozpocznij",
-		"NEXT_BTN": "Kontynuj",
-		"IS_DONE": "Jeszcze tylko chwila"
+		"START_BTN": "ابدأ",
+		"NEXT_BTN": "التالي",
+		"IS_DONE": "لحظة واحدة فقط"
 	},
 	"UPLOAD_FILE": {
-		"UPLOAD": "Prześlij"
+		"UPLOAD": "تحميل"
 	},
 	"INVITE": {
-		"HINT": "Dodaj do przestrzeni roboczej",
-		"INVITE": "Zaproś",
-		"TITLE": "Zaproś do",
-		"DESC": "Skopiuj link zaproszenia i wyślij do osób które chcesz zaprsić do tej przestrzeni roboczej. Mozesz ustawić role oraz wygenerować nowy link."
+		"HINT": "أضف إلى مساحة العمل",
+		"INVITE": "إرسال دعوة",
+		"TITLE": "دعوة إلى",
+		"DESC": "انسخ رابط الدعوة وأرسله إلى الأشخاص الذين تريد دعوتهم إلى هذه المساحة. يمكنك تعيين الأدوار وإنشاء رابط جديد."
 	},
 	"LEAVE_FROM_WORKSAPCE": {
-		"HINT": "Opuść przestrzeń roboczą",
-		"LEAVE": "Opuść",
-		"TITLE": "Opuść",
-		"DESC": "Możesz w każdej chwili opuścić przestrzeń roboczą i w każdym momencie wrócić do niej, jeśli zostaniesz ponownie zaproszony.",
-		"WARNING": "Wszystkie zadania i mapy myśli z tego obszaru roboczego, które zostały dodane do zakładki “Wyróżnione” zostaną z niej usunięte. To samo tyczy sie przypisanych do Ciebie aktywnośći.",
-		"LOADING_BTN": "Opuszcanie. Proszę czekać"
+		"HINT": "مغادرة مساحة العمل",
+		"LEAVE": "مغادرة",
+		"TITLE": "مغادرة",
+		"DESC": "يمكنك مغادرة مساحة العمل في أي وقت والعودة إليها في أي وقت إذا تمت دعوتك مرة أخرى.",
+		"WARNING": "سيتم حذف جميع المهام وخرائط الأفكار من هذه المساحة التي تمت إضافتها إلى علامة التبويب \"المميزة\" من علامة التبويب المميزة. ينطبق الشيء نفسه على الأنشطة المخصصة لك.",
+		"LOADING_BTN": "جارٍ المغادرة. يرجى الانتظار"
 	},
-
 	"MESSAGES": {
 		"ERRORS": {
 			"DEFAULT": "O nie.. Coś poszło nie tak",
@@ -207,180 +188,180 @@
 			"TEST_ACCOUNT_DELETE_WORKSPACE": "Nie można usunąć testowej przestrzeni roboczej"
 		},
 		"SUCCES": {
-			"SIGN_UP": "Konto zostało utworzone!",
-			"SIGN_IN": "Zostałeś zalogowany!",
-			"IMAGE_PROFILE_UPDATE": "Twoje zdjęcie profilowe zostało zaktualizowane!",
-			"IMAGE_PROFILE_DELETE": "Twoje zdjęcie profilowe zostało usunięte!",
-			"ONBOARDING_COMPLETE": "Witamy w StudyFlow!",
-			"PROFILE_EDITED": "Profil zaostał zaktualizowany!",
-			"DELETED_INFO": "Twoje konto zostało usunięte",
-			"PASSWORD_CHANGED": "Hasło zostało zmienione",
-			"NEW_WORKSAPCE": "Obszar roboczy został utworzony!",
-			"WORKSPACE_PICTURE_UPDATED": "Ikona obszaru roboczego została zaktualizowana!",
-			"WORKSPACE_PICTURE_DELETED": "Ikona obszaru roboczego została usunięta",
-			"UPDATED_WORKSAPCE": "Obszar roboczy został zaktualizowany!",
-			"DELETED_WORKSPACE_INFO": "Obszar roboczy został usunięty",
-			"REGENERATED_LINK": "Link został zaktualizowany",
-			"TASK_ADDED": "Zadanie zostało dodane",
-			"TASK_DELETED": "Zadanie zostało usunięte",
-			"MIND_MAP_ADDED": "Mapa myśli została dodana",
-			"MIND_MAP_DELETED": "Mapa myśli została usunięta",
-			"RESET_POMODORO_SETTINGS": "Zresetowano ustawienia",
-			"UPDATE_POMODORO_SETTINGS": "Zapisano nowe ustawienia",
-			"LEAVE_FROM_WORKSAPCE": "Pomyślnie opuszczono przestrzeń roboczą"
+			"SIGN_UP": "تم إنشاء الحساب!",
+			"SIGN_IN": "تم تسجيل الدخول!",
+			"IMAGE_PROFILE_UPDATE": "تم تحديث صورة ملفك الشخصي!",
+			"IMAGE_PROFILE_DELETE": "تم حذف صورة ملفك الشخصي!",
+			"ONBOARDING_COMPLETE": "مرحبًا بك في StudyFlow!",
+			"PROFILE_EDITED": "تم تحديث الملف الشخصي!",
+			"DELETED_INFO": "تم حذف حسابك",
+			"PASSWORD_CHANGED": "تم تغيير كلمة المرور",
+			"NEW_WORKSAPCE": "تم إنشاء مساحة العمل!",
+			"WORKSPACE_PICTURE_UPDATED": "تم تحديث رمز مساحة العمل!",
+			"WORKSPACE_PICTURE_DELETED": "تم حذف رمز مساحة العمل!",
+			"UPDATED_WORKSAPCE": "تم تحديث مساحة العمل!",
+			"DELETED_WORKSPACE_INFO": "تم حذف مساحة العمل",
+			"REGENERATED_LINK": "تم تحديث الرابط",
+			"TASK_ADDED": "تم إضافة المهمة",
+			"TASK_DELETED": "تم حذف المهمة",
+			"MIND_MAP_ADDED": "تم إضافة خريطة الأفكار",
+			"MIND_MAP_DELETED": "تم حذف خريطة الأفكار",
+			"RESET_POMODORO_SETTINGS": "تم إعادة تعيين الإعدادات",
+			"UPDATE_POMODORO_SETTINGS": "تم حفظ الإعدادات الجديدة",
+			"LEAVE_FROM_WORKSAPCE": "تم مغادرة مساحة العمل بنجاح"
 		},
 		"PENDING": {
-			"LOADING": "Proszę czekać"
+			"LOADING": "يرجى الانتظار"
 		},
 		"SCHEMA": {
 			"PASSWORD": {
-				"MIN": "Hasło musi mieć przynajmniej 6 znaków",
-				"UPPERCASE": "Hasło musi zawierać przynajmniej jedna wielką literę",
-				"LOWERCASE": "Hasło musi zawierać przynajmniej jedna małą literę",
-				"DIGIT": "Hasło musi zawierać przynajmniej jedna cyfrę",
-				"NOT_THE_SAME": "Hasła nie są takie same",
-				"THE_SAME": "Nowe hasło nie może być takie samo jak obecne hasło."
+				"MIN": "يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل",
+				"UPPERCASE": "يجب أن تحتوي كلمة المرور على حرف كبير واحد على الأقل",
+				"LOWERCASE": "يجب أن تحتوي كلمة المرور على حرف صغير واحد على الأقل",
+				"DIGIT": "يجب أن تحتوي كلمة المرور على رقم واحد على الأقل",
+				"NOT_THE_SAME": "كلمتا المرور غير متطابقتين",
+				"THE_SAME": "لا يمكن أن تكون كلمة المرور الجديدة هي نفسها كلمة المرور الحالية."
 			},
-			"EMAIL": "Proszę podać poprawny adres email",
+			"EMAIL": "يرجى إدخال عنوان بريد إلكتروني صحيح",
 			"USERNAME": {
-				"SHORT": "Nazwa użytkownika jest zbyt krótka",
-				"SPECIAL_CHARS": "Nazwa użytkownika może składać się tylko z liter i cyfr"
+				"SHORT": "اسم المستخدم قصير جدًا",
+				"SPECIAL_CHARS": "اسم المستخدم يمكن أن يتكون فقط من الأحرف والأرقام"
 			},
 			"IMAGE": {
-				"MAX": "Max image size is 4MB",
-				"SUPPORTED": "Only .jpg, .jpeg, .png and .webp formats are supported."
+				"MAX": "أقصى حجم للصورة هو 4 ميجابايت",
+				"SUPPORTED": "يتم دعم تنسيقات .jpg و .jpeg و .png و .webp فقط."
 			},
 			"WORKSPACE": {
-				"SHORT": "Nazwa obszaru roboczego jest zbyt krótka",
-				"LONG": "Nazwa obszaru roboczego jest za długa",
-				"SPECIAL_CHARS": "Nazwa obszaru roboczego może składać się tylko z liter i cyfr",
-				"WRONG_NAME": "Podana nazwa różni się od nazwy obszaru roboczego"
+				"SHORT": "اسم مساحة العمل قصير جدًا",
+				"LONG": "اسم مساحة العمل طويل جدًا",
+				"SPECIAL_CHARS": "اسم مساحة العمل يمكن أن يتكون فقط من الأحرف والأرقام",
+				"WRONG_NAME": "الاسم المدخل مختلف عن اسم مساحة العمل"
 			},
-			"LANGUAGE": "Proszę wybrać język",
-			"CHOOSE_ONE": "Proszę zaznaczyć jedną z opcji",
-			"LINK": "Proszę podać poprawny link",
-			"IMAGE_REQUIRED": "Proszę podać zdjęcie",
+			"LANGUAGE": "يرجى اختيار لغة",
+			"CHOOSE_ONE": "يرجى تحديد خيار واحد",
+			"LINK": "يرجى إدخال رابط صحيح",
+			"IMAGE_REQUIRED": "يرجى إدخال صورة",
 			"TAG": {
-				"SHORT": "Nazwa tagu jest zbyt krótka",
-				"LONG": "Nazwa tagu jest za długa",
-				"SPECIAL_CHARS": "Nazwa tagu może składać się tylko z liter i cyfr"
+				"SHORT": "اسم العلامة قصير جدًا",
+				"LONG": "اسم العلامة طويل جدًا",
+				"SPECIAL_CHARS": "اسم العلامة يمكن أن يتكون فقط من الأحرف والأرقام"
 			}
 		}
 	},
 	"SIDEBAR": {
 		"MAIN": {
-			"HOME_HOVER": "Strona główna",
-			"CALENDAR_HOVER": "Kalendarz",
-			"LOG_OUT_HOVER": "Wyloguj się",
-			"SETTINGS_HOVER": "Ustawienia",
-			"POMODORO_HOVER": "Pomodoro",
-			"STARRED_HOVER": "Wyróżnione",
-			"ASSIGNED_TO_ME_HOVER": "Przypisane do mnie",
-			"NEW_WORKSAPCE_HOVER": "Nowa przestrzeń robocza",
-			"NEW_WORKSAPCE_DIALOG_TITLE": "Stwórz nowy obszar roboczy",
-			"NEW_WORKSAPCE_DIALOG_DESC": "Pamiętaj, że możesz mieć maksymalnie 5 aktywnych przestrzeni roboczych w tym samym czasie."
+			"HOME_HOVER": "الصفحة الرئيسية",
+			"CALENDAR_HOVER": "التقويم",
+			"LOG_OUT_HOVER": "تسجيل الخروج",
+			"SETTINGS_HOVER": "الإعدادات",
+			"POMODORO_HOVER": "بومودورو",
+			"STARRED_HOVER": "المميزة",
+			"ASSIGNED_TO_ME_HOVER": "المخصصة لي",
+			"NEW_WORKSAPCE_HOVER": "مساحة عمل جديدة",
+			"NEW_WORKSAPCE_DIALOG_TITLE": "إنشاء مساحة عمل جديدة",
+			"NEW_WORKSAPCE_DIALOG_DESC": "تذكر أنه يمكنك امتلاك ما يصل إلى 5 مساحات عمل نشطة في نفس الوقت."
 		},
 		"SETTINGS": {
-			"GENERAL": "Ogólne",
-			"ACCOUNT": "Konto",
-			"SECURITY": "Bezpieczeństwo",
-			"THEME": "Motyw",
-			"WORKSPACE": "Przestrzeń robocza"
+			"GENERAL": "عام",
+			"ACCOUNT": "الحساب",
+			"SECURITY": "الأمان",
+			"THEME": "الموضوع",
+			"WORKSPACE": "مساحة العمل"
 		},
 		"POMODORO": {
-			"TIMER": "Zegar",
-			"SETTINGS": "Ustawienia"
+			"TIMER": "الموقت",
+			"SETTINGS": "الإعدادات"
 		},
 		"WORKSPACE_OPTIONS": {
-			"SHORTCUTS": "Skróty",
-			"TASKS": "Zadania",
-			"MIND_MAPS": "Mapy myśli",
-			"SCHEDULES": "Plany tygodnia",
-			"STUDY": "Nauka",
-			"FILES": "Pliki",
-			"DEFAULT_NAME": "Bez tytułu",
-			"ACTIONS": "Akcje",
-			"ADD_TASK": "Dodaj zadanie",
-			"ADD_TASK_PENDING": "Tworze zadanie",
-			"ADD_MIND_MAP": "Dodaj mapę myśli",
-			"ADD_MIND_MAP_PENDING": "Tworze mapę myśli"
+			"SHORTCUTS": "الاختصارات",
+			"TASKS": "المهام",
+			"MIND_MAPS": "خرائط الأفكار",
+			"SCHEDULES": "جدول الأسبوع",
+			"STUDY": "الدراسة",
+			"FILES": "الملفات",
+			"DEFAULT_NAME": "بدون عنوان",
+			"ACTIONS": "الإجراءات",
+			"ADD_TASK": "إضافة مهمة",
+			"ADD_TASK_PENDING": "جاري إنشاء مهمة",
+			"ADD_MIND_MAP": "إضافة خريطة أفكار",
+			"ADD_MIND_MAP_PENDING": "جاري إنشاء خريطة أفكار"
 		},
 		"ASSIGNED_TO_ME": {
 			"LABEL": {
-				"ALL": "Wszystkie",
-				"TASKS": "Zadania",
-				"MIND_MAPS": "Mapy myśli"
+				"ALL": "الكل",
+				"TASKS": "المهام",
+				"MIND_MAPS": "خرائط الأفكار"
 			},
-			"TYPE": "TYP",
-			"WORKSPACE": "Obszar roboczy"
+			"TYPE": "النوع",
+			"WORKSPACE": "مساحة العمل"
 		}
 	},
 	"SETTINGS": {
 		"THEME": {
-			"TITLE": "Motyw",
-			"DESC": "Wybierz wygląd interfejsu. Wybierz motyw spośród ciemnego, jasnego lub systemowego.",
-			"LIGHT_TITLE": "Jasny",
-			"DARK_TITLE": "Ciemny",
-			"SYSTEM_TITLE": "System",
-			"LIGHT_FOOTER": "Domyślny jasny",
-			"DARK_FOOTER": "Domyślny ciemny",
-			"SYSTEM_FOOTER": "Domyślny system",
-			"ACTIVE": "Wybrany"
+			"TITLE": "الموضوع",
+			"DESC": "اختر مظهر الواجهة. اختر موضوعًا من فاتح أو غامق أو نظام.",
+			"LIGHT_TITLE": "فاتح",
+			"DARK_TITLE": "غامق",
+			"SYSTEM_TITLE": "النظام",
+			"LIGHT_FOOTER": "فاتح افتراضي",
+			"DARK_FOOTER": "غامق افتراضي",
+			"SYSTEM_FOOTER": "نظام افتراضي",
+			"ACTIVE": "مختار"
 		},
 		"ACCOUNT": {
-			"TITLE": "Konto",
-			"DESC": "Zarządzaj swoim kontem StudyFlow. Wszystkie zmiany na Twoim koncie zostaną zastosowane do wszytskich obszarów roboczych.",
-			"IMAGE": "ZDJĘCIE PROFILOWE",
-			"USERNAME": "NAZWA UŻYTKOWNIKA",
-			"FIRST_NAME": "IMIĘ (OPCJONALNIE)",
-			"SURNAME": "NAZWISKO (OPCJONALNIE)",
-			"USERNAME_PLACEHOLDER": "Nazwa użytkownika",
-			"FIRST_NAME_PLACEHOLDER": "Imię",
-			"SURNAME_PLACEHOLDER": "Nazwisko",
-			"LANG": "JĘZYK",
-			"NO_LANGUAGE": "Nie znaleziono języka.",
-			"SEARCH_LANGUAGE": "Wyszukaj język...",
-			"SELECT_LANGUAGE": "Wybierz język",
-			"UPDATE_BTN": "Aktualizuj",
-			"PENDING_BTN": "Aktualizacja. Proszę czekać",
-			"DELETE_TITLE": "Usuń konto",
-			"DELETE_DESC": "Po usunięciu konta i danych nie ma możliwości ich odzyskania.",
-			"DELETE_LABEL": "USUŃ MOJE KONTO I DANE",
-			"DELETE_PLACEHOLDER": "Potwierdź swój email",
-			"DELETE_BTN": "Usuń",
+			"TITLE": "الحساب",
+			"DESC": "إدارة حساب StudyFlow الخاص بك. سيتم تطبيق جميع التغييرات على حسابك على جميع مساحات العمل.",
+			"IMAGE": "صورة الملف الشخصي",
+			"USERNAME": "اسم المستخدم",
+			"FIRST_NAME": "الاسم الأول (اختياري)",
+			"SURNAME": "اللقب (اختياري)",
+			"USERNAME_PLACEHOLDER": "اسم المستخدم",
+			"FIRST_NAME_PLACEHOLDER": "الاسم الأول",
+			"SURNAME_PLACEHOLDER": "اللقب",
+			"LANG": "اللغة",
+			"NO_LANGUAGE": "لم يتم العثور على لغة.",
+			"SEARCH_LANGUAGE": "ابحث عن لغة...",
+			"SELECT_LANGUAGE": "اختر لغة",
+			"UPDATE_BTN": "تحديث",
+			"PENDING_BTN": "جاري التحديث. يرجى الانتظار",
+			"DELETE_TITLE": "حذف الحساب",
+			"DELETE_DESC": "بعد حذف الحساب والبيانات، لا توجد طريقة لاستعادتها.",
+			"DELETE_LABEL": "احذف حسابي وبياناتي",
+			"DELETE_PLACEHOLDER": "أكد بريدك الإلكتروني",
+			"DELETE_BTN": "حذف",
 			"DIALOG": {
-				"TITLE": "Usuń konto",
-				"DESC": "Utracisz dostęp do wszystkich swoich obszarów roboczych, podobszarów i projektów",
-				"WARNING": "Usunięcie konta jest trwałe i nie można go cofnąć, kliknij „Usuń moje konto”, aby usunąć swoje konto.",
-				"BUTTON": "USUŃ MOJE KONTO",
-				"PENDING_BTN": "Usuwanie. Proszę czekać"
+				"TITLE": "حذف الحساب",
+				"DESC": "ستفقد الوصول إلى جميع مساحات العمل الخاصة بك، والمجلدات الفرعية والمشاريع",
+				"WARNING": "حذف الحساب دائم ولا يمكن التراجع عنه، انقر فوق “حذف حسابي” لحذف حسابك.",
+				"BUTTON": "احذف حسابي",
+				"PENDING_BTN": "جاري الحذف. يرجى الانتظار"
 			}
 		},
 		"SECURITY": {
-			"TITLE": "Bezpieczeństwo",
-			"DESC": "Tutaj możesz zmienić swoje hasło. Pamiętaj aby miało przynajmniej 6 znaków, przynajmniej jedną małą i wielką literę oraz przynajmniej jedną cyfrę.",
+			"TITLE": "الأمان",
+			"DESC": "تستطيع هنا تغيير كلمة المرور الخاصة بك. تأكد من أنها تحتوي على 6 أحرف على الأقل، وحرف صغير واحد على الأقل وحرف كبير واحد على الأقل، ورقم واحد على الأقل.",
 			"WARNING": {
-				"FIRST": "Hasło może być zmienione",
-				"SECOND": "tylko dla kont utworzonych za pośrednictwem formularza na stronie",
-				"THIRD": ". Jeśli utworzyłeś/aś konto za pomocą przycisku Googla lub Githuba",
-				"FOURTH": "nie istnieje możliwość zmiany hasła",
-				"FIFTH": ", z powodu innej metody autoryzacji konta."
+				"FIRST": "يمكن تغيير كلمة المرور",
+				"SECOND": "فقط للحسابات التي تم إنشاؤها عبر نموذج على الموقع",
+				"THIRD": ". إذا قمت بإنشاء حساب باستخدام زر Google أو Github",
+				"FOURTH": "لا يمكنك تغيير كلمة المرور",
+				"FIFTH": ", بسبب طريقة أخرى للمصادقة على الحساب."
 			},
 			"FORM": {
 				"CURRENT": {
-					"LABEL": "OBECNE HASŁO",
-					"PLACEHOLDER": "Obecne hasło"
+					"LABEL": "كلمة المرور الحالية",
+					"PLACEHOLDER": "كلمة المرور الحالية"
 				},
 				"NEW": {
-					"LABEL": "Nowe hasło",
-					"PLACEHOLDER": "Nowe hasło"
+					"LABEL": "كلمة المرور الجديدة",
+					"PLACEHOLDER": "كلمة المرور الجديدة"
 				},
 				"REPEAT": {
-					"LABEL": "POTWIERDŹ HASŁO",
-					"PLACEHOLDER": "Potwierdź hasło"
+					"LABEL": "تأكيد كلمة المرور",
+					"PLACEHOLDER": "تأكيد كلمة المرور"
 				},
-				"BTN": "Zmień hasło",
-				"BTN_PENDING": "Zmieniam hasło"
+				"BTN": "تغيير كلمة المرور",
+				"BTN_PENDING": "جاري تغيير كلمة المرور"
 			}
 		}
 	},
@@ -436,7 +417,6 @@
 			"IN": " - w"
 		}
 	},
-
 	"PERMISSONS": {
 		"WAIT": "Proszę czekać",
 		"PERMISSONS": "Uprawnienia",
@@ -697,7 +677,6 @@
 		"TITLE": "Twoje wyróżnione elementy",
 		"DESC": "Tutaj znajdziesz wszystkie swoje zapisane mapy myśli i zadania",
 		"ERROR": "Wystąpił błąd podczas pobierania Twoich danych. Proszę spróbuj ponownie.",
-
 		"UNSTAR": "Usuń gwiazdkę",
 		"SORT": {
 			"ASC": "Najnowsze",
@@ -709,15 +688,12 @@
 			"DESC": "Jakiekolwiek zadanie lub mapa myśli, którą oznaczysz gwiazdką, pojawi się tutaj."
 		}
 	},
-
 	"ASSIGNED_TO_ME": {
 		"TITLE": "Przypisane do mnie",
 		"DESC": "Tutaj znajdziesz wszystkie przypisane do Ciebie mapy myśli i zadania",
-
 		"NO_ASSIGMENT": "Nie zostałeś jeszcze nigdzie przypisany",
 		"NOT_FOUND": "Nie znaleźliśmy żadnego zadania ani mapy myśli które spełniały by kryteria"
 	},
-
 	"CALENDAR": {
 		"DAYS_OF_WEEK": {
 			"MON": "PON",
@@ -798,7 +774,6 @@
 				"CAN_EDIT": "Edytor",
 				"READ_ONLY": "Przeglądający"
 			},
-
 			"NEW_USER_IN_WORKSPACE_TEXT": "dołączył(a) do przestrzeni roboczej {name}",
 			"USER_LEFT_WORKSPACE_TEXT": "opuścił(a) przestrzeń roboczą {name}",
 			"NEW_TASK_TEXT": "dodał(a) nowe zadanie w przestrzeni roboczej {name}",
@@ -836,13 +811,14 @@
 			"NEW_MIND_MAP": "Nowa mapa myśli"
 		}
 	},
-
 	"CHAT": {
 		"NO_MESSAGES": {
 			"FIRST": "Nie znaleźliśmy żadnych wiadomości w tym czacie.",
 			"SECOND": "Wyślij pierwszą wiadomość!"
 		},
-		"HEADER": { "TITLE": "{workspaceName} czat" },
+		"HEADER": {
+			"TITLE": "{workspaceName} czat"
+		},
 		"DELETE_MESSAGE": {
 			"TITLE": "Usuń wiadomość",
 			"DESC": "Ta operacja jest nieodwracalna i spowoduje trwałe usunięcie wiadomości.",
@@ -872,12 +848,10 @@
 			"ATACHMENT_WRONG_FILE_ERROR": "Nie udało się dodać załączników. Jeden z plików posiada niedozowlony format"
 		}
 	},
-
 	"CLIENT_ERROR": {
 		"TITLE": "O nie... Coś poszło nie tak",
 		"BTN": "Spróbuj ponownie"
 	},
-
 	"STUDY_FLOW_PAGE": {
 		"NAV": {
 			"PRODUCT": {
@@ -955,7 +929,6 @@
 			"SECOND": "strony głównej"
 		}
 	},
-
 	"ROUTES": {
 		"DASHBOARD": "Strona główna",
 		"SETTINGS": "Ustawienia",
