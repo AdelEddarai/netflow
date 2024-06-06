@@ -33,6 +33,17 @@ import {
   UnnestBlockButton,
 } from "@blocknote/react";
 
+import { SlCloudDownload } from "react-icons/sl";
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
+
+
+
 import { BlueButton } from "./BlueButton";
 
 import { RiAlertFill } from "react-icons/ri";
@@ -42,6 +53,11 @@ import { Alert } from "./Alert";
 
 import YPartyKitProvider from "y-partykit/provider";
 import * as Y from "yjs";
+import './JsonBlock.css'
+import html2pdf from 'html2pdf.js';
+import html2canvas from 'html2canvas';
+
+
 
 // Sets up Yjs document and PartyKit Yjs provider.
 const doc = new Y.Doc();
@@ -59,6 +75,7 @@ const schema = BlockNoteSchema.create({
   blockSpecs: {
     ...defaultBlockSpecs,
     alert: Alert,
+
   },
 });
 
@@ -91,6 +108,9 @@ const getCustomSlashMenuItems = (
     ...getDefaultReactSlashMenuItems(editor),
     insertHelloWorldItem(editor),
   ];
+
+
+
 
 async function uploadFile(file: File) {
   const body = new FormData();
@@ -171,6 +191,10 @@ export default function App() {
     PartialBlock[] | undefined | "loading"
   >("loading");
   const [saveStatus, setSaveStatus] = useState("saved");
+  // from block to json
+  const [blocks, setBlocks] = useState<Block[]>([]);
+
+  const [html, setHTML] = useState<string>("");
 
   // Loads the previously stored editor contents.
   useEffect(() => {
@@ -250,18 +274,138 @@ export default function App() {
   }, [initialContent]);
 
 
+
   const saveContent = useCallback(async () => {
     if (editor) {
       setSaveStatus("saving");
       try {
+        // Convert the editor's contents to HTML and store it in the state.
+        const html = await editor.blocksToHTMLLossy(editor.document);
+        setHTML(html);
+
+        // Store the document JSON to state.
+        setBlocks(editor.document as Block[]);
+
+        // Save the content to storage.
         await saveToStorage(editor.document as Block[]); // Cast to Block[] if necessary
         setSaveStatus("saved");
       } catch (error) {
         setSaveStatus("error");
       }
+    } else {
+      console.warn("Editor is not initialized.");
     }
   }, [editor]);
 
+  // download html 
+  const downloadHTML = () => {
+    const element = document.createElement('a');
+    const file = new Blob([html], { type: 'text/html' });
+    element.href = URL.createObjectURL(file);
+    element.download = 'editor_content.html';
+    document.body.appendChild(element); // Required for this to work in Firefox
+    element.click();
+  };
+
+
+
+function getImageType(content: string): string {
+  // Assuming 'content' contains HTML content with images
+  // Extract image URLs from the content
+  const imageUrls = content.match(/<img[^>]+src="(http[s]?:\/\/[^">]+)"/gi) || [];
+  
+  // Iterate through the image URLs to determine their types
+  for (const imageUrl of imageUrls) {
+    if (imageUrl.endsWith('.png')) {
+      return 'png';
+    } else if (imageUrl.endsWith('.jpg') || imageUrl.endsWith('.jpeg')) {
+      return 'jpeg';
+    } else if (imageUrl.endsWith('.webp')) {
+      return 'webp';
+    } // Add support for other image types as needed
+  }
+
+  // Default to JPEG if no specific type is detected
+  return 'jpeg';
+}
+
+
+// download to pdf
+const downloadPDF = () => {
+  // Create a temporary element to hold the HTML content
+  const element = document.createElement('div');
+  element.innerHTML = html;
+
+  element.style.color = 'black';
+
+  document.body.appendChild(element);
+
+  // Options for html2pdf conversion
+  const opt = {
+    margin:       0.5,
+    filename:     'editor_content.pdf',
+    image:        { type: 'jpeg', quality: 1.0 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+
+    // Check the image types and adjust the configuration accordingly
+    const imageType = getImageType(html); // Assuming 'html' contains your HTML content
+    if (imageType === 'png') {
+      opt.image.type = 'png';
+    } else if (imageType === 'jpeg') {
+      opt.image.type = 'jpeg';
+    } else if (imageType === 'webp') {
+      opt.image.type = 'webp';
+    } // Add support for other image types as needed
+    
+  // Convert HTML to PDF and save
+  html2pdf().from(element).set(opt).save();
+
+  // Clean up by removing the temporary element
+  document.body.removeChild(element);
+};
+
+
+// Function to download HTML content as a PNG image
+const downloadPNG = () => {
+  // Create a temporary element to hold the HTML content
+  const element = document.createElement('div');
+  element.innerHTML = html;
+
+  // Set styles for proper rendering (optional)
+  element.style.color = 'black';
+  element.style.backgroundColor = 'white';
+  element.style.padding = '10px';
+  element.style.fontFamily = 'Arial, sans-serif';
+
+  // Append the element to the document body
+  document.body.appendChild(element);
+
+  // Options for html2canvas conversion
+  const options = {
+    scale: 2, // Increase scale for better resolution
+    logging: true, // Enable logging for troubleshooting
+    backgroundColor: null, // Preserve transparency
+  };
+
+  // Convert HTML to canvas
+  html2canvas(element, options).then(canvas => {
+    // Create PNG image data URL from the canvas
+    const imageDataURL = canvas.toDataURL('image/png');
+
+    // Create a temporary anchor element
+    const anchor = document.createElement('a');
+    anchor.href = imageDataURL;
+    anchor.download = 'editor_content.png';
+
+    // Trigger a click event to download the PNG image
+    anchor.click();
+
+    // Clean up by removing the temporary elements
+    document.body.removeChild(element);
+  });
+};
 
   const handleChange = useCallback(() => {
     setSaveStatus("writing");
@@ -291,16 +435,21 @@ export default function App() {
           {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
         </button>
         <SaveIndicator status={saveStatus} />
-        
+
         <button className="flex items-center ml-4">
           <CiShare1 size={20} className="mr-2" />
           Collaborate
-        </button>        
+        </button>
+
+        <button onClick={downloadHTML}> <SlCloudDownload size={20} className="mr-2" /> download as html</button>
+        <button onClick={downloadPDF}>Download PDF</button>
+        <button onClick={downloadPNG}>Download as PNG</button>
       </div>
 
       <BlockNoteView
         className="w-full h-full"
         editor={editor}
+
         slashMenu={false}
         onChange={handleChange}
       >
@@ -314,6 +463,21 @@ export default function App() {
           }
         />
       </BlockNoteView>
+
+      <Accordion type="single" collapsible>
+        <AccordionItem value="item-1">
+          <AccordionTrigger>show as html format</AccordionTrigger>
+          <AccordionContent>
+          <div>Output (HTML):</div>
+            <div className="item bordered">
+              <pre>
+                <code>{html}</code>
+              </pre>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
+
     </div>
   );
 }

@@ -1,21 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { AccessToken } from 'livekit-server-sdk';
+import { AccessToken } from "livekit-server-sdk";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const room = req.nextUrl.searchParams.get('room');
-  const username = req.nextUrl.searchParams.get('username');
-
-  console.log('Received room:', room);
-  console.log('Received username:', username);
-
+  const room = req.nextUrl.searchParams.get("room");
+  const username = req.nextUrl.searchParams.get("username");
   if (!room) {
     return NextResponse.json(
       { error: 'Missing "room" query parameter' },
       { status: 400 }
     );
-  }
-
-  if (!username) {
+  } else if (!username) {
     return NextResponse.json(
       { error: 'Missing "username" query parameter' },
       { status: 400 }
@@ -28,31 +22,14 @@ export async function GET(req: NextRequest) {
 
   if (!apiKey || !apiSecret || !wsUrl) {
     return NextResponse.json(
-      { error: 'Server misconfigured' },
+      { error: "Server misconfigured" },
       { status: 500 }
     );
   }
 
-  try {
-    const at = new AccessToken(apiKey, apiSecret, {
-      identity: username,
-      ttl: 3600, // Token valid for 1 hour
-    });
+  const at = new AccessToken(apiKey, apiSecret, { identity: username });
 
-    at.addGrant({
-      roomJoin: true,
-      room,
-      canPublish: true,
-      canSubscribe: true,
-    });
+  at.addGrant({ room, roomJoin: true, canPublish: true, canSubscribe: true });
 
-    const token = await at.toJwt();
-    return NextResponse.json({ token });
-  } catch (error) {
-    console.error('Error generating token:', error);
-    return NextResponse.json(
-      { error: 'Failed to generate token' },
-      { status: 500 }
-    );
-  }
+  return NextResponse.json({ token: await at.toJwt() });
 }
