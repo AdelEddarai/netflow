@@ -22,6 +22,7 @@ import { PiStarFourFill } from "react-icons/pi";
 import SplitAbout from './about/About';
 import Hero from './hero/Hero';
 import { AnimatedTooltipPreview } from './hero/Tooltibedemo';
+import HorizontalScroller1 from './footer/BrandAnimation';
 
 export const HomePage = () => {
 
@@ -83,6 +84,9 @@ export const HomePage = () => {
 						images={homePageAssigmentFilterAndStarredImgs}
 					/>
 				</main>
+			</div>
+			<div className='p-2 mt-2'>
+				<HorizontalScroller1 />
 			</div>
 
 			<SplitAbout />

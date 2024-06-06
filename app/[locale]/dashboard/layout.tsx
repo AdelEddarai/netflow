@@ -5,7 +5,7 @@ import { UserEditableWorkspacesProvider } from '@/context/UserEditableWorkspaces
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'StudyFlow - Dashboard',
+	title: 'SpaceFlow - Dashboard',
 	description:
 		'Explore your personalized dashboard to stay organized and make the most out of your experience. Access key information, track progress, and manage your tasks seamlessly from your dashboard.',
 };

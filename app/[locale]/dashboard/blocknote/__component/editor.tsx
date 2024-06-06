@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState, useCallback } from "react"; 
+import { useEffect, useMemo, useState, useCallback } from "react";
 import {
   Block,
   BlockNoteEditor,
@@ -36,6 +36,7 @@ import {
 import { BlueButton } from "./BlueButton";
 
 import { RiAlertFill } from "react-icons/ri";
+import { CiShare1 } from "react-icons/ci";
 import { HiOutlineGlobeAlt } from "react-icons/hi";
 import { Alert } from "./Alert";
 
@@ -87,9 +88,9 @@ const insertHelloWorldItem = (editor: BlockNoteEditor) => ({
 const getCustomSlashMenuItems = (
   editor: BlockNoteEditor
 ): DefaultReactSuggestionItem[] => [
-  ...getDefaultReactSlashMenuItems(editor),
-  insertHelloWorldItem(editor),
-];
+    ...getDefaultReactSlashMenuItems(editor),
+    insertHelloWorldItem(editor),
+  ];
 
 async function uploadFile(file: File) {
   const body = new FormData();
@@ -248,7 +249,7 @@ export default function App() {
     });
   }, [initialContent]);
 
- 
+
   const saveContent = useCallback(async () => {
     if (editor) {
       setSaveStatus("saving");
@@ -285,13 +286,20 @@ export default function App() {
 
   return (
     <div>
-      <button onClick={saveContent} className="mt-2">
-        {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
-      </button>
-
-      <SaveIndicator status={saveStatus} />
+      <div className="flex items-center space-x-4 mt-2">
+        <button onClick={saveContent}>
+          {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
+        </button>
+        <SaveIndicator status={saveStatus} />
+        
+        <button className="flex items-center ml-4">
+          <CiShare1 size={20} className="mr-2" />
+          Collaborate
+        </button>        
+      </div>
 
       <BlockNoteView
+        className="w-full h-full"
         editor={editor}
         slashMenu={false}
         onChange={handleChange}

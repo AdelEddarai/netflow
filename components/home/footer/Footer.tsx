@@ -33,7 +33,7 @@ const footerLinks = [
 export const Footer: React.FC = () => {
 
   return (
-
+    <>
     <footer className="border-t lg:py-10 mt-4">
       <div className=" w-full max-w-none px-5 text-sm sm:max-w-[90%] sm:px-0 2xl:max-w-7xl">
         <div className="grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] items-stretch justify-between gap-y-10 sm:gap-x-6 md:flex md:flex-wrap">
@@ -112,6 +112,7 @@ export const Footer: React.FC = () => {
 
       </div>
     </footer>
+    </>
   );
 }
 

@@ -81,12 +81,21 @@ const config = {
 				animatedBeam: {
 					"100%": { offsetDistance: "100%" },
 				},
+				marquee: {
+					"0%": {
+					  transform: "translateX(0%)",
+					},
+					"100%": {
+					  transform: "translateX(calc(-100% - var(--gap)))",
+					},
+				},
 			},
 			animation: {
 				starScale: "starScale 800ms ease infinite",
 				accordionDown: 'accordion-down 0.2s ease-out',
 				accordionUp: 'accordion-up 0.2s ease-out',
 				animatedBeam: "animatedBeam 7s linear infinite",
+				marquee: "marquee 30s linear infinite",
 			},
 		},
 	},
