@@ -20,20 +20,14 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 
 import {
-  BasicTextStyleButton,
-  BlockTypeSelect,
-  ColorStyleButton,
-  CreateLinkButton,
-  FileCaptionButton,
-  FileReplaceButton,
-  FormattingToolbar,
-  FormattingToolbarController,
-  NestBlockButton,
-  TextAlignButton,
-  UnnestBlockButton,
-} from "@blocknote/react";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
-import { SlCloudDownload } from "react-icons/sl";
 
 import {
   Accordion,
@@ -43,11 +37,7 @@ import {
 } from "@/components/ui/accordion"
 
 
-
-import { BlueButton } from "./BlueButton";
-
 import { RiAlertFill } from "react-icons/ri";
-import { CiShare1 } from "react-icons/ci";
 import { HiOutlineGlobeAlt } from "react-icons/hi";
 import { Alert } from "./Alert";
 
@@ -56,6 +46,48 @@ import * as Y from "yjs";
 import './JsonBlock.css'
 import html2pdf from 'html2pdf.js';
 import html2canvas from 'html2canvas';
+
+
+
+
+// To simplify the JSON structure and reduce its size, you can modify the markdownToJson function to extract only the necessary information from the parsed markdown tree. Here's an updated version of the function:
+interface MarkdownNode {
+  type: 'paragraph' | 'listItem';
+  text: string;
+}
+
+function markdownToJson(markdown: string): MarkdownNode[] {
+  const lines = markdown.split('\n');
+  const nodes: MarkdownNode[] = [];
+  let currentType: 'paragraph' | 'listItem' | null = null;
+  let currentText = '';
+
+  for (const line of lines) {
+    if (line.trim().startsWith('*')) {
+      if (currentType === 'paragraph') {
+        nodes.push({ type: 'paragraph', text: currentText });
+        currentText = '';
+      }
+      currentType = 'listItem';
+      currentText += line.trim().replace(/^\*\s*/, '') + '\n';
+    } else {
+      if (currentType === 'listItem') {
+        nodes.push({ type: 'listItem', text: currentText });
+        currentText = '';
+      }
+      currentType = 'paragraph';
+      currentText += line.trim() + '\n';
+    }
+  }
+
+  if (currentType === 'paragraph') {
+    nodes.push({ type: 'paragraph', text: currentText });
+  } else if (currentType === 'listItem') {
+    nodes.push({ type: 'listItem', text: currentText });
+  }
+
+  return nodes;
+}
 
 
 
@@ -100,16 +132,6 @@ const insertHelloWorldItem = (editor: BlockNoteEditor) => ({
   icon: <HiOutlineGlobeAlt size={18} />,
   subtext: "Used to insert a block with 'Hello World' below.",
 });
-
-// List containing all default Slash Menu Items, as well as our custom one.
-const getCustomSlashMenuItems = (
-  editor: BlockNoteEditor
-): DefaultReactSuggestionItem[] => [
-    ...getDefaultReactSlashMenuItems(editor),
-    insertHelloWorldItem(editor),
-  ];
-
-
 
 
 async function uploadFile(file: File) {
@@ -196,6 +218,12 @@ export default function App() {
 
   const [html, setHTML] = useState<string>("");
 
+  const [markdown, setMarkdown] = useState<string>("");
+
+  const [json, setJson] = useState<{ type: string; text: string; }[]>([]); // Initialize json as an empty array
+
+
+
   // Loads the previously stored editor contents.
   useEffect(() => {
     loadFromStorage().then((content) => {
@@ -281,10 +309,14 @@ export default function App() {
       try {
         // Convert the editor's contents to HTML and store it in the state.
         const html = await editor.blocksToHTMLLossy(editor.document);
+        const markdown = await editor.blocksToMarkdownLossy(editor.document);
         setHTML(html);
 
         // Store the document JSON to state.
         setBlocks(editor.document as Block[]);
+        setMarkdown(markdown);
+        setJson(markdownToJson(markdown));
+
 
         // Save the content to storage.
         await saveToStorage(editor.document as Block[]); // Cast to Block[] if necessary
@@ -296,6 +328,8 @@ export default function App() {
       console.warn("Editor is not initialized.");
     }
   }, [editor]);
+
+
 
   // download html 
   const downloadHTML = () => {
@@ -309,45 +343,45 @@ export default function App() {
 
 
 
-function getImageType(content: string): string {
-  // Assuming 'content' contains HTML content with images
-  // Extract image URLs from the content
-  const imageUrls = content.match(/<img[^>]+src="(http[s]?:\/\/[^">]+)"/gi) || [];
-  
-  // Iterate through the image URLs to determine their types
-  for (const imageUrl of imageUrls) {
-    if (imageUrl.endsWith('.png')) {
-      return 'png';
-    } else if (imageUrl.endsWith('.jpg') || imageUrl.endsWith('.jpeg')) {
-      return 'jpeg';
-    } else if (imageUrl.endsWith('.webp')) {
-      return 'webp';
-    } // Add support for other image types as needed
+  function getImageType(content: string): string {
+    // Assuming 'content' contains HTML content with images
+    // Extract image URLs from the content
+    const imageUrls = content.match(/<img[^>]+src="(http[s]?:\/\/[^">]+)"/gi) || [];
+
+    // Iterate through the image URLs to determine their types
+    for (const imageUrl of imageUrls) {
+      if (imageUrl.endsWith('.png')) {
+        return 'png';
+      } else if (imageUrl.endsWith('.jpg') || imageUrl.endsWith('.jpeg')) {
+        return 'jpeg';
+      } else if (imageUrl.endsWith('.webp')) {
+        return 'webp';
+      } // Add support for other image types as needed
+    }
+
+    // Default to JPEG if no specific type is detected
+    return 'jpeg';
   }
 
-  // Default to JPEG if no specific type is detected
-  return 'jpeg';
-}
 
+  // download to pdf
+  const downloadPDF = () => {
+    // Create a temporary element to hold the HTML content
+    const element = document.createElement('div');
+    element.innerHTML = html;
 
-// download to pdf
-const downloadPDF = () => {
-  // Create a temporary element to hold the HTML content
-  const element = document.createElement('div');
-  element.innerHTML = html;
+    element.style.color = 'black';
 
-  element.style.color = 'black';
+    document.body.appendChild(element);
 
-  document.body.appendChild(element);
-
-  // Options for html2pdf conversion
-  const opt = {
-    margin:       0.5,
-    filename:     'editor_content.pdf',
-    image:        { type: 'jpeg', quality: 1.0 },
-    html2canvas:  { scale: 2 },
-    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-  };
+    // Options for html2pdf conversion
+    const opt = {
+      margin: 0.5,
+      filename: 'editor_content.pdf',
+      image: { type: 'jpeg', quality: 1.0 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
 
     // Check the image types and adjust the configuration accordingly
     const imageType = getImageType(html); // Assuming 'html' contains your HTML content
@@ -358,54 +392,54 @@ const downloadPDF = () => {
     } else if (imageType === 'webp') {
       opt.image.type = 'webp';
     } // Add support for other image types as needed
-    
-  // Convert HTML to PDF and save
-  html2pdf().from(element).set(opt).save();
 
-  // Clean up by removing the temporary element
-  document.body.removeChild(element);
-};
+    // Convert HTML to PDF and save
+    html2pdf().from(element).set(opt).save();
 
-
-// Function to download HTML content as a PNG image
-const downloadPNG = () => {
-  // Create a temporary element to hold the HTML content
-  const element = document.createElement('div');
-  element.innerHTML = html;
-
-  // Set styles for proper rendering (optional)
-  element.style.color = 'black';
-  element.style.backgroundColor = 'white';
-  element.style.padding = '10px';
-  element.style.fontFamily = 'Arial, sans-serif';
-
-  // Append the element to the document body
-  document.body.appendChild(element);
-
-  // Options for html2canvas conversion
-  const options = {
-    scale: 2, // Increase scale for better resolution
-    logging: true, // Enable logging for troubleshooting
-    backgroundColor: null, // Preserve transparency
+    // Clean up by removing the temporary element
+    document.body.removeChild(element);
   };
 
-  // Convert HTML to canvas
-  html2canvas(element, options).then(canvas => {
-    // Create PNG image data URL from the canvas
-    const imageDataURL = canvas.toDataURL('image/png');
 
-    // Create a temporary anchor element
-    const anchor = document.createElement('a');
-    anchor.href = imageDataURL;
-    anchor.download = 'editor_content.png';
+  // Function to download HTML content as a PNG image
+  const downloadPNG = () => {
+    // Create a temporary element to hold the HTML content
+    const element = document.createElement('div');
+    element.innerHTML = html;
 
-    // Trigger a click event to download the PNG image
-    anchor.click();
+    // Set styles for proper rendering (optional)
+    element.style.color = 'black';
+    element.style.backgroundColor = 'white';
+    element.style.padding = '10px';
+    element.style.fontFamily = 'Arial, sans-serif';
 
-    // Clean up by removing the temporary elements
-    document.body.removeChild(element);
-  });
-};
+    // Append the element to the document body
+    document.body.appendChild(element);
+
+    // Options for html2canvas conversion
+    const options = {
+      scale: 2, // Increase scale for better resolution
+      logging: true, // Enable logging for troubleshooting
+      backgroundColor: null, // Preserve transparency
+    };
+
+    // Convert HTML to canvas
+    html2canvas(element, options).then(canvas => {
+      // Create PNG image data URL from the canvas
+      const imageDataURL = canvas.toDataURL('image/png');
+
+      // Create a temporary anchor element
+      const anchor = document.createElement('a');
+      anchor.href = imageDataURL;
+      anchor.download = 'editor_content.png';
+
+      // Trigger a click event to download the PNG image
+      anchor.click();
+
+      // Clean up by removing the temporary elements
+      document.body.removeChild(element);
+    });
+  };
 
   const handleChange = useCallback(() => {
     setSaveStatus("writing");
@@ -428,6 +462,9 @@ const downloadPNG = () => {
     return "Loading content...";
   }
 
+
+
+
   return (
     <div>
       <div className="flex items-center space-x-4 mt-2">
@@ -436,18 +473,27 @@ const downloadPNG = () => {
         </button>
         <SaveIndicator status={saveStatus} />
 
-        <button className="flex items-center ml-4">
-          <CiShare1 size={20} className="mr-2" />
-          Collaborate
-        </button>
+        <div className='ml-28'>
+          <DropdownMenu>
+            <DropdownMenuTrigger>Downlaod</DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Download as</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={downloadHTML}>Html</DropdownMenuItem>
+              <DropdownMenuItem onClick={downloadPDF}>Pdf</DropdownMenuItem>
+              <DropdownMenuItem onClick={downloadPNG}>Png</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
-        <button onClick={downloadHTML}> <SlCloudDownload size={20} className="mr-2" /> download as html</button>
+
+        {/* <button onClick={downloadHTML}> <SlCloudDownload size={20} className="mr-2" /> download as html</button>
         <button onClick={downloadPDF}>Download PDF</button>
-        <button onClick={downloadPNG}>Download as PNG</button>
+        <button onClick={downloadPNG}>Download as PNG</button> */}
       </div>
 
       <BlockNoteView
-        className="w-full h-full"
+        className="w-full h-full bg-gray-950"
         editor={editor}
 
         slashMenu={false}
@@ -468,12 +514,27 @@ const downloadPNG = () => {
         <AccordionItem value="item-1">
           <AccordionTrigger>show as html format</AccordionTrigger>
           <AccordionContent>
-          <div>Output (HTML):</div>
+            <div>Output (HTML):</div>
             <div className="item bordered">
               <pre>
                 <code>{html}</code>
               </pre>
             </div>
+
+            <div>Output (Markdown):</div>
+            <div className={"item bordered"}>
+              <pre>
+                <code>{markdown}</code>
+              </pre>
+            </div>
+
+              <div>Output json</div>
+            <div className="item bordered">
+              <pre>{JSON.stringify(json, null, 2)}</pre>
+            </div>
+
+            
+
           </AccordionContent>
         </AccordionItem>
       </Accordion>
