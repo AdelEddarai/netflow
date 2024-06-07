@@ -26,7 +26,7 @@ const Hero = () => {
           <p className="text-md opacity-80 max-w-[30rem] w-full relative">
             <Spaceflow />
           </p>
-          <div className="flex flex-wrap gap-3 p-2 z-[99]">
+          <div className="flex flex-wrap gap-3 p-2">
             <Link
               href={'/sign-up'}
               className="px-4 py-2 bg-white rounded-md text-black font-medium text-[14px] grow"
@@ -42,8 +42,8 @@ const Hero = () => {
           </div>
         </div>
         <div className="relative rounded-xl">
-          <div className="h-[15rem] bg:[10rem] bg-black mx-auto absolute top-[-4rem] blur-[100px] opacity-20 z-[1]"></div>
-          <div className="rounded-[inherit] [border:calc(1.9*1px)_solid_transparent] ![mask-clip:padding-box,border-box] ![mask-composite:intersect] [mask:linear-gradient(transparent,transparent),linear-gradient(white,white)]  absolute inset-0 rounded-inherit border-2 border-transparent !mask-clip-padding-box-border-box after:absolute after:aspect-square after:w-[50px] lg:after:w[100px] after:animate-animatedBeam after:bg-gradient-to-l after:from-purple-500 after:via-purple-950 after:to-transparent after:[offset-anchor:90%_50%] after:[offset-path:rect(0_auto_auto_0_round_250px)] z-[9999]"></div>
+          <div className="h-[15rem] bg:[10rem] bg-black mx-auto absolute top-[-4rem] blur-[100px] opacity-20"></div>
+          <div className="rounded-[inherit] [border:calc(1.9*1px)_solid_transparent] ![mask-clip:padding-box,border-box] ![mask-composite:intersect] [mask:linear-gradient(transparent,transparent),linear-gradient(white,white)]  absolute inset-0 rounded-inherit border-2 border-transparent !mask-clip-padding-box-border-box after:absolute after:aspect-square after:w-[50px] lg:after:w[100px] after:animate-animatedBeam after:bg-gradient-to-l after:from-purple-500 after:via-purple-950 after:to-transparent after:[offset-anchor:90%_50%] after:[offset-path:rect(0_auto_auto_0_round_250px)]"></div>
           <Image
             width={1920}
             height={1920}
