@@ -8,7 +8,7 @@ import { AddTaskShortcut } from '@/components/addTaskShortcut/AddTaskShortcut';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'StudyFlow - Settings',
+	title: 'SpaceFlow - Settings',
 };
 
 const Settings = async () => {

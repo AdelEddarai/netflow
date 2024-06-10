@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState, useCallback } from "react";
+import { useEffect, useMemo, useState, useCallback, useRef } from "react";
 import {
   Block,
   BlockNoteEditor,
@@ -20,6 +20,22 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 
 import {
+  BasicTextStyleButton,
+  BlockTypeSelect,
+  ColorStyleButton,
+  CreateLinkButton,
+  FileCaptionButton,
+  FileReplaceButton,
+  FormattingToolbar,
+  FormattingToolbarController,
+  NestBlockButton,
+  TextAlignButton,
+  UnnestBlockButton,
+  useCreateBlockNote,
+} from "@blocknote/react";
+
+
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -27,7 +43,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-
 
 import {
   Accordion,
@@ -39,7 +54,7 @@ import {
 
 import { RiAlertFill } from "react-icons/ri";
 import { HiOutlineGlobeAlt } from "react-icons/hi";
-import { Alert } from "./Alert";
+
 
 import YPartyKitProvider from "y-partykit/provider";
 import * as Y from "yjs";
@@ -47,48 +62,10 @@ import './JsonBlock.css'
 import html2pdf from 'html2pdf.js';
 import html2canvas from 'html2canvas';
 
-
-
-
-// To simplify the JSON structure and reduce its size, you can modify the markdownToJson function to extract only the necessary information from the parsed markdown tree. Here's an updated version of the function:
-interface MarkdownNode {
-  type: 'paragraph' | 'listItem';
-  text: string;
-}
-
-function markdownToJson(markdown: string): MarkdownNode[] {
-  const lines = markdown.split('\n');
-  const nodes: MarkdownNode[] = [];
-  let currentType: 'paragraph' | 'listItem' | null = null;
-  let currentText = '';
-
-  for (const line of lines) {
-    if (line.trim().startsWith('*')) {
-      if (currentType === 'paragraph') {
-        nodes.push({ type: 'paragraph', text: currentText });
-        currentText = '';
-      }
-      currentType = 'listItem';
-      currentText += line.trim().replace(/^\*\s*/, '') + '\n';
-    } else {
-      if (currentType === 'listItem') {
-        nodes.push({ type: 'listItem', text: currentText });
-        currentText = '';
-      }
-      currentType = 'paragraph';
-      currentText += line.trim() + '\n';
-    }
-  }
-
-  if (currentType === 'paragraph') {
-    nodes.push({ type: 'paragraph', text: currentText });
-  } else if (currentType === 'listItem') {
-    nodes.push({ type: 'listItem', text: currentText });
-  }
-
-  return nodes;
-}
-
+import { CiCalendar } from "react-icons/ci";
+import { Alert } from "./Alert";
+import { Calendar } from './Calenderss'
+// import { TldrawBlock } from "./TldrawBlock";
 
 
 // Sets up Yjs document and PartyKit Yjs provider.
@@ -107,7 +84,8 @@ const schema = BlockNoteSchema.create({
   blockSpecs: {
     ...defaultBlockSpecs,
     alert: Alert,
-
+    calendar: Calendar,
+    // tldrawblock: TldrawBlock,
   },
 });
 
@@ -169,6 +147,45 @@ const insertAlert = (editor: typeof schema.BlockNoteEditor) => ({
   icon: <RiAlertFill />,
 });
 
+
+// Function to insert a Calendar block
+const insertCalendar = (editor: typeof schema.BlockNoteEditor) => ({
+  title: "Calendar",
+  onItemClick: () => {
+    insertOrUpdateBlock(editor, {
+      type: "calendar",
+    });
+  },
+  aliases: [
+    "calendar",
+    "event",
+    "meeting",
+    "appointment",
+    "task",
+  ],
+  group: "Other",
+  icon: <CiCalendar />,
+});
+
+// const insertTldrawBlock = (editor: typeof schema.BlockNoteEditor) => ({
+//   title: "Tldraw",
+//   onItemClick: () => {
+//     insertOrUpdateBlock(editor, {
+//       type: "tldraw",
+//     });
+//   },
+//   aliases: [
+//     "tldraw",
+//     "drawing",
+//     "sketch",
+//     // Add other aliases as needed
+//   ],
+//   group: "Other",
+//   icon: <RiAlertFill />,
+// });
+
+
+
 async function saveToStorage(jsonBlocks: Block[]) {
   // Simulate a save to storage function
   if (Math.random() < 0.1) {
@@ -208,6 +225,8 @@ function SaveIndicator({ status }: { status: string }) {
   );
 }
 
+
+
 export default function App() {
   const [initialContent, setInitialContent] = useState<
     PartialBlock[] | undefined | "loading"
@@ -220,7 +239,6 @@ export default function App() {
 
   const [markdown, setMarkdown] = useState<string>("");
 
-  const [json, setJson] = useState<{ type: string; text: string; }[]>([]); // Initialize json as an empty array
 
 
 
@@ -264,11 +282,6 @@ export default function App() {
             },
             {
               type: "text",
-              text: "blue",
-              styles: { textColor: "blue", backgroundColor: "blue" },
-            },
-            {
-              type: "text",
               text: " and ",
               styles: {},
             },
@@ -296,6 +309,10 @@ export default function App() {
           type: "alert",
           content: "This is an example alert",
         },
+        {
+          type: "calendar",
+          content: "This is an example calendar",
+        },
       ],
       uploadFile,
     });
@@ -315,7 +332,6 @@ export default function App() {
         // Store the document JSON to state.
         setBlocks(editor.document as Block[]);
         setMarkdown(markdown);
-        setJson(markdownToJson(markdown));
 
 
         // Save the content to storage.
@@ -465,6 +481,7 @@ export default function App() {
 
 
 
+
   return (
     <div>
       <div className="flex items-center space-x-4 mt-2">
@@ -499,11 +516,66 @@ export default function App() {
         slashMenu={false}
         onChange={handleChange}
       >
+        {/* the formatting is when u select a word it pops up a items */}
+        <FormattingToolbarController
+          formattingToolbar={() => (
+            <FormattingToolbar>
+              <BlockTypeSelect key={"blockTypeSelect"} />
+
+              {/* Extra button to toggle blue text & background */}
+              {/* <BlueButton key={"customButton"} /> */}
+
+              <FileCaptionButton key={"fileCaptionButton"} />
+              <FileReplaceButton key={"replaceFileButton"} />
+
+              <BasicTextStyleButton
+                basicTextStyle={"bold"}
+                key={"boldStyleButton"}
+              />
+              <BasicTextStyleButton
+                basicTextStyle={"italic"}
+                key={"italicStyleButton"}
+              />
+              <BasicTextStyleButton
+                basicTextStyle={"underline"}
+                key={"underlineStyleButton"}
+              />
+              <BasicTextStyleButton
+                basicTextStyle={"strike"}
+                key={"strikeStyleButton"}
+              />
+              {/* Extra button to toggle code styles */}
+              <BasicTextStyleButton
+                key={"codeStyleButton"}
+                basicTextStyle={"code"}
+              />
+
+              <TextAlignButton
+                textAlignment={"left"}
+                key={"textAlignLeftButton"}
+              />
+              <TextAlignButton
+                textAlignment={"center"}
+                key={"textAlignCenterButton"}
+              />
+              <TextAlignButton
+                textAlignment={"right"}
+                key={"textAlignRightButton"}
+              />
+
+              <ColorStyleButton key={"colorStyleButton"} />
+
+              <NestBlockButton key={"nestBlockButton"} />
+              <UnnestBlockButton key={"unnestBlockButton"} />
+
+            </FormattingToolbar>
+          )}
+        />
         <SuggestionMenuController
           triggerCharacter={"/"}
           getItems={async (query) =>
             filterSuggestionItems(
-              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor)],
+              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor)],
               query
             )
           }
@@ -528,12 +600,12 @@ export default function App() {
               </pre>
             </div>
 
-              <div>Output json</div>
-            <div className="item bordered">
-              <pre>{JSON.stringify(json, null, 2)}</pre>
+            <div>Document JSON:</div>
+            <div className={"item bordered"}>
+              <pre>
+                <code>{JSON.stringify(blocks, null, 2)}</code>
+              </pre>
             </div>
-
-            
 
           </AccordionContent>
         </AccordionItem>
