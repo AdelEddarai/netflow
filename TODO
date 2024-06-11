@@ -1,7 +1,8 @@
 -- connect blocknote to a db
 -- Add a cutom url for blocknote to collaborating
--- add a whiteboard (tldraw)
--- add a marketplace
--- add a video chat 
+-- add a whiteboard (tldraw) !important
+-- add a marketplace !important
+-- add a video chat [in progress]  !important
 -- add a jira clone using beautiful dnd
--- add a skeleton to a table and component
+-- add a skeleton to a table and component [has bug in production]
+-- add some Block in Blocknotes 
