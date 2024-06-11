@@ -107,7 +107,7 @@ export default function Page() {
     >
       <VideoConference />
 
-      <div className='mb-12'>
+      <div className=''>
       <Dialog>
         <DialogTrigger><CiViewBoard />whiteboard</DialogTrigger>
         <DialogContent>
