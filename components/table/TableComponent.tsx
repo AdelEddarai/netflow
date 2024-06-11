@@ -102,6 +102,7 @@ export const TableComponent = ({ userId, initialData }: Props) => {
           {data && data.pages.flatMap((page) => page).map((activityItem) => (
             <TableRow key={activityItem.id}>
               <TableCell className="px-4 py-2">{showSkeleton ? <SkeletonTableCell /> : activityItem.title}</TableCell>
+              <TableCell className="px-4 py-2">{showSkeleton ? <SkeletonTableCell /> : activityItem.title}</TableCell>
               <TableCell className="px-4 py-2">{showSkeleton ? <SkeletonTableCell /> : activityItem.emoji}</TableCell>
               <TableCell className="px-4 py-2">{showSkeleton ? <SkeletonTableCell /> : <Link href={activityItem.link} className="underline">Link</Link>}</TableCell>
               <TableCell className="px-4 py-2">{showSkeleton ? <SkeletonTableCell /> : activityItem.workspaceName}</TableCell>
