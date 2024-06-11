@@ -15,7 +15,7 @@ import { Skeleton } from '../ui/skeleton';
 // SkeletonTableCell component definition using shadcn
 const SkeletonTableCell = () => (
   <TableCell className="px-4 py-2">
-    <Skeleton className="h-6 w-full bg-gray-300 rounded-md animate-pulse" />
+    <Skeleton className="h-6 w-full bg-gray-900 rounded-md animate-pulse" />
   </TableCell>
 );
 

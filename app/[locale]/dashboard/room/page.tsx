@@ -15,6 +15,19 @@ import { Track } from "livekit-client";
 import { useSearchParams } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import WhietboardPage from "../whiteboard/page";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+import { CiViewBoard } from "react-icons/ci";
+
 
 export default function Page() {
   const params = useSearchParams();
@@ -92,7 +105,23 @@ export default function Page() {
       data-lk-theme="default"
       style={{ height: "100dvh" }}
     >
-        <VideoConference />
+      <VideoConference />
+
+      <div className='mb-12'>
+      <Dialog>
+        <DialogTrigger><CiViewBoard />whiteboard</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className='mt-6'>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              <WhietboardPage />
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+      </div>
+
+
     </LiveKitRoom>
   );
 }
