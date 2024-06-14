@@ -176,11 +176,11 @@ const KanbanColumn: React.FC<{
 
     return (
         <div
-            className="flex-1 p-4 rounded-md"
+            className="flex-1 bg-black p-4 rounded-md"
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
         >
-            <h2 className="text-black text-center mb-4 text-lg font-semibold uppercase">{status}</h2>
+            <h2 className="text-white text-center mb-4 text-lg font-semibold uppercase">{status}</h2>
             {filteredTasks.map((task, index) => (
                 <KanbanTask
                     key={task.id}
@@ -228,8 +228,9 @@ const KanbanTask: React.FC<{
             draggable
             onDragStart={handleDragStart}
             onDragOver={onDragOver}
-            className={`bg-black border  p-3 mb-2 rounded-md shadow-md cursor-pointer z-10 transition-opacity ${showSkeleton ? 'opacity-50' : 'opacity-100'
-                }`}
+            className={`bg-black  border border-gray-900 p-3 mb-2 rounded-md shadow-md cursor-pointer z-10 transition-opacity ${
+                showSkeleton ? 'opacity-50' : 'opacity-100'
+            }`}
             style={{ cursor: 'move' }}
         >
             {showSkeleton ? (
@@ -239,8 +240,9 @@ const KanbanTask: React.FC<{
                     <div className="flex items-center justify-between mb-2">
                         <h3 className="text-lg font-semibold">{task.title}</h3>
                         <div
-                            className={`px-2 py-1 rounded-md text-xs font-bold ${task.status === 'done' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-800'
-                                }`}
+                            className={`px-2 py-1 rounded-md text-xs font-bold ${
+                                task.status === 'done' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-800'
+                            }`}
                         >
                             {task.status === 'done' ? 'Done' : 'In Progress'}
                         </div>
