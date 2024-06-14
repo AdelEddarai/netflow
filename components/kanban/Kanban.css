@@ -1,0 +1,14 @@
+/* KanbanBoard.css */
+
+.kanban-column {
+    flex: 1;
+  }
+  
+  .kanban-task {
+    position: relative;
+  }
+  
+  .skeleton-animation {
+    transition: transform 0.2s ease-in-out;
+  }
+  
