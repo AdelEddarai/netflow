@@ -16,9 +16,9 @@ import { HomeRecentActivity } from '@/types/extended';
 interface Task {
     id: number;
     title: string;
-    status: 'inProgress' | 'done' | string & string; // Ensure status type matches this definition
+    status: "inProgress" | "done" | string; // Ensure status type matches this definition
     description: string; // Add description property
-  }
+}
 
 // Skeleton component for loading state
 const SkeletonTableCell = () => (
@@ -86,7 +86,7 @@ const KanbanBoard: React.FC<{ userId: string; initialData: HomeRecentActivity[] 
                 .map((activityItem) => ({
                     id: activityItem.id,
                     title: activityItem.title,
-                    status: activityItem.status === 'done' ? 'done' : 'inProgress', // Ensure status type matches this definition
+                    status: activityItem.status === 'done' ? 'done' : 'inProgress',
                 })) as Task[];
             setTasks(newTasks);
         }
@@ -132,7 +132,7 @@ const KanbanBoard: React.FC<{ userId: string; initialData: HomeRecentActivity[] 
 
 // Kanban Column Component
 const KanbanColumn: React.FC<{
-    status: 'inProgress' | 'done'; // Ensure status type matches this definition
+    status: "inProgress" | "done" | string; // Ensure status type matches this definition
     tasks: Task[];
     showSkeleton: boolean;
     onDragEnd: (event: React.DragEvent<HTMLDivElement>, task: Task) => void;
@@ -176,11 +176,11 @@ const KanbanColumn: React.FC<{
 
     return (
         <div
-            className="flex-1 p-2 rounded-md bg-black"
+            className="flex-1 p-4 rounded-md"
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
         >
-            <h2 className="text-white text-center mb-4">{status.toUpperCase()}</h2>
+            <h2 className="text-black text-center mb-4 text-lg font-semibold uppercase">{status}</h2>
             {filteredTasks.map((task, index) => (
                 <KanbanTask
                     key={task.id}
@@ -197,49 +197,61 @@ const KanbanColumn: React.FC<{
 
 // Kanban Task Component
 
-
 const KanbanTask: React.FC<{
     task: Task;
     index: number;
     showSkeleton: boolean;
     onDragStart: (event: React.DragEvent<HTMLDivElement>, task: Task) => void;
     onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
-  }> = ({ task, index, showSkeleton, onDragStart, onDragOver }) => {
+}> = ({ task, index, showSkeleton, onDragStart, onDragOver }) => {
     useEffect(() => {
-      const taskElement = document.getElementById(`task-${task.id}`);
-      if (taskElement) {
-        taskElement.style.transition = 'background-color 0.2s ease, transform 0.2s ease';
-      }
+        const taskElement = document.getElementById(`task-${task.id}`);
+        if (taskElement) {
+            taskElement.style.transition = 'background-color 0.2s ease, transform 0.2s ease';
+        }
     }, [task.id]);
-  
+
+    // Handle drag start event
+    const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+        onDragStart(event, task);
+    };
+
+    // Handle drag over event for sorting
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault();
+        onDragOver(event);
+    };
+
     return (
-      <div
-        id={`task-${task.id}`}
-        draggable
-        onDragStart={(e) => onDragStart(e, task)}
-        onDragOver={onDragOver}
-        className={`bg-black border border-gray-900 p-3 mb-2 rounded-md shadow-md cursor-pointer z-10 transition-opacity ${
-          showSkeleton ? 'opacity-50' : 'opacity-100'
-        }`}
-        style={{ cursor: 'move' }}
-      >
-        {showSkeleton ? (
-          <SkeletonTableCell />
-        ) : (
-          <>
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-lg font-semibold">{task.title}</h3>
-              <div className={`px-2 py-1 rounded-md text-xs font-bold ${task.status === 'done' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-800'}`}>
-                {task.status === 'done' ? 'Done' : 'In Progress'}
-              </div>
-            </div>
-            <p className="text-sm text-gray-600">{task.description}</p> {/* Display description */}
-          </>
-        )}
-      </div>
+        <div
+            id={`task-${task.id}`}
+            draggable
+            onDragStart={handleDragStart}
+            onDragOver={onDragOver}
+            className={`bg-black border  p-3 mb-2 rounded-md shadow-md cursor-pointer z-10 transition-opacity ${showSkeleton ? 'opacity-50' : 'opacity-100'
+                }`}
+            style={{ cursor: 'move' }}
+        >
+            {showSkeleton ? (
+                <SkeletonTableCell />
+            ) : (
+                <>
+                    <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-lg font-semibold">{task.title}</h3>
+                        <div
+                            className={`px-2 py-1 rounded-md text-xs font-bold ${task.status === 'done' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-800'
+                                }`}
+                        >
+                            {task.status === 'done' ? 'Done' : 'In Progress'}
+                        </div>
+                    </div>
+                    <p className="text-sm text-gray-600">{task.description}</p> {/* Display description */}
+                </>
+            )}
+        </div>
     );
-  };
-  
-  
+};
+
+
 
 export default KanbanBoard;
