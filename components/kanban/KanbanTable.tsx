@@ -16,9 +16,9 @@ import { HomeRecentActivity } from '@/types/extended';
 interface Task {
     id: number;
     title: string;
-    status: 'inProgress' | 'done'; // Ensure status type matches this definition
-}
-
+    status: 'inProgress' | 'done' | string & string; // Ensure status type matches this definition
+    description: string; // Add description property
+  }
 
 // Skeleton component for loading state
 const SkeletonTableCell = () => (
@@ -176,7 +176,7 @@ const KanbanColumn: React.FC<{
 
     return (
         <div
-            className="flex-1 p-2 rounded-md bg-gray-900"
+            className="flex-1 p-2 rounded-md bg-black"
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
         >
@@ -196,6 +196,7 @@ const KanbanColumn: React.FC<{
 };
 
 // Kanban Task Component
+
 
 const KanbanTask: React.FC<{
     task: Task;
@@ -217,14 +218,28 @@ const KanbanTask: React.FC<{
         draggable
         onDragStart={(e) => onDragStart(e, task)}
         onDragOver={onDragOver}
-        className={`bg-black p-2 mb-2 shadow-md rounded-md cursor-pointer z-999 transition-opacity ${
+        className={`bg-black border border-gray-900 p-3 mb-2 rounded-md shadow-md cursor-pointer z-10 transition-opacity ${
           showSkeleton ? 'opacity-50' : 'opacity-100'
         }`}
         style={{ cursor: 'move' }}
       >
-        {showSkeleton ? <SkeletonTableCell /> : task.title}
+        {showSkeleton ? (
+          <SkeletonTableCell />
+        ) : (
+          <>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold">{task.title}</h3>
+              <div className={`px-2 py-1 rounded-md text-xs font-bold ${task.status === 'done' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-800'}`}>
+                {task.status === 'done' ? 'Done' : 'In Progress'}
+              </div>
+            </div>
+            <p className="text-sm text-gray-600">{task.description}</p> {/* Display description */}
+          </>
+        )}
       </div>
     );
   };
+  
+  
 
 export default KanbanBoard;
