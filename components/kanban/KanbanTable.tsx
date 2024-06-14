@@ -196,7 +196,6 @@ const KanbanColumn: React.FC<{
 };
 
 // Kanban Task Component
-
 const KanbanTask: React.FC<{
     task: Task;
     index: number;
@@ -204,6 +203,7 @@ const KanbanTask: React.FC<{
     onDragStart: (event: React.DragEvent<HTMLDivElement>, task: Task) => void;
     onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
 }> = ({ task, index, showSkeleton, onDragStart, onDragOver }) => {
+
     useEffect(() => {
         const taskElement = document.getElementById(`task-${task.id}`);
         if (taskElement) {
@@ -222,13 +222,47 @@ const KanbanTask: React.FC<{
         onDragOver(event);
     };
 
+    // Handle touch start event
+    const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+        const taskElement = event.currentTarget;
+        const dragStartEvent = new DragEvent('dragstart', {
+            bubbles: true,
+            cancelable: true,
+            dataTransfer: new DataTransfer(),
+        });
+        Object.defineProperty(dragStartEvent, 'dataTransfer', { value: new DataTransfer() });
+        dragStartEvent.dataTransfer!.setData('task', JSON.stringify(task));
+        taskElement.dispatchEvent(dragStartEvent);
+    };
+
+    // Handle touch move event
+    const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
+        event.preventDefault();
+    };
+
+    // Handle touch end event
+    const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+        const taskElement = event.currentTarget;
+        const dropEvent = new DragEvent('drop', {
+            bubbles: true,
+            cancelable: true,
+            dataTransfer: new DataTransfer(),
+        });
+        Object.defineProperty(dropEvent, 'dataTransfer', { value: new DataTransfer() });
+        dropEvent.dataTransfer!.setData('task', JSON.stringify(task));
+        taskElement.dispatchEvent(dropEvent);
+    };
+
     return (
         <div
             id={`task-${task.id}`}
             draggable
             onDragStart={handleDragStart}
-            onDragOver={onDragOver}
-            className={`bg-black  border border-gray-900 p-3 mb-2 rounded-md shadow-md cursor-pointer z-10 transition-opacity ${
+            onDragOver={handleDragOver}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            className={`bg-black border border-gray-900 p-3 mb-2 rounded-md shadow-md cursor-pointer z-10 transition-opacity ${
                 showSkeleton ? 'opacity-50' : 'opacity-100'
             }`}
             style={{ cursor: 'move' }}
@@ -253,7 +287,5 @@ const KanbanTask: React.FC<{
         </div>
     );
 };
-
-
 
 export default KanbanBoard;
