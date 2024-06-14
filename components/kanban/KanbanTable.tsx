@@ -176,7 +176,7 @@ const KanbanColumn: React.FC<{
 
     return (
         <div
-            className="flex-1 bg-black p-4 rounded-md"
+            className="flex-1 p-4 rounded-md"
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
         >

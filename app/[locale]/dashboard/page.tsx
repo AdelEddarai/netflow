@@ -34,8 +34,9 @@ const Dashboard = async () => {
 				{/* TODO: add icon and more function in table    */}
 				<TableComponent userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />
 				<Analytics userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />
-				<KanbanBoard userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />
-				
+				<div className="p-3">
+				<KanbanBoard userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />				
+				</div>
 			</main>
 		</>
 	);
