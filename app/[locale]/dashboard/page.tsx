@@ -3,6 +3,7 @@ import Analytics from '@/components/Analytics/Analyticss';
 import Welcoming from '@/components/common/Welcoming';
 import { DashboardHeader } from '@/components/header/DashboardHeader';
 import { HomeRecentActivityContainer } from '@/components/homeRecentAcrivity/HomeRecentActivityContainer';
+import FlowBoard from '@/components/kanban/FlowBoard';
 import  KanbanBoard  from '@/components/kanban/KanbanTable';
 import { TableComponent } from '@/components/table/TableComponent';
 import { getInitialHomeRecentActivitiy } from '@/lib/api';
@@ -37,6 +38,7 @@ const Dashboard = async () => {
 				<div className="p-3">
 				<KanbanBoard userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />				
 				</div>
+				<FlowBoard userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />
 			</main>
 		</>
 	);

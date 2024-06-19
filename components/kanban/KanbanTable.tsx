@@ -2,7 +2,7 @@
 
 
 import React, { useState, useEffect } from 'react';
-import { Activity } from 'lucide-react';
+import { Activity, CalendarIcon } from 'lucide-react';
 import { ClientError } from '../error/ClientError';
 import { useTranslations } from 'next-intl';
 import { Skeleton } from '../ui/skeleton';
@@ -10,22 +10,50 @@ import { ACTIVITY_PER_PAGE } from '@/lib/constants';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useIntersection } from '@mantine/hooks';
 import { HomeRecentActivity } from '@/types/extended';
+import { motion } from 'framer-motion';
+// import './Kanban.css'
+
+
+import { cn } from "@/lib/utils"
+import { Button } from "../ui/button"
+import { Calendar } from "../ui/calendar"
+
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "../ui/select"
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+import { addDays, format } from "date-fns"
+import { Input } from '../ui/input';
+
 
 
 // Define interface for Task
 interface Task {
     id: number;
     title: string;
-    status: "inProgress" | "done" | string; // Ensure status type matches this definition
+    status: "inProgress" | "done" | string; // Adjusted to remove 'toDo'
     description: string; // Add description property
+    tag: string
+    dueDate?: Date; // Optional due date property
 }
 
 // Skeleton component for loading state
 const SkeletonTableCell = () => (
-    <div className="px-4 py-2">
+    <motion.div
+        className="px-4 py-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+    >
         <Skeleton className="h-6 w-full bg-gray-900 rounded-md animate-pulse" />
-    </div>
+    </motion.div>
 );
+
 
 // Kanban Board Component
 const KanbanBoard: React.FC<{ userId: string; initialData: HomeRecentActivity[] }> = ({ userId, initialData }) => {
@@ -86,7 +114,9 @@ const KanbanBoard: React.FC<{ userId: string; initialData: HomeRecentActivity[] 
                 .map((activityItem) => ({
                     id: activityItem.id,
                     title: activityItem.title,
-                    status: activityItem.status === 'done' ? 'done' : 'inProgress',
+                    status: activityItem.status === 'done' ? 'done' : 'inProgress', // Adjusted to remove 'toDo'
+                    description: activityItem.description,
+                    tag: getActivityTag(activityItem.id) || '', // Retrieve tag from local storage
                 })) as Task[];
             setTasks(newTasks);
         }
@@ -101,7 +131,18 @@ const KanbanBoard: React.FC<{ userId: string; initialData: HomeRecentActivity[] 
             }
             return t;
         });
+        saveActivityTag(task.id, task.tag); // Save updated tag to local storage
         setTasks(updatedTasks);
+    };
+
+    // Save activity tag to local storage
+    const saveActivityTag = (taskId: number, tag: string) => {
+        localStorage.setItem(`task_${taskId}_tag`, tag);
+    };
+
+    // Get activity tag from local storage
+    const getActivityTag = (taskId: number): string | null => {
+        return localStorage.getItem(`task_${taskId}_tag`);
     };
 
     // Render loading error if fetching fails
@@ -120,7 +161,7 @@ const KanbanBoard: React.FC<{ userId: string; initialData: HomeRecentActivity[] 
 
     // Render Kanban Board
     return (
-        <div className="w-full mt-10 rounded-md">
+        <div className="mt-10 rounded-md">
             <div className="flex gap-4">
                 {['inProgress', 'done'].map((status) => (
                     <KanbanColumn key={status} status={status} tasks={tasks} showSkeleton={showSkeleton} onDragEnd={handleDragEnd} />
@@ -130,9 +171,10 @@ const KanbanBoard: React.FC<{ userId: string; initialData: HomeRecentActivity[] 
     );
 };
 
+
 // Kanban Column Component
 const KanbanColumn: React.FC<{
-    status: "inProgress" | "done" | string; // Ensure status type matches this definition
+    status: "inProgress" | "done" | string; // Adjusted to remove 'toDo'
     tasks: Task[];
     showSkeleton: boolean;
     onDragEnd: (event: React.DragEvent<HTMLDivElement>, task: Task) => void;
@@ -174,6 +216,29 @@ const KanbanColumn: React.FC<{
         setColumnTasks(tasks);
     }, [tasks]);
 
+    const onUpdateTag = (taskId: number, tag: string) => {
+        // Implement logic to update the tag for the specified task
+        // For example:
+        const updatedTasks = tasks.map((t) => {
+            if (t.id === taskId) {
+                return { ...t, tag };
+            }
+            return t;
+        });
+    };
+
+    const onUpdateDueDate = (taskId: number, dueDate: Date | null) => {
+        // Implement logic to update the due date for the specified task
+        const updatedTasks = tasks.map((task) => {
+            if (task.id === taskId) {
+                return { ...task, dueDate };
+            }
+            return task;
+        });
+    };
+
+
+
     return (
         <div
             className="flex-1 p-4 rounded-md"
@@ -183,13 +248,16 @@ const KanbanColumn: React.FC<{
             <h2 className="text-white text-center mb-4 text-lg font-semibold uppercase">{status}</h2>
             {filteredTasks.map((task, index) => (
                 <KanbanTask
+                    onUpdateDueDate={onUpdateDueDate}
+                    onUpdateTag={onUpdateTag} // Pass the onUpdateTag function here
                     key={task.id}
                     task={task}
-                    index={index}
+                    index={index} // Ensure you pass the index prop here
                     showSkeleton={showSkeleton}
                     onDragStart={handleDragStart}
                     onDragOver={(e) => handleDragOver(e, index)}
                 />
+
             ))}
         </div>
     );
@@ -202,27 +270,32 @@ const KanbanTask: React.FC<{
     showSkeleton: boolean;
     onDragStart: (event: React.DragEvent<HTMLDivElement>, task: Task) => void;
     onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
-}> = ({ task, index, showSkeleton, onDragStart, onDragOver }) => {
+    onUpdateTag: (taskId: number, tag: string) => void; // Function to update tag
+    onUpdateDueDate: (taskId: number, dueDate: Date | null) => void; // Function to update due date
+}> = ({ task, index, showSkeleton, onDragStart, onDragOver, onUpdateTag, onUpdateDueDate }) => {
+    const [isDragging, setIsDragging] = useState(false);
+    const [tag, setTag] = useState(task.tag);
+    const [dueDate, setDueDate] = useState<Date | null>(task.dueDate || null); // Initialize with existing due date if any
+    const [date, setDate] = React.useState<Date>()
+
 
     useEffect(() => {
         const taskElement = document.getElementById(`task-${task.id}`);
         if (taskElement) {
-            taskElement.style.transition = 'background-color 0.2s ease, transform 0.2s ease';
+            taskElement.style.transition = 'transform 0.2s ease, box-shadow 0.2s ease';
         }
     }, [task.id]);
 
-    // Handle drag start event
     const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+        setIsDragging(true);
         onDragStart(event, task);
     };
 
-    // Handle drag over event for sorting
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
         onDragOver(event);
     };
 
-    // Handle touch start event
     const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
         const taskElement = event.currentTarget;
         const dragStartEvent = new DragEvent('dragstart', {
@@ -235,13 +308,12 @@ const KanbanTask: React.FC<{
         taskElement.dispatchEvent(dragStartEvent);
     };
 
-    // Handle touch move event
     const handleTouchMove = (event: React.TouchEvent<HTMLDivElement>) => {
         event.preventDefault();
     };
 
-    // Handle touch end event
     const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+        setIsDragging(false);
         const taskElement = event.currentTarget;
         const dropEvent = new DragEvent('drop', {
             bubbles: true,
@@ -253,8 +325,19 @@ const KanbanTask: React.FC<{
         taskElement.dispatchEvent(dropEvent);
     };
 
+    const handleUpdateTag = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newTag = event.target.value;
+        setTag(newTag);
+        onUpdateTag(task.id, newTag); // Call parent function to update tag
+    };
+
+    const handleDueDateChange = (date: Date | null) => {
+        setDueDate(date);
+        onUpdateDueDate(task.id, date); // Call parent function to update due date
+    };
+
     return (
-        <div
+        <div 
             id={`task-${task.id}`}
             draggable
             onDragStart={handleDragStart}
@@ -262,30 +345,76 @@ const KanbanTask: React.FC<{
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
-            className={`bg-black border border-gray-900 p-3 mb-2 rounded-md shadow-md cursor-pointer z-10 transition-opacity ${
-                showSkeleton ? 'opacity-50' : 'opacity-100'
-            }`}
-            style={{ cursor: 'move' }}
+            className={`bg-black border border-gray-900 p-3 mb-2 rounded-md shadow-md cursor-pointer ${showSkeleton ? 'opacity-50' : 'opacity-100'
+                } ${isDragging ? 'dragging' : ''}`}  // Added responsive width classes here
+            style={{ transform: isDragging ? 'translate(5px, -5px)' : 'translate(0, 0)' }}
         >
             {showSkeleton ? (
                 <SkeletonTableCell />
             ) : (
-                <>
+                <motion.div
+                    className="content"
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 1 }}
+                    whileHover={{ opacity: 1 }}
+                    whileTap={{ opacity: 0.7 }}
+                >
                     <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold">{task.title}</h3>
-                        <div
-                            className={`px-2 py-1 rounded-md text-xs font-bold ${
-                                task.status === 'done' ? 'bg-green-500 text-white' : 'bg-yellow-500 text-gray-800'
-                            }`}
-                        >
-                            {task.status === 'done' ? 'Done' : 'In Progress'}
-                        </div>
+                        <h3 className="text-lg font-semibold text-green-300">{task.title}</h3>
+                        {/* <Input
+                            type="text"
+                            value={tag}
+                            onChange={handleUpdateTag}
+                            className="border-b border-gray-300 focus:border-blue-500 outline-none px-1 text-sm w-32"
+                            placeholder="Add tag"
+                        /> */}
                     </div>
-                    <p className="text-sm text-gray-600">{task.description}</p> {/* Display description */}
-                </>
+                    <p className="text-sm text-gray-600">{task.description}</p>
+                    <div className="flex items-center justify-between mt-2 space-x-2">
+                        <Input
+                            type="text"
+                            value={tag}
+                            onChange={handleUpdateTag}
+                            className="border-b border-gray-300 focus:border-blue-500 outline-none px-1 text-sm w-1/2 sm:w-1/3"
+                            placeholder="Add tag"
+                        />
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant={"outline"}
+                                    className={cn(
+                                        "w-full sm:w-[280px] justify-start text-left font-normal",
+                                        !date && "text-muted-foreground"
+                                    )}
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4" />
+                                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="flex w-auto flex-col space-y-2 p-2">
+                                <Select
+                                    onValueChange={(value) => handleDueDateChange(addDays(new Date(), parseInt(value)))}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue placeholder="Select" />
+                                    </SelectTrigger>
+                                    <SelectContent position="popper">
+                                        <SelectItem value="0">Today</SelectItem>
+                                        <SelectItem value="1">Tomorrow</SelectItem>
+                                        <SelectItem value="3">In 3 days</SelectItem>
+                                        <SelectItem value="7">In a week</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                                <div className="rounded-md border">
+                                    <Calendar mode="single" selected={date} onSelect={setDate} />
+                                </div>
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+                </motion.div>
             )}
         </div>
+
     );
 };
-
 export default KanbanBoard;
