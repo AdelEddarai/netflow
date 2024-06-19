@@ -370,7 +370,7 @@ const KanbanTask: React.FC<{
                         /> */}
                     </div>
                     <p className="text-sm text-gray-600">{task.description}</p>
-                    <div className="flex items-center justify-between mt-2 space-x-2">
+                    <div className="flex flex-col sm:flex-row items-center justify-between mt-2 space-y-2 sm:space-y-0 sm:space-x-2">
                         <Input
                             type="text"
                             value={tag}
