@@ -68,7 +68,7 @@ import { Calendar } from './Calenderss'
 import QuoteBlock from "./Quote"
 
 import { FaCode } from "react-icons/fa"; 
-import CodeBlock from "./CodingBlock";
+
 
 // Sets up Yjs document and PartyKit Yjs provider.
 const doc = new Y.Doc();
@@ -88,7 +88,6 @@ const schema = BlockNoteSchema.create({
     alert: Alert,
     calendar: Calendar,
     quote: QuoteBlock,
-    code: CodeBlock
     // tldrawblock: TldrawBlock,
   },
 });
