@@ -65,8 +65,10 @@ import html2canvas from 'html2canvas';
 import { CiCalendar } from "react-icons/ci";
 import { Alert } from "./Alert";
 import { Calendar } from './Calenderss'
-// import { TldrawBlock } from "./TldrawBlock";
+import QuoteBlock from "./Quote"
 
+import { FaCode } from "react-icons/fa"; 
+import CodeBlock from "./CodingBlock";
 
 // Sets up Yjs document and PartyKit Yjs provider.
 const doc = new Y.Doc();
@@ -85,6 +87,8 @@ const schema = BlockNoteSchema.create({
     ...defaultBlockSpecs,
     alert: Alert,
     calendar: Calendar,
+    quote: QuoteBlock,
+    code: CodeBlock
     // tldrawblock: TldrawBlock,
   },
 });
@@ -166,6 +170,44 @@ const insertCalendar = (editor: typeof schema.BlockNoteEditor) => ({
   group: "Other",
   icon: <CiCalendar />,
 });
+
+const insertQuote = (editor: typeof schema.BlockNoteEditor) => ({
+  title: "Quote",
+  onItemClick: () => {
+    insertOrUpdateBlock(editor, {
+      type: "quote",
+    });
+  },
+  aliases: [
+    "quote",
+    "citation",
+    "quotation",
+  ],
+  group: "Other",
+  icon: <CiCalendar />, // Assuming MdFormatQuote is imported from react-icons/md
+});
+
+
+// const insertCode = (editor: typeof schema.BlockNoteEditor) => ({
+//   title: "Code",
+//   onItemClick: () => {
+//     insertOrUpdateBlock(editor, {
+//       type: "code",
+//       props: {
+//         language: "javascript", // Default language
+//         textAlignment: "left",
+//         textColor: "#000000",
+//       },
+//     });
+//   },
+//   aliases: [
+//     "code",
+//     "snippet",
+//     "programming",
+//   ],
+//   group: "Other",
+//   icon: <FaCode />, // Code icon from react-icons/fa
+// });
 
 // const insertTldrawBlock = (editor: typeof schema.BlockNoteEditor) => ({
 //   title: "Tldraw",
@@ -575,7 +617,7 @@ export default function App() {
           triggerCharacter={"/"}
           getItems={async (query) =>
             filterSuggestionItems(
-              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor)],
+              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertQuote(editor)],
               query
             )
           }

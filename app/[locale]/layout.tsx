@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -9,7 +8,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { locales } from '@/i18n';
 
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: 'StudyFlow',
@@ -30,7 +28,7 @@ const RootLayout = async ({
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
-			<body className={inter.className}>
+			<body className="">
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<AuthProvider>
 						<QueryProvider>

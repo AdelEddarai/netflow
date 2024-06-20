@@ -7,4 +7,6 @@
 -- add a skeleton to a table and component [has bug in production]
 -- add some Block in Blocknotes 
 
--- fix the issue table that exist in test folder 
+-- the issue exist in Quote (createBlockspec)
+
+-- 
