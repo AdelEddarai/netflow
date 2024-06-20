@@ -1,5 +1,4 @@
+
 {
-  "rules": {
-    "@typescript-eslint/ban-types": "off"
-  }
+  "extends": "next/core-web-vitals"
 }
