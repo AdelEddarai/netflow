@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'StudyFlow - Pomodoro',
+	title: 'Netflow - Pomodoro',
 };
 
 const Pomodoro = async () => {

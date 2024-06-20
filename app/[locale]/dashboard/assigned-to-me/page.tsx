@@ -5,7 +5,7 @@ import { AddTaskShortcut } from '@/components/addTaskShortcut/AddTaskShortcut';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'StudyFlow - Assigned to me',
+	title: 'Netflow - Assigned to me',
 };
 
 const AssignedToMe = async () => {

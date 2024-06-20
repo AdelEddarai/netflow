@@ -5,7 +5,7 @@ import { checkIfUserCompletedOnboarding } from '@/lib/checkIfUserCompletedOnboar
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'StudyFlow - Security Settings',
+	title: 'Netflow - Security Settings',
 };
 
 const SecuritySettings = async () => {

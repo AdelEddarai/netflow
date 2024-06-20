@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -8,11 +9,12 @@ import { Toaster } from '@/components/ui/toaster';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { locales } from '@/i18n';
 
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'StudyFlow',
+	title: 'Netflow',
 	description:
-		'Boost your productivity with StudyFlow. Create workspaces, tasks, notes, mind maps, and communicate with other participants within your workspace.',
+		'Boost your productivity with Netflow. Create workspaces, tasks, notes, mind maps, and communicate with other participants within your workspace.',
 };
 
 const RootLayout = async ({
@@ -28,7 +30,7 @@ const RootLayout = async ({
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
-			<body className="">
+			<body className={inter.className}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<AuthProvider>
 						<QueryProvider>

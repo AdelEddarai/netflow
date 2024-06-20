@@ -22,7 +22,7 @@ interface InviteCodeValidWhere {
 }
 
 export const metadata: Metadata = {
-	title: 'StudyFlow - Join to workspace',
+	title: 'Netflow - Join to workspace',
 	description:
 		"You've been invited to join a new workspace! Dive into a collaborative environment where you can streamline tasks, communicate effectively, and achieve your goals alongside fellow team members. Welcome aboard!",
 };
