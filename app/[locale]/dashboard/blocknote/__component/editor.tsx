@@ -66,8 +66,9 @@ import { CiCalendar } from "react-icons/ci";
 import { Alert } from "./Alert";
 import { Calendar } from './Calenderss'
 import QuoteBlock from "./Quote"
+import { CardBlock } from "./CardBlock";
+import { BadgeBlock } from "./BadgeBlock";
 
-import { FaCode } from "react-icons/fa"; 
 
 
 // Sets up Yjs document and PartyKit Yjs provider.
@@ -88,6 +89,8 @@ const schema = BlockNoteSchema.create({
     alert: Alert,
     calendar: Calendar,
     quote: QuoteBlock,
+    cardblock: CardBlock,
+    badgeblock: BadgeBlock
     // tldrawblock: TldrawBlock,
   },
 });
@@ -151,6 +154,48 @@ const insertAlert = (editor: typeof schema.BlockNoteEditor) => ({
 });
 
 
+
+const cardBlock = (editor: typeof schema.BlockNoteEditor) => ({
+  title: "Alert",
+  onItemClick: () => {
+    insertOrUpdateBlock(editor, {
+      type: "alert",
+    });
+  },
+  aliases: [
+    "alert",
+    "notification",
+    "emphasize",
+    "warning",
+    "error",
+    "info",
+    "success",
+  ],
+  group: "Other",
+  icon: <RiAlertFill />,
+});
+
+const badgeBlock = (editor: typeof schema.BlockNoteEditor) => ({
+  title: "badge",
+  onItemClick: () => {
+    insertOrUpdateBlock(editor, {
+      type: "alert",
+    });
+  },
+  aliases: [
+    "alert",
+    "notification",
+    "emphasize",
+    "warning",
+    "error",
+    "info",
+    "success",
+  ],
+  group: "Other",
+  icon: <RiAlertFill />,
+});
+
+
 // Function to insert a Calendar block
 const insertCalendar = (editor: typeof schema.BlockNoteEditor) => ({
   title: "Calendar",
@@ -187,43 +232,6 @@ const insertQuote = (editor: typeof schema.BlockNoteEditor) => ({
 });
 
 
-// const insertCode = (editor: typeof schema.BlockNoteEditor) => ({
-//   title: "Code",
-//   onItemClick: () => {
-//     insertOrUpdateBlock(editor, {
-//       type: "code",
-//       props: {
-//         language: "javascript", // Default language
-//         textAlignment: "left",
-//         textColor: "#000000",
-//       },
-//     });
-//   },
-//   aliases: [
-//     "code",
-//     "snippet",
-//     "programming",
-//   ],
-//   group: "Other",
-//   icon: <FaCode />, // Code icon from react-icons/fa
-// });
-
-// const insertTldrawBlock = (editor: typeof schema.BlockNoteEditor) => ({
-//   title: "Tldraw",
-//   onItemClick: () => {
-//     insertOrUpdateBlock(editor, {
-//       type: "tldraw",
-//     });
-//   },
-//   aliases: [
-//     "tldraw",
-//     "drawing",
-//     "sketch",
-//     // Add other aliases as needed
-//   ],
-//   group: "Other",
-//   icon: <RiAlertFill />,
-// });
 
 
 
@@ -616,7 +624,7 @@ export default function App() {
           triggerCharacter={"/"}
           getItems={async (query) =>
             filterSuggestionItems(
-              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertQuote(editor)],
+              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertQuote(editor),cardBlock(editor), badgeBlock(editor)],
               query
             )
           }
