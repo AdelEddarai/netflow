@@ -7,7 +7,7 @@ import {
 	ResizableHandle,
 	ResizablePanel,
 	ResizablePanelGroup,
-} from "@/components/ui/resizable"
+} from "@/components/ui/resizable";
 
 export const metadata: Metadata = {
 	title: 'SpaceFlow - Dashboard',
@@ -20,21 +20,25 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 		<UserActivityStatusProvider>
 			<UserEditableWorkspacesProvider>
 				<ToggleSidebarProvider>
-					<div className='flex h-0   min-h-screen w-full overflow-hidden'>
+					<ResizablePanelGroup direction="horizontal">
 
-						<ResizablePanelGroup direction="horizontal">
-							<ResizablePanel defaultSize={25}>
+						<ResizablePanel defaultSize={15}>
+
+							<div className='flex h-0 min-h-screen w-full overflow-hidden'>
 								<Sidebar />
-							</ResizablePanel>
-							<ResizableHandle withHandle />
-							<ResizablePanel defaultSize={75}>
-								<div className='relative p-4 md:p-6 lg:px-10 flex-grow  flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-background '>
-									{children}
-								</div>
-							</ResizablePanel>
-						</ResizablePanelGroup>
+							</div>
 
-					</div>
+						</ResizablePanel>
+
+						<ResizableHandle withHandle />
+
+						<ResizablePanel defaultSize={85}>
+							<div className='relative p-4 md:p-6 lg:px-10 flex-grow flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-background'>
+								{children}
+							</div>
+						</ResizablePanel>
+						
+					</ResizablePanelGroup>
 				</ToggleSidebarProvider>
 			</UserEditableWorkspacesProvider>
 		</UserActivityStatusProvider>
