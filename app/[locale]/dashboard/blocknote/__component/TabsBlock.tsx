@@ -1,15 +1,15 @@
 import { Menu } from "@mantine/core";
 import { createReactBlockSpec } from "@blocknote/react";
 import { defaultProps } from "@blocknote/core";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 
-type AlertType = "warning" | "error" | "info" | "success" | undefined;
+type tabsType = "main" | "head" | "info" | undefined;
 
-const cardTypes = [
+const tabsTypes = [
   {
-    title: "Warning",
-    value: "warning" as const,
+    title: "Main",
+    value: "main" as const,
     color: "#e69819",
     backgroundColor: {
       light: "#fff6e6",
@@ -17,8 +17,8 @@ const cardTypes = [
     },
   },
   {
-    title: "Error",
-    value: "error" as const,
+    title: "Head",
+    value: "head" as const,
     color: "#d80d0d",
     backgroundColor: {
       light: "#ffe6e6",
@@ -34,34 +34,25 @@ const cardTypes = [
       dark: "#203380",
     },
   },
-  {
-    title: "Success",
-    value: "success" as const,
-    color: "#0bc10b",
-    backgroundColor: {
-      light: "#e6ffe6",
-      dark: "#208020",
-    },
-  },
 ];
 
 
-export const CardBlock = createReactBlockSpec(
+export const TabsBlock = createReactBlockSpec(
   {
     type: "alert",
     propSchema: {
       textAlignment: defaultProps.textAlignment,
       textColor: defaultProps.textColor,
       type: {
-        default: "warning" as const,
-        values: ["warning", "error", "info", "success"],
+        default: "main" as const,
+        values: ["main", "head", "info"],
       },
     },
     content: "inline",
   },
   {
     render: (props) => {
-      const alertType = cardTypes.find((a) => a.value === props.block.props.type);
+      const tabsType = tabsTypes.find((a) => a.value === props.block.props.type);
 
       return (
         <div className="flex items-center">
@@ -72,7 +63,7 @@ export const CardBlock = createReactBlockSpec(
                 {/* Placeholder for icon */}
                 <div
                   className="text-2xl"
-                  style={{ color: alertType?.color }}
+                  style={{ color: tabsType?.color }}
                   data-alert-icon-type={props.block.props.type}
                 >
                   {/* You can place an icon here if needed */}
@@ -81,9 +72,9 @@ export const CardBlock = createReactBlockSpec(
             </Menu.Target>
             {/* Dropdown menu */}
             <Menu.Dropdown>
-              <Menu.Label>Alert Type</Menu.Label>
+              <Menu.Label>Tabs Type</Menu.Label>
               <Menu.Divider />
-              {cardTypes.map((type) => (
+              {tabsTypes.map((type) => (
                 <Menu.Item
                   key={type.value}
                   onClick={() =>
@@ -108,19 +99,15 @@ export const CardBlock = createReactBlockSpec(
             </Menu.Dropdown>
           </Menu>
           {/* Card for alert type */}
-          <Card>
-            <CardHeader>
-              {/* <CardTitle>{alertType?.title}</CardTitle> */}
-              <CardDescription>
-                This is a {props.block.props.type} card.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>
-              {props.block.props.type} 
-              </p>
-            </CardContent>
-          </Card>
+          <Tabs defaultValue="account" className="w-[400px]">
+            <TabsList>
+                <TabsTrigger value="account">kyne</TabsTrigger>
+                <TabsTrigger value="password">kyne</TabsTrigger>
+            </TabsList>
+            <TabsContent value="account">kyne</TabsContent>
+            <TabsContent value="password">kyne</TabsContent>
+            </Tabs>
+
         </div>
       );
     },

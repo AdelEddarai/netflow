@@ -67,19 +67,24 @@ import { Alert } from "./Alert";
 import { Calendar } from './Calenderss'
 import QuoteBlock from "./Quote"
 import { CardBlock } from "./CardBlock";
-import { BadgeBlock } from "./BadgeBlock";
+import { CiCreditCard2 } from "react-icons/ci";
+import { IoIosQuote } from "react-icons/io";
 
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 
 // Sets up Yjs document and PartyKit Yjs provider.
-const doc = new Y.Doc();
-const provider = new YPartyKitProvider(
-  "blocknote-dev.yousefed.partykit.dev",
-  // Use a unique name as a "room" for your application.
-  "bytona",
-  doc
-);
-
+// const doc = new Y.Doc();
+// const provider = new YPartyKitProvider(
+//   "blocknote-dev.yousefed.partykit.dev",
+//   // Use a unique name as a "room" for your application.
+//   "bytona",
+//   doc
+// );
 
 // Our schema with block specs, which contain the configs and implementations for blocks
 // that we want our editor to use.
@@ -89,9 +94,7 @@ const schema = BlockNoteSchema.create({
     alert: Alert,
     calendar: Calendar,
     quote: QuoteBlock,
-    cardblock: CardBlock,
-    badgeblock: BadgeBlock
-    // tldrawblock: TldrawBlock,
+    cardBlock: CardBlock,
   },
 });
 
@@ -156,44 +159,19 @@ const insertAlert = (editor: typeof schema.BlockNoteEditor) => ({
 
 
 const cardBlock = (editor: typeof schema.BlockNoteEditor) => ({
-  title: "Alert",
+  title: "Card",
   onItemClick: () => {
     insertOrUpdateBlock(editor, {
       type: "alert",
     });
   },
   aliases: [
-    "alert",
-    "notification",
-    "emphasize",
-    "warning",
-    "error",
-    "info",
-    "success",
   ],
   group: "Other",
-  icon: <RiAlertFill />,
+  icon: <CiCreditCard2 />,
 });
 
-const badgeBlock = (editor: typeof schema.BlockNoteEditor) => ({
-  title: "badge",
-  onItemClick: () => {
-    insertOrUpdateBlock(editor, {
-      type: "alert",
-    });
-  },
-  aliases: [
-    "alert",
-    "notification",
-    "emphasize",
-    "warning",
-    "error",
-    "info",
-    "success",
-  ],
-  group: "Other",
-  icon: <RiAlertFill />,
-});
+
 
 
 // Function to insert a Calendar block
@@ -228,7 +206,7 @@ const insertQuote = (editor: typeof schema.BlockNoteEditor) => ({
     "quotation",
   ],
   group: "Other",
-  icon: <CiCalendar />, // Assuming MdFormatQuote is imported from react-icons/md
+  icon: <IoIosQuote />,
 });
 
 
@@ -289,6 +267,28 @@ export default function App() {
   const [markdown, setMarkdown] = useState<string>("");
 
 
+  const [roomName, setRoomName] = useState("");
+  const [username, setUsername] = useState("");
+  const [userColor, setUserColor] = useState("#ff0000");
+  const [provider, setProvider] = useState<YPartyKitProvider | null>(null);
+  const doc = useMemo(() => new Y.Doc(), []);
+
+  const handleSaveRoomName = () => {
+    setProvider(
+      new YPartyKitProvider(
+        "blocknote-dev.yousefed.partykit.dev",
+        roomName || "default-room",
+        doc
+      )
+    );
+  };
+
+
+  useEffect(() => {
+    if (provider) {
+      // Add any logic needed when provider changes
+    }
+  }, [provider]);
 
 
   // Loads the previously stored editor contents.
@@ -305,14 +305,11 @@ export default function App() {
 
     return BlockNoteEditor.create({
       collaboration: {
-        // The Yjs Provider responsible for transporting updates:
         provider,
-        // Where to store BlockNote data in the Y.Doc:
         fragment: doc.getXmlFragment("document-store"),
-        // Information (name and color) for this user:
         user: {
-          name: "My Username",
-          color: "#ff0000",
+          name: username || "Default User",
+          color: userColor || "#ff0000",
         },
       },
       schema,
@@ -324,26 +321,10 @@ export default function App() {
         {
           type: "paragraph",
           content: [
-            {
-              type: "text",
-              text: "You can now toggle ",
-              styles: {},
-            },
-            {
-              type: "text",
-              text: " and ",
-              styles: {},
-            },
-            {
-              type: "text",
-              text: "code",
-              styles: { code: true },
-            },
-            {
-              type: "text",
-              text: " styles with new buttons in the Formatting Toolbar",
-              styles: {},
-            },
+            { type: "text", text: "You can now toggle ", styles: {} },
+            { type: "text", text: " and ", styles: {} },
+            { type: "text", text: "code", styles: { code: true } },
+            { type: "text", text: " styles with new buttons in the Formatting Toolbar", styles: {} },
           ],
         },
         {
@@ -365,7 +346,8 @@ export default function App() {
       ],
       uploadFile,
     });
-  }, [initialContent]);
+  }, [initialContent, provider, username, userColor]);
+
 
 
 
@@ -553,9 +535,39 @@ export default function App() {
         </div>
 
 
-        {/* <button onClick={downloadHTML}> <SlCloudDownload size={20} className="mr-2" /> download as html</button>
-        <button onClick={downloadPDF}>Download PDF</button>
-        <button onClick={downloadPNG}>Download as PNG</button> */}
+        <Dialog>
+          <DialogTrigger>
+            <Button variant="outline">Change Room</Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Enter Room Details</DialogTitle>
+              <DialogDescription>
+                Please enter the name for the room, your username, and select a color.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid gap-4">
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="roomName">Room Name</Label>
+                <Input id="roomName" value={roomName} onChange={(e) => setRoomName(e.target.value)} className="col-span-2 h-8" />
+              </div>
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="username">Username</Label>
+                <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} className="col-span-2 h-8" />
+              </div>
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor="userColor">User Color</Label>
+                <Input type="color" id="userColor" value={userColor} onChange={(e) => setUserColor(e.target.value)} className="col-span-2 h-8" />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button onClick={handleSaveRoomName} type="button" variant="secondary">Save</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
+
+
       </div>
 
       <BlockNoteView
@@ -624,7 +636,7 @@ export default function App() {
           triggerCharacter={"/"}
           getItems={async (query) =>
             filterSuggestionItems(
-              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertQuote(editor),cardBlock(editor), badgeBlock(editor)],
+              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertQuote(editor), cardBlock(editor)],
               query
             )
           }
