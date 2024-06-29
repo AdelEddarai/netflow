@@ -7,6 +7,6 @@
 -- add a skeleton to a table and component [has bug in production]
 -- add some Block in Blocknotes 
 
--- the issue exist in Quote (createBlockspec)
+-- update the cardBlock
 
 -- 

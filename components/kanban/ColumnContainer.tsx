@@ -6,6 +6,8 @@ import { Delete, PlusIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import TaskCard from "./TaskCard";
 import { Column, Id, Task } from "./KanbanTypes";
+import { Card } from "../ui/card";
+import { Input } from "../ui/input";
 
 
 interface Props {
@@ -49,14 +51,14 @@ const ColumnContainer = (props: Props) => {
 
   if (isDragging) {
     return (
-      <div
+      <Card
         ref={setNodeRef}
         style={style}
         className="  w-[350px] h-[500px] max-h-[500px]
         rounded-md flex flex-col opacity-40
         border-2
         border-rose-500"
-      ></div>
+      ></Card>
     );
   }
 
@@ -66,31 +68,28 @@ const ColumnContainer = (props: Props) => {
       style={style}
       className="
     
-    w-[350px]
-    h-[500px]
-    max-h-[500px]
-    rounded-md
-    flex
-    flex-col
+      w-[350px]
+      h-[500px]
+      max-h-[500px]
+      rounded-md
+      flex
+      flex-col
     "
     >
       {/* column title */}
-      <div
+      <Card
         {...attributes}
         {...listeners}
         onClick={() => setEditMode(true)}
         className="
-        bg-neutral-900
+        dark:bg-neutral-900
         text-md
         h-[60px]
         cursor-grab
         rounded-md
         p-3
         font-bold
-        rounded-b-none
-        border-x-neutral-900
-        border-y-neutral-900
-        border-4
+        border
         m-1
         flex
         items-center
@@ -99,23 +98,13 @@ const ColumnContainer = (props: Props) => {
       >
         <div className="flex gap-2">
           <div
-            className="
-        flex 
-        justify-center 
-        items-center 
-         
-        px-2 
-        py-1 
-        text-sm
-        rounded-full
-
-        "
+            className="flex justify-center items-center px-2 py-1 text-sm rounded-full"
           >
-            0
+
           </div>
           {!editMode && column.title}
           {editMode && (
-            <input
+            <Input
               className="bg-black focus:border-fuchsia-500 border rounded outline-none p-1 "
               value={column.title}
               onChange={(e) => updateColumn(column.id, e.target.value)}
@@ -139,19 +128,19 @@ const ColumnContainer = (props: Props) => {
         >
           <Delete />
         </button>
-      </div>
+      </Card>
 
       {/* column task container */}
-      <div className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
+      <Card className="flex flex-grow flex-col gap-4 p-2 overflow-x-hidden overflow-y-auto">
         <SortableContext items={tasksIds}>
-        {
-          tasks.map(task => (
-            <TaskCard key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask} />
-            
-          ) )
-        }
+          {
+            tasks.map(task => (
+              <TaskCard key={task.id} task={task} deleteTask={deleteTask} updateTask={updateTask} />
+
+            ))
+          }
         </SortableContext>
-      </div>
+      </Card>
       {/* column footer */}
       <button
         className="flex gap-2 items-center
@@ -160,9 +149,9 @@ const ColumnContainer = (props: Props) => {
         hover:bg-mainBackgroundColor hover:text-fuchsia-600
         active:bg-black
       "
-      onClick={() => {
-        createTask(column.id);
-      }}
+        onClick={() => {
+          createTask(column.id);
+        }}
       >
         <PlusIcon />
         Add task

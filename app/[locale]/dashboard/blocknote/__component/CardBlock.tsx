@@ -2,7 +2,8 @@ import { Menu } from "@mantine/core";
 import { createReactBlockSpec } from "@blocknote/react";
 import { defaultProps } from "@blocknote/core";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-
+import { Button } from "@/components/ui/button";
+import { BsArrowLeftShort } from "react-icons/bs";
 
 type AlertType = "warning" | "error" | "info" | "success" | undefined;
 
@@ -44,6 +45,21 @@ const cardTypes = [
     },
   },
 ];
+
+const handleMoveRight = () => {
+  // Logic to move card to the next column (blocklog functionality)
+  console.log("Move card to the right");
+};
+
+const handleMoveLeft = () => {
+  // Logic to move card to the previous column (blocklog functionality)
+  console.log("Move card to the left");
+};
+
+const handleDelete = () => {
+  // Logic to delete the card
+  console.log("Delete card");
+};
 
 
 export const CardBlock = createReactBlockSpec(
@@ -110,16 +126,46 @@ export const CardBlock = createReactBlockSpec(
           {/* Card for alert type */}
           <Card>
             <CardHeader>
-              {/* <CardTitle>{alertType?.title}</CardTitle> */}
               <CardDescription>
-                This is a {props.block.props.type} card.
+                Card
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p>
-              {props.block.props.type} 
+              <p style={{ margin: '10px 0' }}>
+                {props.block.props.type}
+              </p>
+              <p style={{ color: 'rgba(0,0,0,0.6)' }}>
+                This is a {props.block.props.type} card styled like a Kanban backlog item.
               </p>
             </CardContent>
+            <CardFooter>
+              <div className="flex justify-between">
+                <Button
+                  variant="outline"
+                  color="blue"
+                  onClick={handleMoveLeft}
+                >
+                  Move Left
+
+
+
+                </Button>
+                <Button
+                  variant="outline"
+                  color="green"
+                  onClick={handleMoveRight}
+                >
+                  Move Right
+                </Button>
+                <Button
+                  variant="outline"
+                  color="red"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </Button>
+              </div>
+            </CardFooter>
           </Card>
         </div>
       );

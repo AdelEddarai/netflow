@@ -4,7 +4,6 @@
   border: 1px solid #2d3748;
   padding: 1rem;
   margin-bottom: 1rem;
-  border-radius: 0.375rem;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   will-change: transform, box-shadow;

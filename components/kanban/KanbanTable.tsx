@@ -28,6 +28,7 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { addDays, format } from "date-fns"
 import { Input } from '../ui/input';
+import { Card } from '../ui/card';
 
 
 
@@ -337,7 +338,7 @@ const KanbanTask: React.FC<{
     };
 
     return (
-        <div 
+        <Card 
             id={`task-${task.id}`}
             draggable
             onDragStart={handleDragStart}
@@ -413,7 +414,7 @@ const KanbanTask: React.FC<{
                     </div>
                 </motion.div>
             )}
-        </div>
+        </Card>
 
     );
 };

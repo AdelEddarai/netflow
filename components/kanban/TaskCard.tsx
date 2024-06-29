@@ -5,6 +5,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Delete } from "lucide-react";
 import { Id, Task } from "./KanbanTypes";
+import { Card } from "../ui/card";
 interface Props {
   task: Task;
   deleteTask: (id: Id) => void;
@@ -55,7 +56,7 @@ const TaskCard = ({ task, deleteTask, updateTask }: Props) => {
 
   if (editMode) {
     return (
-      <div
+      <Card
       ref={setNodeRef}
       style={style}
       {...attributes}
@@ -78,7 +79,7 @@ const TaskCard = ({ task, deleteTask, updateTask }: Props) => {
         }}
         onChange={(e) => updateTask(task.id, e.target.value)}
         ></textarea>
-      </div>
+      </Card>
     );
   }
 
