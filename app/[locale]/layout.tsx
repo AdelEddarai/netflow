@@ -8,6 +8,7 @@ import { AuthProvider } from '@/providers/AuthProvider';
 import { Toaster } from '@/components/ui/toaster';
 import { QueryProvider } from '@/providers/QueryProvider';
 import { locales } from '@/i18n';
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,6 +31,22 @@ const RootLayout = async ({
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
+			<head>
+				<Script
+					async
+					src="https://www.googletagmanager.com/gtag/js?id=G-FKWE1W0LQ4"
+				/>
+
+				<Script id="google-analytics">
+					{`
+              window.dataLayer = window.dataLayer || [];
+				function gtag(){dataLayer.push(arguments);}
+				gtag('js', new Date());
+
+				gtag('config', 'G-FKWE1W0LQ4');;
+          `}
+				</Script>
+			</head>
 			<body className={inter.className}>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<AuthProvider>
@@ -51,3 +68,4 @@ const RootLayout = async ({
 };
 
 export default RootLayout;
+

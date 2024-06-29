@@ -80,6 +80,7 @@
 		"html2canvas": "^1.4.1",
 		"html2pdf.js": "^0.10.1",
 		"livekit-server-sdk": "^2.3.0",
+		"lucide": "^0.399.0",
 		"lucide-react": "^0.284.0",
 		"next": "13.5.4",
 		"next-auth": "^4.23.2",

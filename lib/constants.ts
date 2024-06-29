@@ -8,6 +8,7 @@ import {
 	PencilRuler,
 	Workflow,
 	MessageSquare,
+	StickyNote
 } from 'lucide-react';
 import { z } from 'zod';
 
@@ -65,6 +66,12 @@ export const topSidebarLinks = [
 		Icon: User,
 		hoverTextKey: 'ASSIGNED_TO_ME_HOVER',
 	},
+	{
+		href: '/dashboard/blocknote',
+		Icon: StickyNote,
+		hoverTextKey: 'BLOCKNOTE',
+	},
+	
 ];
 
 export const homePageHeaderLinks = [
