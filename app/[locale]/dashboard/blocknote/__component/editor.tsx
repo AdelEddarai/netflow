@@ -75,11 +75,22 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 import WhietboardPage from "../../whiteboard/page";
 import { Toaster, toast } from 'sonner'
-
-
-
+import { CiSaveDown1 } from "react-icons/ci";
+import { PiShareNetworkThin } from "react-icons/pi";
+import { CiMedicalClipboard } from "react-icons/ci";
 
 // Sets up Yjs document and PartyKit Yjs provider.
 // const doc = new Y.Doc();
@@ -278,6 +289,7 @@ export default function App() {
   const doc = useMemo(() => new Y.Doc(), []);
 
   const handleSaveRoomName = () => {
+    toast.success(`the room was set successfully ${roomName}`)
     setProvider(
       new YPartyKitProvider(
         "blocknote-dev.yousefed.partykit.dev",
@@ -520,6 +532,9 @@ export default function App() {
 
   return (
     <div>
+      <div>
+
+      </div>
       <div className="flex items-center space-x-4 mt-2">
         <button onClick={saveContent}>
           {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
@@ -529,7 +544,10 @@ export default function App() {
         <div className='ml-28'>
         <Toaster />
           <DropdownMenu>
-            <DropdownMenuTrigger>Downlaod</DropdownMenuTrigger>
+            <div className='m-4'>
+            <DropdownMenuTrigger> <Button variant="outline"> <CiSaveDown1 /> </Button></DropdownMenuTrigger>
+            </div>
+            
             <DropdownMenuContent>
               <DropdownMenuLabel>Download as</DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -541,18 +559,19 @@ export default function App() {
         </div>
 
 
-        <Dialog>
-          <DialogTrigger>
-            <Button variant="outline">Change Room</Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Enter Room Details</DialogTitle>
-              <DialogDescription>
-                Please enter the name for the room, your username, and select a color.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4">
+        <AlertDialog>
+          <div className='m-4'>
+          <AlertDialogTrigger> <Button variant="outline"> <PiShareNetworkThin /> </Button> </AlertDialogTrigger>
+          </div>
+        
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Enter Room Details</AlertDialogTitle>
+            <AlertDialogDescription>
+               Please enter the name for the room, your username, and select a color.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="grid gap-4">
               <div className="grid grid-cols-3 items-center gap-4">
                 <Label htmlFor="roomName">Room Name</Label>
                 <Input id="roomName" value={roomName} onChange={(e) => setRoomName(e.target.value)} className="col-span-2 h-8" />
@@ -566,14 +585,18 @@ export default function App() {
                 <Input type="color" id="userColor" value={userColor} onChange={(e) => setUserColor(e.target.value)} className="col-span-2 h-8" />
               </div>
             </div>
-            <DialogFooter>
-              <Button onClick={handleSaveRoomName} type="button" variant="secondary">Save</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleSaveRoomName}>Save</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
         <Dialog>
-          <DialogTrigger>Open whiteboard</DialogTrigger>
+          <div className='m-4'>
+          <DialogTrigger> <Button variant='outline'><CiMedicalClipboard /></Button> </DialogTrigger>
+          </div>
+          
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Are you absolutely sure?</DialogTitle>
