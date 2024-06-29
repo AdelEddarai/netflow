@@ -75,6 +75,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import WhietboardPage from "../../whiteboard/page";
+import { Toaster, toast } from 'sonner'
+
+
 
 
 // Sets up Yjs document and PartyKit Yjs provider.
@@ -386,6 +390,7 @@ export default function App() {
     element.download = 'editor_content.html';
     document.body.appendChild(element); // Required for this to work in Firefox
     element.click();
+    toast.success('the file has succesfully download')
   };
 
 
@@ -522,6 +527,7 @@ export default function App() {
         <SaveIndicator status={saveStatus} />
 
         <div className='ml-28'>
+        <Toaster />
           <DropdownMenu>
             <DropdownMenuTrigger>Downlaod</DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -566,6 +572,17 @@ export default function App() {
           </DialogContent>
         </Dialog>
 
+        <Dialog>
+          <DialogTrigger>Open whiteboard</DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are you absolutely sure?</DialogTitle>
+              <DialogDescription>
+               <WhietboardPage />
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
 
 
       </div>

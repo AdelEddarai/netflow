@@ -8,7 +8,7 @@ const WhietboardPage = () => {
     return (
 
         <main>
-            <div className='w-70vw h-screen rounded-md'>
+            <div className='w-100 h-screen rounded-md'>
                 <Tldraw />
             </div>
         </main>
