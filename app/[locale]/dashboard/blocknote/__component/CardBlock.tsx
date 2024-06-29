@@ -131,11 +131,8 @@ export const CardBlock = createReactBlockSpec(
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <p style={{ margin: '10px 0' }}>
-                {props.block.props.type}
-              </p>
-              <p style={{ color: 'rgba(0,0,0,0.6)' }}>
-                This is a {props.block.props.type} card styled like a Kanban backlog item.
+              <p className="text-white">
+                This is a card styled like a Kanban backlog item.
               </p>
             </CardContent>
             <CardFooter>
