@@ -9,7 +9,7 @@ export default function TextAreabove() {
 
   const enableCover = async () => {
     const randomImage = await fetch(
-      "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max"
+      "https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     );
     setCoverUrl(randomImage.url);
   };
@@ -24,7 +24,7 @@ export default function TextAreabove() {
       <div className="flex flex-col w-full">
         <div className="group flex flex-col gap-2">
           {!coverUrl && (
-            <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className="opacity-0 group-hover:opacity-100 transition-opacity ml-8">
               <Button variant={'outline'}
                 className="hover:bg-green-600 text-neutral-400 rounded-md px-3 py-1 transition-colors"
                 onClick={enableCover}

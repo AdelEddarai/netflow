@@ -10,7 +10,7 @@ interface CoverProps {
 const Cover: React.FC<CoverProps> = ({ url, setUrl }) => {
   return (
     <div
-      className={`relative w-full h-[35vh] bg-neutral-300 ${
+      className={`relative w-full h-[35vh] bg-neutral-300 rounded-md ${
         !url ? "hidden" : ""
       }`}
     >
@@ -20,7 +20,7 @@ const Cover: React.FC<CoverProps> = ({ url, setUrl }) => {
             src={url}
             alt="Cover"
             fill
-            className="object-cover rouned-full"
+            className="object-cover"
             sizes="100vw"
           />
           <div className="absolute w-[20%] h-[20%] right-0 bottom-0 group flex justify-center items-center">
