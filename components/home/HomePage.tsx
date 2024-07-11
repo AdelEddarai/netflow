@@ -40,6 +40,10 @@ export const HomePage = () => {
 
 				<Header />
 
+				<div className='p-4 mt-2'>
+					<BentoDemo />
+				</div>
+
 				<main>
 					<TextSection title='BEST_FRIEND.TITLE' desc='BEST_FRIEND.DESC' />
 
@@ -50,21 +54,7 @@ export const HomePage = () => {
 						images={homePageMindMapsImgs}
 						reverse
 					/>
-					<Section id='Tasks' title='TASKS.TITLE' desc='TASKS.DESC' images={homePageTasksImgs} />
-					<Section
-						id='Roles'
-						title='ROLES.TITLE'
-						desc='ROLES.DESC'
-						images={homePageRolesAndSettingsImgs}
-					/>
-					<Section
-						id='Pomodoro'
-						title='POMODORO.TITLE'
-						desc='POMODORO.DESC'
-						images={homePagePomodoroImgs}
-						reverse
-					/>
-
+					
 					<TextSection title='NEXT_GENERATION.TITLE' desc='NEXT_GENERATION.DESC' />
 
 					<div className='mt-4 p-4 flex justify-center items-center'>
@@ -78,17 +68,9 @@ export const HomePage = () => {
 						images={homePageCalendarImgs}
 						reverse
 					/>
-					<Section
-						id='Easy-To-Find'
-						title='EASY_TO_FIND.TITLE'
-						desc='EASY_TO_FIND.DESC'
-						images={homePageAssigmentFilterAndStarredImgs}
-					/>
 				</main>
 
-				<div className='p-4 mt-2'>
-					<BentoDemo />
-				</div>
+				
 			</div>
 			<div className='p-2 mt-2'>
 				<HorizontalScroller1 />

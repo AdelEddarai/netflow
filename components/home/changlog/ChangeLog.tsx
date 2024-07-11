@@ -17,7 +17,7 @@ import {
 const ChangeLogs = () => {
     return (
         <Drawer>
-            <DrawerTrigger className="text-blue-500 flex flex-col-2">version 4.5.6
+            <DrawerTrigger className="text-blue-500 flex flex-col-2">version 4.6.1
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
@@ -25,7 +25,7 @@ const ChangeLogs = () => {
                 </DrawerHeader>
                 {/* <DrawerDescription className='text-xl font-bold'>Version 4.5.6 - 03/01/2024</DrawerDescription> */}
                 <DrawerFooter>
-                    <DrawerDescription className='text-xl font-bold'>Version 4.5.6 - 03/05/2024</DrawerDescription>
+                    <DrawerDescription className='text-xl font-bold'>Version 4.6.1 - 05/07/2024</DrawerDescription>
                     
                     <div className="flex items-center -ml-1">
                         <div className="relative flex h-3 w-3 mr-2">
@@ -33,7 +33,7 @@ const ChangeLogs = () => {
                             <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                         </div>
                         <div className="gid grid-cols-2">
-                            Adding Blocknote
+                            Data analysis in blocknote
 
                             <Badge className="ml-1" variant={"outline"}>In progress</Badge>
                         </div>

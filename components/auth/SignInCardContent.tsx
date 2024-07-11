@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl';
 import { ProviderSigInBtns } from './ProviderSigInBtns';
 import { useRouter } from 'next-intl/client';
 import { signIn } from 'next-auth/react';
-import { toast } from 'sonner'; // Import Sonner
+import { toast, Toaster } from 'sonner'; // Import Sonner
 import { LoadingState } from '@/components/ui/loading-state';
 import { Button } from '@/components/ui/button';
 
@@ -90,7 +90,7 @@ export const SignInCardContent = () => {
 							)}
 						/>
 					</div>
-
+					<Toaster />
 					<Button disabled={isLoading} className='w-full font-bold text-white ' type='submit'>
 						{isLoading ? (
 							<LoadingState loadingText={m('PENDING.LOADING')} />

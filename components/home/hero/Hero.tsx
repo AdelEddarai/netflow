@@ -30,7 +30,7 @@ const Hero = () => {
           <div className="flex flex-wrap gap-3 p-2">
             <Link
               href={'/sign-up'}
-              className="px-4 py-2 bg-white dark:border-gray-700 rounded-md text-black font-medium text-[14px] grow"
+              className="px-4 py-2 dark:bg-white bg-green-600 dark:border-gray-700 rounded-md dark:text-black font-medium text-[14px] grow"
             >
               Get Started
             </Link>

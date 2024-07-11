@@ -939,7 +939,7 @@ export default function App() {
 
         <Accordion type="single" collapsible className="w-full">
           <AccordionItem value="item-1">
-            <AccordionTrigger>View Charts 2</AccordionTrigger>
+            <AccordionTrigger>Analyze the Data</AccordionTrigger>
             <AccordionContent>
 
               <ChartFiltering

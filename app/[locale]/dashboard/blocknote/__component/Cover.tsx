@@ -20,7 +20,7 @@ const Cover: React.FC<CoverProps> = ({ url, setUrl }) => {
             src={url}
             alt="Cover"
             fill
-            className="object-cover"
+            className="object-cover rouned-full"
             sizes="100vw"
           />
           <div className="absolute w-[20%] h-[20%] right-0 bottom-0 group flex justify-center items-center">
