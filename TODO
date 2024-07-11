@@ -7,6 +7,6 @@
 -- add a skeleton to a table and component [has bug in production]
 -- add some Block in Blocknotes 
 
--- update the cardBlock
-
--- 
+ 
+update blocknote core/react/mantine from 0.13.5 to  => 0.14.5
+add whiteboard resize in the main page of blocknote

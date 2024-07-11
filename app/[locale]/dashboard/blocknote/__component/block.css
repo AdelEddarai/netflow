@@ -1,0 +1,10 @@
+/* styles.css */
+.embedded-website-block {
+    position: relative;
+    overflow: hidden;
+  }
+  .embedded-website-block iframe {
+    width: 100%;
+    height: 100%;
+  }
+  

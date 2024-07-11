@@ -5,7 +5,7 @@ import { AddTaskShortcut } from '@/components/addTaskShortcut/AddTaskShortcut';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'SpaceFlow - Calendar',
+	title: 'Netflow - Calendar',
 };
 
 const CalendarPage = async () => {

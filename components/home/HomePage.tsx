@@ -23,6 +23,7 @@ import SplitAbout from './about/About';
 import Hero from './hero/Hero';
 import { AnimatedTooltipPreview } from './hero/Tooltibedemo';
 import HorizontalScroller1 from './footer/BrandAnimation';
+import { BentoDemo } from './hero/bento-grid';
 
 export const HomePage = () => {
 
@@ -84,6 +85,10 @@ export const HomePage = () => {
 						images={homePageAssigmentFilterAndStarredImgs}
 					/>
 				</main>
+
+				<div className='p-4 mt-2'>
+					<BentoDemo />
+				</div>
 			</div>
 			<div className='p-2 mt-2'>
 				<HorizontalScroller1 />

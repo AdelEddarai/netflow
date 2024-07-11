@@ -46,25 +46,11 @@ const cardTypes = [
   },
 ];
 
-const handleMoveRight = () => {
-  // Logic to move card to the next column (blocklog functionality)
-  console.log("Move card to the right");
-};
-
-const handleMoveLeft = () => {
-  // Logic to move card to the previous column (blocklog functionality)
-  console.log("Move card to the left");
-};
-
-const handleDelete = () => {
-  // Logic to delete the card
-  console.log("Delete card");
-};
 
 
 export const CardBlock = createReactBlockSpec(
   {
-    type: "alert",
+    type: "card",
     propSchema: {
       textAlignment: defaultProps.textAlignment,
       textColor: defaultProps.textColor,
@@ -104,7 +90,7 @@ export const CardBlock = createReactBlockSpec(
                   key={type.value}
                   onClick={() =>
                     props.editor.updateBlock(props.block, {
-                      type: "alert",
+                      type: "card",
                       props: { type: type.value },
                     })
                   }
@@ -135,34 +121,7 @@ export const CardBlock = createReactBlockSpec(
                 This is a card styled like a Kanban backlog item.
               </p>
             </CardContent>
-            <CardFooter>
-              <div className="flex justify-between">
-                <Button
-                  variant="outline"
-                  color="blue"
-                  onClick={handleMoveLeft}
-                >
-                  Move Left
-
-
-
-                </Button>
-                <Button
-                  variant="outline"
-                  color="green"
-                  onClick={handleMoveRight}
-                >
-                  Move Right
-                </Button>
-                <Button
-                  variant="outline"
-                  color="red"
-                  onClick={handleDelete}
-                >
-                  Delete
-                </Button>
-              </div>
-            </CardFooter>
+          
           </Card>
         </div>
       );

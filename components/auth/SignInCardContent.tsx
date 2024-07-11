@@ -11,7 +11,7 @@ import { useTranslations } from 'next-intl';
 import { ProviderSigInBtns } from './ProviderSigInBtns';
 import { useRouter } from 'next-intl/client';
 import { signIn } from 'next-auth/react';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from 'sonner'; // Import Sonner
 import { LoadingState } from '@/components/ui/loading-state';
 import { Button } from '@/components/ui/button';
 
@@ -19,7 +19,6 @@ export const SignInCardContent = () => {
 	const t = useTranslations('AUTH');
 	const m = useTranslations('MESSAGES');
 	const [isLoading, setIsLoading] = useState(false);
-	const { toast } = useToast();
 	const router = useRouter();
 
 	const form = useForm<SignInSchema>({
@@ -40,15 +39,10 @@ export const SignInCardContent = () => {
 			});
 			if (!account) throw new Error('ERRORS.DEFAULT');
 
-			if (account.error)
-				toast({
-					title: m(account.error),
-					variant: 'destructive',
-				});
-			else {
-				toast({
-					title: m('SUCCES.SIGN_IN'),
-				});
+			if (account.error) {
+				toast.error(m(account.error)); // Use Sonner's error toast
+			} else {
+				toast.success(m('SUCCES.SIGN_IN')); // Use Sonner's success toast
 				router.push(`/onboarding`);
 				router.refresh();
 			}
@@ -59,10 +53,7 @@ export const SignInCardContent = () => {
 			} else if (err instanceof Error) {
 				errMsg = m(err.message);
 			}
-			toast({
-				title: errMsg,
-				variant: 'destructive',
-			});
+			toast.error(errMsg); // Use Sonner's error toast
 		}
 		setIsLoading(false);
 	};

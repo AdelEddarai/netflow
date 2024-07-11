@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import mindmaps from './HeroImage.png'
 import DotPattern from "./dot-pattern";
-import Spaceflow from "./Spaceflow-anime";
+import Netflow from "./Spaceflow-anime";
+
 
 
 const Hero = () => {
@@ -24,17 +25,17 @@ const Hero = () => {
             Focus. Flow. Achieve <p className='text-green-200'>With</p>
           </h1>
           <p className="text-md opacity-80 max-w-[30rem] w-full relative">
-            <Spaceflow />
+            <Netflow />
           </p>
           <div className="flex flex-wrap gap-3 p-2">
             <Link
               href={'/sign-up'}
-              className="px-4 py-2 bg-white rounded-md text-black font-medium text-[14px] grow"
+              className="px-4 py-2 bg-white dark:border-gray-700 rounded-md text-black font-medium text-[14px] grow"
             >
               Get Started
             </Link>
             <Link
-              href="/pricing"
+              href="/"
               className="px-4 py-2 bg-zinc-950 rounded-md text-white border border-white border-opacity-10 font-medium text-[14px] grow"
             >
               Pricing

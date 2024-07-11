@@ -5,12 +5,18 @@ import {
   Block,
   BlockNoteEditor,
   BlockNoteSchema,
+  DefaultBlockSchema,
   defaultBlockSpecs,
   filterSuggestionItems,
+  InlineContent,
   insertOrUpdateBlock,
   PartialBlock,
+  TableContent,
+  defaultBlockSchema,
+  defaultInlineContentSchema,
+  defaultStyleSchema
 } from "@blocknote/core";
-import "@blocknote/core/fonts/inter.css";
+
 import {
   DefaultReactSuggestionItem,
   SuggestionMenuController,
@@ -18,21 +24,7 @@ import {
 } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
-
-import {
-  BasicTextStyleButton,
-  BlockTypeSelect,
-  ColorStyleButton,
-  CreateLinkButton,
-  FileCaptionButton,
-  FileReplaceButton,
-  FormattingToolbar,
-  FormattingToolbarController,
-  NestBlockButton,
-  TextAlignButton,
-  UnnestBlockButton,
-  useCreateBlockNote,
-} from "@blocknote/react";
+import "@blocknote/core/fonts/inter.css";
 
 
 import {
@@ -60,7 +52,6 @@ import YPartyKitProvider from "y-partykit/provider";
 import * as Y from "yjs";
 import './JsonBlock.css'
 import html2pdf from 'html2pdf.js';
-import html2canvas from 'html2canvas';
 
 import { CiCalendar } from "react-icons/ci";
 import { Alert } from "./Alert";
@@ -86,20 +77,33 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import WhietboardPage from "../../whiteboard/page";
 import { Toaster, toast } from 'sonner'
-import { CiSaveDown1 } from "react-icons/ci";
 import { PiShareNetworkThin } from "react-icons/pi";
-import { CiMedicalClipboard } from "react-icons/ci";
+import { BsFiletypePdf } from "react-icons/bs";
+import { CiImport } from "react-icons/ci";
+import { CiExport } from "react-icons/ci";
+import { TbTableExport } from "react-icons/tb";
+import { PiSpinnerThin } from "react-icons/pi";
 
-// Sets up Yjs document and PartyKit Yjs provider.
-// const doc = new Y.Doc();
-// const provider = new YPartyKitProvider(
-//   "blocknote-dev.yousefed.partykit.dev",
-//   // Use a unique name as a "room" for your application.
-//   "bytona",
-//   doc
-// );
+import { CommandDialogDemo } from "./SearchCommand";
+import { PDF } from "./PdfBlock";
+import CSVTable from "./CsvTable";
+import ChartFiltering from "./ChartFiltering";
+
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import { useTheme } from "next-themes";
+import TextareaAutosize from 'react-textarea-autosize';
+import { format } from 'date-fns';
+import TextAreabove from "./Textareaabove";
+import { Skeleton } from "@/components/ui/skeleton"
 
 // Our schema with block specs, which contain the configs and implementations for blocks
 // that we want our editor to use.
@@ -109,30 +113,8 @@ const schema = BlockNoteSchema.create({
     alert: Alert,
     calendar: Calendar,
     quote: QuoteBlock,
-    cardBlock: CardBlock,
+    pdf: PDF
   },
-});
-
-// Custom Slash Menu item to insert a block after the current one.
-const insertHelloWorldItem = (editor: BlockNoteEditor) => ({
-  title: "Insert Hello World",
-  onItemClick: () => {
-    // Block that the text cursor is currently in.
-    const currentBlock = editor.getTextCursorPosition().block;
-
-    // New block we want to insert.
-    const helloWorldBlock: PartialBlock = {
-      type: "paragraph",
-      content: [{ type: "text", text: "Hello World", styles: { bold: true } }],
-    };
-
-    // Inserting the new block after the current one.
-    editor.insertBlocks([helloWorldBlock], currentBlock, "after");
-  },
-  aliases: ["helloworld", "hw"],
-  group: "Other",
-  icon: <HiOutlineGlobeAlt size={18} />,
-  subtext: "Used to insert a block with 'Hello World' below.",
 });
 
 
@@ -149,6 +131,19 @@ async function uploadFile(file: File) {
     "tmpfiles.org/dl/"
   );
 }
+
+// Slash menu item to insert a PDF block
+const insertPDF = (editor: typeof schema.BlockNoteEditor) => ({
+  title: "PDF",
+  onItemClick: () => {
+    insertOrUpdateBlock(editor, {
+      type: "pdf",
+    });
+  },
+  aliases: ["pdf", "document", "embed", "file"],
+  group: "Other",
+  icon: <BsFiletypePdf />,
+});
 
 // Slash menu item to insert an Alert block
 const insertAlert = (editor: typeof schema.BlockNoteEditor) => ({
@@ -170,23 +165,6 @@ const insertAlert = (editor: typeof schema.BlockNoteEditor) => ({
   group: "Other",
   icon: <RiAlertFill />,
 });
-
-
-
-const cardBlock = (editor: typeof schema.BlockNoteEditor) => ({
-  title: "Card",
-  onItemClick: () => {
-    insertOrUpdateBlock(editor, {
-      type: "alert",
-    });
-  },
-  aliases: [
-  ],
-  group: "Other",
-  icon: <CiCreditCard2 />,
-});
-
-
 
 
 // Function to insert a Calendar block
@@ -273,6 +251,8 @@ export default function App() {
   const [initialContent, setInitialContent] = useState<
     PartialBlock[] | undefined | "loading"
   >("loading");
+
+  const { resolvedTheme } = useTheme();
   const [saveStatus, setSaveStatus] = useState("saved");
   // from block to json
   const [blocks, setBlocks] = useState<Block[]>([]);
@@ -286,6 +266,19 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [userColor, setUserColor] = useState("#ff0000");
   const [provider, setProvider] = useState<YPartyKitProvider | null>(null);
+  const [csvData, setCsvData] = useState<string>('');
+  const [htmlContent, setHtmlContent] = useState<string>("");
+  const [title, setTitle] = useState('');
+  const [creationDate] = useState(format(new Date(), 'MMMM d, yyyy'));
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const [numericFilters, setNumericFilters] = useState<{ [key: string]: { condition: '>' | '<'; value: number } | null }>({});
+  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+
+
   const doc = useMemo(() => new Y.Doc(), []);
 
   const handleSaveRoomName = () => {
@@ -313,6 +306,16 @@ export default function App() {
       setInitialContent(content);
     });
   }, []);
+
+  // Add new useEffect for skeleton loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 4000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
 
   const editor = useMemo(() => {
     if (initialContent === "loading") {
@@ -428,42 +431,83 @@ export default function App() {
   }
 
 
+
+
   // download to pdf
-  const downloadPDF = () => {
+  const downloadPDF = async () => {
     // Create a temporary element to hold the HTML content
-    const element = document.createElement('div');
+    const element: HTMLElement = document.createElement('div');
     element.innerHTML = html;
 
+    // Ensure text color is black
     element.style.color = 'black';
 
     document.body.appendChild(element);
 
-    // Options for html2pdf conversion
-    const opt = {
-      margin: 0.5,
-      filename: 'editor_content.pdf',
-      image: { type: 'jpeg', quality: 1.0 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    // Function to check if all images are loaded
+    const loadImages = (element: HTMLElement): Promise<void[]> => {
+      const images: HTMLCollectionOf<HTMLImageElement> = element.getElementsByTagName('img');
+      return Promise.all(Array.from(images).map(img => {
+        return new Promise<void>((resolve, reject) => {
+          img.onload = () => resolve();
+          img.onerror = () => reject(new Error(`Failed to load image: ${img.src}`));
+          // Trigger load event in case the image is already cached
+          if (img.complete) {
+            resolve();
+          }
+        });
+      }));
     };
 
-    // Check the image types and adjust the configuration accordingly
-    const imageType = getImageType(html); // Assuming 'html' contains your HTML content
-    if (imageType === 'png') {
-      opt.image.type = 'png';
-    } else if (imageType === 'jpeg') {
-      opt.image.type = 'jpeg';
-    } else if (imageType === 'webp') {
-      opt.image.type = 'webp';
-    } // Add support for other image types as needed
+    try {
+      // Wait for all images to load
+      await loadImages(element);
 
-    // Convert HTML to PDF and save
-    html2pdf().from(element).set(opt).save();
+      // Options for html2canvas to handle cross-origin images
+      const canvas = await html2canvas(element, { scale: 2, useCORS: true });
 
-    // Clean up by removing the temporary element
-    document.body.removeChild(element);
+      // Create a PDF document
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgData = canvas.toDataURL('image/jpeg');
+
+      // Get dimensions of the canvas and PDF page
+      const imgWidth = 210; // A4 width in mm
+      const pageHeight = 297; // A4 height in mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      // Add the first page
+      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      // Add more pages if necessary
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      // Generate the PDF as a data URL
+      const pdfDataUrl = pdf.output('dataurlstring');
+
+      // Open the PDF in a new window for preview
+      const pdfWindow = window.open("");
+      if (pdfWindow) {
+        pdfWindow.document.write(
+          `<iframe width='100%' height='100%' src='${pdfDataUrl}'></iframe>`
+        );
+      }
+
+    } catch (error) {
+      console.error('Error loading images: ', error);
+    } finally {
+      // Clean up by removing the temporary element
+      document.body.removeChild(element);
+    }
   };
-
 
   // Function to download HTML content as a PNG image
   const downloadPNG = () => {
@@ -505,6 +549,180 @@ export default function App() {
     });
   };
 
+
+  // CSV
+
+  // function tableToCSV(table: HTMLTableElement): string {
+  //   const rows = Array.from(table.querySelectorAll('tr'));
+
+  //   const csvContent = rows.map(row => {
+  //     const columns = Array.from(row.querySelectorAll('td, th'));
+  //     const rowData = columns.map(column => column.textContent?.trim() || '').join(',');
+  //     return rowData;
+  //   }).join('\n');
+
+  //   return csvContent;
+  // }
+
+  const tableToCSV = (table: HTMLTableElement): string => {
+    const rows = Array.from(table.querySelectorAll('tr'));
+    return rows.map(row =>
+      Array.from(row.querySelectorAll('th, td'))
+        .map(cell => cell.textContent?.trim() || '')
+        .join(',')
+    ).join('\n');
+  };
+
+
+
+  function downloadCSV(csvContent: string, filename: string): void {
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+
+    if ((navigator as any).msSaveBlob) { // IE 10+
+      (navigator as any).msSaveBlob(blob, filename);
+    } else {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', filename);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+
+
+  const downloadTableAsCSV = () => {
+    const table = document.querySelector('table'); // Adjust the selector as needed
+    if (table) {
+      const csvContent = tableToCSV(table);
+      downloadCSV(csvContent, 'table_data.csv');
+    } else {
+      console.warn('No table found!');
+    }
+  };
+
+
+  const handleVisualize = () => {
+    setLoading(true);
+
+    setTimeout(() => {
+      const table = document.querySelector('table');
+      if (table) {
+        const csvContent = tableToCSV(table);
+        setCsvData(csvContent);
+        console.log('Visualizing table data');
+        toast.success('Visualizing table data')
+        // Add your visualization logic here
+      } else {
+        console.warn('No table found!');
+        toast.warning('No table found!');
+      }
+
+      setLoading(false);
+    }, 2000);
+  };
+
+
+  const importCSV = useCallback(() => {
+    if (!editor) {
+      toast.error('Editor is not initialized');
+      return;
+    }
+
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.csv';
+    fileInput.onchange = async (e: Event) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const csvContent = event.target?.result as string;
+          setCsvData(csvContent);
+
+          // Parse CSV to blocks
+          const rows = csvContent.trim().split('\n');
+          const headers = rows[0].split(',').map(header => header.trim());
+
+          const blocks: PartialBlock[] = [
+            {
+              type: "paragraph",
+              content: "Imported CSV Data:"
+            },
+            {
+              type: "table",
+              // @ts-ignore
+              content: rows.map(row => ({
+                type: "tableRow",
+                content: row.split(',').map(cell => ({
+                  type: "tableCell",
+                  content: [{
+                    type: "paragraph",
+                    content: cell.trim()
+                  }]
+                }))
+              }))
+            }
+          ];
+
+          editor.replaceBlocks(editor.document, blocks);
+          toast.success('CSV data imported and inserted into the editor');
+        };
+        reader.readAsText(file);
+      }
+    };
+    fileInput.click();
+  }, [editor]);
+
+
+  // import HTML parse it as a block
+
+  const importHTML = useCallback(() => {
+    if (!editor) {
+      toast.error('Editor is not initialized');
+      return;
+    }
+
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.html';
+    fileInput.onchange = async (e: Event) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const htmlContent = event.target?.result as string;
+          setHtmlContent(htmlContent);
+          try {
+            const blocks = await editor.tryParseHTMLToBlocks(htmlContent);
+            editor.replaceBlocks(editor.document, blocks);
+            toast.success('HTML content imported and inserted into the editor');
+          } catch (error) {
+            console.error('Error parsing HTML:', error);
+            toast.error('Failed to parse HTML content');
+          }
+        };
+        reader.readAsText(file);
+      }
+    };
+    fileInput.click();
+  }, [editor]);
+
+  const htmlInputChanged = useCallback(
+    async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setHtmlContent(e.target.value);
+      if (editor) {
+        const blocks = await editor.tryParseHTMLToBlocks(e.target.value);
+        editor.replaceBlocks(editor.document, blocks);
+      }
+    },
+    [editor]
+  );
+
+
+
   const handleChange = useCallback(() => {
     setSaveStatus("writing");
     setTimeout(() => setSaveStatus("saving"), 1000); // Move to saving after 1 second
@@ -526,52 +744,101 @@ export default function App() {
     return "Loading content...";
   }
 
-
-
-
+  const customDarkTheme = {
+    colors: {
+      editor: {
+        text: 'hsl(0, 0%, 95%)',
+        background: 'hsl(20, 14.3%, 4.1%)',
+      },
+      menu: {
+        text: 'hsl(0, 0%, 95%)',
+        background: 'hsl(24, 9.8%, 10%)',
+      },
+      tooltip: {
+        text: 'hsl(0, 0%, 95%)',
+        background: 'hsl(0, 0%, 9%)',
+      },
+      hovered: {
+        text: 'hsl(0, 0%, 95%)',
+        background: 'hsl(240, 3.7%, 15.9%)',
+      },
+      selected: {
+        text: 'hsl(144.9, 80.4%, 10%)',
+        background: 'hsl(142.1, 70.6%, 45.3%)',
+      },
+      disabled: {
+        text: 'hsl(240, 5%, 64.9%)',
+        background: 'hsl(0, 0%, 15%)',
+      },
+      shadow: 'hsl(240, 3.7%, 15.9%)',
+      border: 'hsl(240, 3.7%, 15.9%)',
+    },
+  };
 
   return (
     <div>
-      <div>
-
-      </div>
-      <div className="flex items-center space-x-4 mt-2">
+      <div className="flex items-center space-x-4">
         <button onClick={saveContent}>
           {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
         </button>
         <SaveIndicator status={saveStatus} />
 
         <div className='ml-28'>
-        <Toaster />
+          <Toaster richColors />
           <DropdownMenu>
             <div className='m-4'>
-            <DropdownMenuTrigger> <Button variant="outline"> <CiSaveDown1 /> </Button></DropdownMenuTrigger>
+              <DropdownMenuTrigger> <Button variant="outline"> <CiExport /> </Button></DropdownMenuTrigger>
             </div>
-            
+
             <DropdownMenuContent>
               <DropdownMenuLabel>Download as</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={downloadHTML}>Html</DropdownMenuItem>
               <DropdownMenuItem onClick={downloadPDF}>Pdf</DropdownMenuItem>
               <DropdownMenuItem onClick={downloadPNG}>Png</DropdownMenuItem>
+              <DropdownMenuItem onClick={downloadTableAsCSV}>CSV <div>  <TbTableExport />  </div></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
 
+
+        <DropdownMenu>
+          <div className='m-4'>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <DropdownMenuTrigger> <Button variant="outline"> <CiImport /> </Button></DropdownMenuTrigger>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>Import</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+
+          <DropdownMenuContent>
+            <DropdownMenuLabel>Import</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={importCSV}>CSV</DropdownMenuItem>
+            <DropdownMenuItem onClick={importHTML}>HTML</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+
         <AlertDialog>
           <div className='m-4'>
-          <AlertDialogTrigger> <Button variant="outline"> <PiShareNetworkThin /> </Button> </AlertDialogTrigger>
+            <AlertDialogTrigger> <Button variant="outline"> <PiShareNetworkThin /> </Button> </AlertDialogTrigger>
           </div>
-        
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Enter Room Details</AlertDialogTitle>
-            <AlertDialogDescription>
-               Please enter the name for the room, your username, and select a color.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <div className="grid gap-4">
+
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Enter Room Details</AlertDialogTitle>
+              <AlertDialogDescription>
+                Please enter the name for the room, your username, and select a color.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <div className="grid gap-4">
               <div className="grid grid-cols-3 items-center gap-4">
                 <Label htmlFor="roomName">Room Name</Label>
                 <Input id="roomName" value={roomName} onChange={(e) => setRoomName(e.target.value)} className="col-span-2 h-8" />
@@ -585,133 +852,158 @@ export default function App() {
                 <Input type="color" id="userColor" value={userColor} onChange={(e) => setUserColor(e.target.value)} className="col-span-2 h-8" />
               </div>
             </div>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleSaveRoomName}>Save</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction onClick={handleSaveRoomName}>Save</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
 
-        <Dialog>
-          <div className='m-4'>
-          <DialogTrigger> <Button variant='outline'><CiMedicalClipboard /></Button> </DialogTrigger>
-          </div>
-          
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Are you absolutely sure?</DialogTitle>
-              <DialogDescription>
-               <WhietboardPage />
-              </DialogDescription>
-            </DialogHeader>
-          </DialogContent>
-        </Dialog>
+        <Button onClick={handleVisualize} variant={"outline"} disabled={loading}>
+          {loading ? (
+            <PiSpinnerThin className="animate-spin" />
+          ) : (
+            'Visualize Table Data'
+          )}
+        </Button>
 
-
+        <CommandDialogDemo />
       </div>
 
-      <BlockNoteView
-        className="w-full h-full bg-gray-950"
-        editor={editor}
+      <div className="max-w-4xl mx-auto">
+        {isLoading ? (
+          <>
+            {/* Skeleton for cover image */}
+            <Skeleton className="w-full h-48 mb-4" />
 
-        slashMenu={false}
-        onChange={handleChange}
-      >
-        {/* the formatting is when u select a word it pops up a items */}
-        <FormattingToolbarController
-          formattingToolbar={() => (
-            <FormattingToolbar>
-              <BlockTypeSelect key={"blockTypeSelect"} />
+            {/* Skeleton for creation date */}
+            <Skeleton className="w-1/4 h-4 mb-2" />
 
-              {/* Extra button to toggle blue text & background */}
-              {/* <BlueButton key={"customButton"} /> */}
+            {/* Skeleton for title */}
+            <Skeleton className="w-3/4 h-8 mb-4" />
 
-              <FileCaptionButton key={"fileCaptionButton"} />
-              <FileReplaceButton key={"replaceFileButton"} />
+            {/* Skeleton for BlockNoteView */}
+            <div className="space-y-2">
+              <Skeleton className="w-full h-6" />
+              <Skeleton className="w-full h-6" />
+              <Skeleton className="w-3/4 h-6" />
+              <Skeleton className="w-full h-6" />
+              <Skeleton className="w-5/6 h-6" />
+            </div>
+          </>
+        ) : (
+          <>
 
-              <BasicTextStyleButton
-                basicTextStyle={"bold"}
-                key={"boldStyleButton"}
-              />
-              <BasicTextStyleButton
-                basicTextStyle={"italic"}
-                key={"italicStyleButton"}
-              />
-              <BasicTextStyleButton
-                basicTextStyle={"underline"}
-                key={"underlineStyleButton"}
-              />
-              <BasicTextStyleButton
-                basicTextStyle={"strike"}
-                key={"strikeStyleButton"}
-              />
-              {/* Extra button to toggle code styles */}
-              <BasicTextStyleButton
-                key={"codeStyleButton"}
-                basicTextStyle={"code"}
-              />
+            {/* Cover Image */}
+            <TextAreabove />
 
-              <TextAlignButton
-                textAlignment={"left"}
-                key={"textAlignLeftButton"}
-              />
-              <TextAlignButton
-                textAlignment={"center"}
-                key={"textAlignCenterButton"}
-              />
-              <TextAlignButton
-                textAlignment={"right"}
-                key={"textAlignRightButton"}
-              />
-
-              <ColorStyleButton key={"colorStyleButton"} />
-
-              <NestBlockButton key={"nestBlockButton"} />
-              <UnnestBlockButton key={"unnestBlockButton"} />
-
-            </FormattingToolbar>
-          )}
-        />
-        <SuggestionMenuController
-          triggerCharacter={"/"}
-          getItems={async (query) =>
-            filterSuggestionItems(
-              [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertQuote(editor), cardBlock(editor)],
-              query
-            )
-          }
-        />
-      </BlockNoteView>
-
-      <Accordion type="single" collapsible>
-        <AccordionItem value="item-1">
-          <AccordionTrigger>show as html format</AccordionTrigger>
-          <AccordionContent>
-            <div>Output (HTML):</div>
-            <div className="item bordered">
-              <pre>
-                <code>{html}</code>
-              </pre>
+            {/* Creation Date */}
+            <div className="text-sm text-gray-500 mb-2 ml-10">
+              Created on {creationDate}
             </div>
 
-            <div>Output (Markdown):</div>
-            <div className={"item bordered"}>
-              <pre>
-                <code>{markdown}</code>
-              </pre>
+            <div>
+              <div className='ml-10'>
+                <TextareaAutosize
+                  className=" w-full text-4xl font-bold focus:outline-none resize-none overflow-hidden bg-transparent"
+                  placeholder="Untitled"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  maxRows={3}
+                />
+              </div>
+              <div className='pb-40 mr-8'>
+                <BlockNoteView
+                  editor={editor}
+                  theme={resolvedTheme === "dark" ? customDarkTheme : "light"}
+                  slashMenu={false}
+                  onChange={handleChange}
+                >
+
+                  <SuggestionMenuController
+                    triggerCharacter={"/"}
+                    getItems={async (query) =>
+                      filterSuggestionItems(
+                        [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertQuote(editor), insertPDF(editor)],
+                        query
+                      )
+                    }
+                  />
+                </BlockNoteView>
+              </div>
             </div>
+            </>
+        )}
+          </div>
+          
 
-            <div>Document JSON:</div>
-            <div className={"item bordered"}>
-              <pre>
-                <code>{JSON.stringify(blocks, null, 2)}</code>
-              </pre>
-            </div>
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger>View Charts 2</AccordionTrigger>
+            <AccordionContent>
 
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+              <ChartFiltering
+                csvData={csvData}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                numericFilters={numericFilters}
+                setNumericFilters={setNumericFilters}
+              />
+              <CSVTable
+                csvData={csvData}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                numericFilters={numericFilters}
+                setNumericFilters={setNumericFilters}
+              />
 
-    </div>
-  );
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-2">
+            <AccordionTrigger>HTML</AccordionTrigger>
+            <AccordionContent>
+              <div className="item bordered">
+                <pre>
+                  <code>{html}</code>
+                </pre>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-3">
+            <AccordionTrigger>Markdown</AccordionTrigger>
+            <AccordionContent>
+              <div className={"item bordered"}>
+                <pre>
+                  <code>{markdown}</code>
+                </pre>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-4">
+            <AccordionTrigger>JSOn</AccordionTrigger>
+            <AccordionContent>
+              <div className={"item bordered"}>
+                <pre>
+                  <code>{JSON.stringify(blocks, null, 2)}</code>
+                </pre>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+          <AccordionItem value="item-5">
+            <AccordionTrigger>Html Output</AccordionTrigger>
+            <AccordionContent>
+              <div className="mt-4">
+                <h3>HTML Input:</h3>
+                <textarea
+                  value={htmlContent}
+                  onChange={htmlInputChanged}
+                  className="w-full h-32 p-2 border rounded"
+                  placeholder="Paste or type HTML here"
+                />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
+      );
 }

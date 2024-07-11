@@ -1,42 +1,42 @@
 {
 	"AUTH": {
-		"EMAIL": "Email",
-		"PASSWORD": "Hasło",
-		"USERNAME": "Nazwa użytkownika",
-		"SIGN_IN": {
-			"TITLE": "Zaloguj się",
-			"DESC": "Witaj z powrotem w StudyFlow",
-			"SUBMIT_BTN": "Zaloguj się",
-			"FORGOT_PASSWORD": "Zapomniałeś hasła?",
-			"DONT_HAVE_ACCOUNT": {
-				"FIRST": "Nie masz konta?",
-				"SECOND": "Utwórz"
-			},
-			"PROVIDERS": {
-				"GOOGLE": "Zaloguj się z Google",
-				"APPLE": "Zaloguj się z Apple",
-				"GITHUB": "Zaloguj się z Github"
-			}
-		},
-		"SIGN_UP": {
-			"TITLE": "Zarejestruj się",
-			"DESC": "Stwórz konto za darmo",
-			"SUBMIT_BTN": "Zarejestruj się",
-			"TERMS": {
-				"FIRST": "Zakładając konto zgadasz się na nasze",
-				"SECOND": "Warunki Korzytsania"
-			},
-			"HAVE_ACCOUNT": {
-				"FIRST": "Masz już konto?",
-				"SECOND": "Zaloguj się"
-			},
-			"PROVIDERS": {
-				"GOOGLE": "Zarejestruj się z Google",
-				"APPLE": "Zarejestruj się z Apple",
-				"GITHUB": "Zarejestruj się z Github"
-			}
-		}
-	},
+    "EMAIL": "Email",
+    "PASSWORD": "كلمة المرور",
+    "USERNAME": "اسم المستخدم",
+    "SIGN_IN": {
+      "TITLE": "تسجيل الدخول",
+      "DESC": "مرحبًا بك مرة أخرى في StudyFlow",
+      "SUBMIT_BTN": "تسجيل الدخول",
+      "FORGOT_PASSWORD": "نسيت كلمة المرور؟",
+      "DONT_HAVE_ACCOUNT": {
+        "FIRST": "لا تمتلك حسابًا؟",
+        "SECOND": "إنشاء"
+      },
+      "PROVIDERS": {
+        "GOOGLE": "تسجيل الدخول باستخدام جوجل",
+        "APPLE": "تسجيل الدخول باستخدام أبل",
+        "GITHUB": "تسجيل الدخول باستخدام جيثب"
+      }
+    },
+    "SIGN_UP": {
+      "TITLE": "التسجيل",
+      "DESC": "أنشئ حسابًا مجانيًا",
+      "SUBMIT_BTN": "التسجيل",
+      "TERMS": {
+        "FIRST": "من خلال إنشاء حساب، فإنك توافق على",
+        "SECOND": "شروط الخدمة"
+      },
+      "HAVE_ACCOUNT": {
+        "FIRST": "هل لديك حساب بالفعل؟",
+        "SECOND": "تسجيل الدخول"
+      },
+      "PROVIDERS": {
+        "GOOGLE": "التسجيل باستخدام جوجل",
+        "APPLE": "التسجيل باستخدام أبل",
+        "GITHUB": "التسجيل باستخدام جيثب"
+      }
+    }
+  },
 	"EDIT_WORKSPACE": {
 		"TITLE": "تعديل مساحة العمل",
 		"DESC": "يمكنك هنا تغيير اسم مساحة العمل ورمزها.",
@@ -150,43 +150,43 @@
 	},
 	"MESSAGES": {
 		"ERRORS": {
-			"DEFAULT": "O nie.. Coś poszło nie tak",
-			"TAKEN_USERNAME": "Ta nazwa użytkownika jest już zajęta",
-			"TAKEN_EMAIL": "Ten e-mail jest już w użyciu",
-			"DB_ERROR": "Obecnie mamy problemy. Proszę sprbować ponownie później",
-			"WRONG_DATA": "Podane dane są nieprawidłowe. Proszę o podanie poprawnych danych",
-			"NO_USER": "Nie znaleziono użytkownika. Proszę podać poprawny email",
-			"WRONG_PASSWORD": "Podane hasło jest nieprawidłowe. Proszę podać poprawne",
-			"ABORDED": "Logowanie przerwane",
-			"UPLOAD_FAILE": "Nie udało sie wysłać pliku. Proszę spróbować ponownie",
-			"IMAGE_PROFILE_UPDATE": "Nie udało się zaktualizować Twojego zdjęcia profilowego. Proszę sprbować ponownie",
-			"IMAGE_PROFILE_DELETE": "Nie udało się usunać Twojego zdjęcia profilowego. Proszę sprbować ponownie",
-			"WORKSPACE_ICON_ADDED": "Nie udało się dodać ikony obszaru roboczego. Proszę spróbować ponownie",
-			"NO_USER_API": "Nie znaleziono użytkownika",
-			"UNAUTHORIZED": "Brak dostępu. Proszę się zalogować",
-			"NO_PASSWORD": "Nie można zaktualizować hasła. Przeczytaj ostrzeżenie",
-			"PASSWORD_DISMATCH": "Wprowadzone hasło jest nieprawidłowe",
-			"SAME_NAME_WORKSPACE": "Obszar roboczy o podanej nazwie już istnieje",
-			"TOO_MANY_WORKSPACES": "Osiągnięto limit możliwej do stworzenia ilości przestrzeni roboczych",
-			"NO_PERMISSION": "Nie masz zezwolenia na wykonanie tych akcji",
-			"NO_WORKSPACE": "Nie znaleziono przestrzeni roboczej",
-			"WRONG_WORKSPACE_NAME": "Proszę podać poprawną nazwę obszaru roboczego",
-			"THE_SAME_TAG": "Tag o takiej nazwie już istnieje",
-			"NO_TAG": "Nie znaleziono tagu",
-			"WRONG_IMAGE_LINK": "Proszę podać poprawny link",
-			"IMAGE_TO_EDITOR": "Nie udało się dodać zdjęcia, Spróbuj ponownie",
-			"NO_TASK_FOUND": "Nie znaleziono zadania",
-			"NO_MIND_MAP_FOUND": "Nie znaleziono mapy myśli",
-			"CANT_LEAVE": "Założyciel przestrzeni roboczej nie może z niej wyjść. Możesz usunąć ją poprzez strone ustawień",
-			"CANT_GET_USERS": "Nie udało sie zaktualizować statusu aktywności",
-			"CANT_UPDATE_SEEN_NOTIFY": "Nie udało sie zaktualizować statusu odczytania powiadomień",
-			"NO_CHAT": "Nie znaleziono konwersacji",
-			"NO_MESSAGE": "Nie udało się zedytować wiadomości. Spróbuj ponownie",
-			"CANT_LOAD_MORE": "Nie udało załadować się więcej wiadomości. Spróbuj ponownie",
-			"TEST_ACCOUNT_RESET_PASSWORD": "Nie można zmienić hasła na koncie testowym",
-			"TEST_ACCOUNT_DELETE_ACCOUNT": "Nie można usunać konta testowego",
-			"TEST_ACCOUNT_DELETE_WORKSPACE": "Nie można usunąć testowej przestrzeni roboczej"
-		},
+    "DEFAULT": "أوه لا! حدث خطأ ما",
+    "TAKEN_USERNAME": "اسم المستخدم هذا مستخدم بالفعل",
+    "TAKEN_EMAIL": "هذا البريد الإلكتروني قيد الاستخدام بالفعل",
+    "DB_ERROR": "نواجه حاليًا بعض المشكلات. يرجى المحاولة مرة أخرى لاحقًا",
+    "WRONG_DATA": "البيانات المدخلة غير صحيحة. يرجى إدخال بيانات صحيحة",
+    "NO_USER": "لم يتم العثور على مستخدم. يرجى إدخال بريد إلكتروني صحيح",
+    "WRONG_PASSWORD": "كلمة المرور المدخلة غير صحيحة. يرجى إدخال كلمة مرور صحيحة",
+    "ABORDED": "تم إلغاء تسجيل الدخول",
+    "UPLOAD_FAILE": "فشل إرسال الملف. يرجى المحاولة مرة أخرى",
+    "IMAGE_PROFILE_UPDATE": "فشل تحديث صورة ملفك الشخصي. يرجى المحاولة مرة أخرى",
+    "IMAGE_PROFILE_DELETE": "فشل حذف صورة ملفك الشخصي. يرجى المحاولة مرة أخرى",
+    "WORKSPACE_ICON_ADDED": "فشل إضافة رمز مساحة العمل. يرجى المحاولة مرة أخرى",
+    "NO_USER_API": "لم يتم العثور على مستخدم",
+    "UNAUTHORIZED": "لا يوجد وصول. يرجى تسجيل الدخول",
+    "NO_PASSWORD": "لا يمكن تحديث كلمة المرور. يرجى قراءة التحذير",
+    "PASSWORD_DISMATCH": "كلمة المرور المدخلة غير متطابقة",
+    "SAME_NAME_WORKSPACE": "مساحة العمل بهذا الاسم موجودة بالفعل",
+    "TOO_MANY_WORKSPACES": "تم الوصول إلى حد مساحات العمل التي يمكنك إنشاؤها",
+    "NO_PERMISSION": "ليس لديك إذن للقيام بهذه الإجراءات",
+    "NO_WORKSPACE": "لم يتم العثور على مساحة عمل",
+    "WRONG_WORKSPACE_NAME": "يرجى إدخال اسم مساحة عمل صحيح",
+    "THE_SAME_TAG": "العلامة بهذا الاسم موجودة بالفعل",
+    "NO_TAG": "لم يتم العثور على علامة",
+    "WRONG_IMAGE_LINK": "يرجى إدخال رابط صحيح",
+    "IMAGE_TO_EDITOR": "فشل إضافة الصورة، يرجى المحاولة مرة أخرى",
+    "NO_TASK_FOUND": "لم يتم العثور على مهمة",
+    "NO_MIND_MAP_FOUND": "لم يتم العثور على خريطة ذهنية",
+    "CANT_LEAVE": "لا يمكن لمؤسس مساحة العمل مغادرتها. يمكنك حذفها من صفحة الإعدادات",
+    "CANT_GET_USERS": "فشل تحديث حالة النشاط",
+    "CANT_UPDATE_SEEN_NOTIFY": "فشل تحديث حالة قراءة الإشعارات",
+    "NO_CHAT": "لم يتم العثور على محادثة",
+    "NO_MESSAGE": "فشل تعديل الرسالة. يرجى المحاولة مرة أخرى",
+    "CANT_LOAD_MORE": "فشل تحميل المزيد من الرسائل. يرجى المحاولة مرة أخرى",
+    "TEST_ACCOUNT_RESET_PASSWORD": "لا يمكن إعادة تعيين كلمة المرور في حساب تجريبي",
+    "TEST_ACCOUNT_DELETE_ACCOUNT": "لا يمكن حذف حساب تجريبي",
+    "TEST_ACCOUNT_DELETE_WORKSPACE": "لا يمكن حذف مساحة عمل تجريبية"
+  },
 		"SUCCES": {
 			"SIGN_UP": "تم إنشاء الحساب!",
 			"SIGN_IN": "تم تسجيل الدخول!",
@@ -366,77 +366,77 @@
 		}
 	},
 	"COMMON": {
-		"WELCOME_BACK": "Witaj ponownie",
-		"LANG_HOVER": "Zmień język",
-		"THEME_HOVER": "Zmień motyw",
-		"DARK": "Ciemny",
-		"LIGHT": "Jasny",
-		"SYSTEM": "System",
-		"LOG_OUT": "Wyloguj się",
-		"SETTINGS": "Ustawienia",
-		"WARNING": "OSTRZEŻENIE",
-		"NOTICE": "UWAGA",
+		"WELCOME_BACK": "مرحبًا بك مرة أخرى",
+		"LANG_HOVER": "تغيير اللغة",
+		"THEME_HOVER": "تغيير السمة",
+		"DARK": "داكن",
+		"LIGHT": "فاتح",
+		"SYSTEM": "النظام",
+		"LOG_OUT": "تسجيل الخروج",
+		"SETTINGS": "الإعدادات",
+		"WARNING": "تحذير",
+		"NOTICE": "ملاحظة",
 		"DEFAULT_NAME": {
-			"MIND_MAP": "Mapa myśli bez tytułu",
-			"TASK": "Zadanie bez tytułu"
+		  "MIND_MAP": "خريطة ذهنية بدون عنوان",
+		  "TASK": "مهمة بدون عنوان"
 		},
 		"ACTIVE_WORKSACPES": {
-			"FIRST": "Utworzyłeś",
-			"SECOND": "z",
-			"THIRD": "możliwych do utworzenia obszarów roboczych"
+		  "FIRST": "لقد أنشأت",
+		  "SECOND": "من",
+		  "THIRD": "مساحات العمل التي يمكن إنشاؤها"
 		},
-		"BACK_BTN": "Powrót",
+		"BACK_BTN": "رجوع",
 		"SAVING_STATUS": {
-			"SAVED": "Zapisane",
-			"SAVING": "Zapisywanie",
-			"UNSAVED": "Niezapisane"
+		  "SAVED": "تم الحفظ",
+		  "SAVING": "جار الحفظ",
+		  "UNSAVED": "غير محفوظ"
 		},
 		"TAG": {
-			"FILTER": "Szukaj",
-			"NEW_TAG": "Nowy tag",
-			"TAG": "Tag",
-			"ERROR": "Ups... Coś poszło nie tak",
-			"ERROR_BTN": "Spróbuj ponownie",
-			"NOT_FOUND": "Nie znaleziono",
-			"TAGS_HEADING": "TAGI",
-			"NEW_HEADING": "NOWY",
-			"ADD_TAG": "Dodaj tag",
-			"COLORS": "Kolory",
-			"TAG_NAME": "Nazwa",
-			"BTNS": {
-				"CREATE": "Utwórz",
-				"CANCEL": "Anuluj",
-				"DELETE": "Usuń",
-				"UPDATE": "Aktualizuj"
-			}
+		  "FILTER": "بحث",
+		  "NEW_TAG": "علامة جديدة",
+		  "TAG": "علامة",
+		  "ERROR": "أوه لا! حدث خطأ ما",
+		  "ERROR_BTN": "حاول مرة أخرى",
+		  "NOT_FOUND": "لم يتم العثور عليه",
+		  "TAGS_HEADING": "العلامات",
+		  "NEW_HEADING": "جديد",
+		  "ADD_TAG": "إضافة علامة",
+		  "COLORS": "ألوان",
+		  "TAG_NAME": "اسم",
+		  "BTNS": {
+			"CREATE": "إنشاء",
+			"CANCEL": "إلغاء",
+			"DELETE": "حذف",
+			"UPDATE": "تحديث"
+		  }
 		},
 		"EDITED_ITEM_SENTENCE": {
-			"MIND_MAP": "Mapa myśli edytowana",
-			"TASK": "Zadanie edytowane",
-			"BY": "przez",
-			"IN": " - w"
+		  "MIND_MAP": "تم تحرير خريطة ذهنية",
+		  "TASK": "تم تحرير مهمة",
+		  "BY": "بواسطة",
+		  "IN": " - في"
 		}
-	},
+	  },
 	"PERMISSONS": {
-		"WAIT": "Proszę czekać",
-		"PERMISSONS": "Uprawnienia",
-		"COPY": "Skopiuj link",
-		"OWNER": {
-			"TITLE": "Właściciel"
-		},
-		"ADMIN": {
-			"TITLE": "Admin",
-			"DESC": "Posiada wszystkie możliwe prawa, również do zmiany ustawień obszaru roboczego, jak i do zarządzania innymi użytkownikami."
-		},
-		"EDITOR": {
-			"TITLE": "Wykonawca",
-			"DESC": "Ma pełen dostęp do przestrzeni roboczej, ma prawa do edycji i usuwania treści w przestrzeni roboczej. Nie ma jednak dostępu do ustawien obszaru."
-		},
-		"VIEWER": {
-			"TITLE": "Przeglądający",
-			"DESC": "Ma pełen dostęp do przestrzeni roboczej, jednak nie może nic edytować jak i usuwuać. Nie ma również dostępu do ustawien obszaru."
-		}
-	},
+    "WAIT": "انتظر",
+    "PERMISSONS": "الصلاحيات",
+    "COPY": "نسخ الرابط",
+    "OWNER": {
+      "TITLE": "المالك"
+    },
+    "ADMIN": {
+      "TITLE": "مشرف",
+      "DESC": "لديه جميع الأذونات الممكنة، بما في ذلك تغيير إعدادات مساحة العمل وإدارة المستخدمين الآخرين."
+    },
+    "EDITOR": {
+      "TITLE": "محرر",
+      "DESC": "لديه وصول كامل إلى مساحة العمل، وله الحق في تحرير وحذف المحتوى في مساحة العمل. ومع ذلك، لا يمكنه الوصول إلى إعدادات مساحة العمل."
+    },
+    "VIEWER": {
+      "TITLE": "عارض",
+      "DESC": "لديه وصول كامل إلى مساحة العمل، ولكن لا يمكنه تحرير أو حذف أي شيء. لا يمكنه أيضًا الوصول إلى إعدادات مساحة العمل."
+    }
+  },
 	"TASK": {
 		"HEADER": {
 			"PLACEHOLDER": "Zadanie bez tytułu",

@@ -1,80 +1,44 @@
-"use client"
+"use client";
 
-// Import necessary modules
-import React from "react";
-import { createReactBlockSpec } from "@blocknote/react";
-import { Menu } from "@mantine/core";
-import { Tldraw } from "tldraw";
-import { RiBrushFill } from "react-icons/ri";
+import dynamic from "next/dynamic";
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Maximize2, Minimize2, Save, Upload } from "lucide-react";
 
-// Define types for Tldraw options
-export const tldrawTypes = [
-  {
-    title: "Sketch",
-    value: "sketch",
-    icon: RiBrushFill,
-  },
-];
+const Excalidraw = dynamic(() => import("@excalidraw/excalidraw").then((mod) => mod.Excalidraw), { ssr: false });
 
-// Register Tldraw block
-export const TldrawBlock = createReactBlockSpec(
-  {
-    type: "tldraw", // Ensure type matches here
-    propSchema: {
-      drawType: {
-        default: "sketch",
-        values: tldrawTypes.map((type) => type.value),
-      },
+const StyledWhiteboard = () => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
+
+ 
+  const initialData = {
+    appState: {
+      viewBackgroundColor: "#0000", // Set your desired background color here
     },
-    content: "inline",
-  },
-  {
-    render: (props) => {
-      const drawType = props.block.props.drawType;
-      const Icon = tldrawTypes.find((d) => d.value === drawType)!.icon;
-      return (
-        <div className="tldraw p-4 border rounded shadow-md">
-          <Menu withinPortal={false} zIndex={999999}>
-            <Menu.Target>
-              <div className="tldraw-icon-wrapper" contentEditable={false}>
-                <Icon
-                  className="tldraw-icon text-4xl"
-                  data-draw-icon-type={drawType}
-                />
-              </div>
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Label>Tldraw Type</Menu.Label>
-              <Menu.Divider />
-              {tldrawTypes.map((type) => {
-                const ItemIcon = type.icon;
-                return (
-                  <Menu.Item
-                    key={type.value}
-                    leftSection={
-                      <ItemIcon
-                        className="tldraw-icon"
-                        data-draw-icon-type={type.value}
-                      />
-                    }
-                    onClick={() =>
-                      props.editor.updateBlock(props.block, {
-                        type: "tldraw",
-                        props: { drawType: type.value },
-                      })
-                    }
-                  >
-                    {type.title}
-                  </Menu.Item>
-                );
-              })}
-            </Menu.Dropdown>
-          </Menu>
-          <div style={{ position: "relative", height: "400px" }}>
-            <Tldraw />
-          </div>
+  };
+
+  return (
+    <Card className={`dark:bg-black overflow-hidden transition-all duration-300 ease-in-out ${isFullscreen ? 'fixed inset-0 z-50' : 'h-[600px]'}`}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 p-4 mt-4">
+        <CardTitle>Whiteboard</CardTitle>
+        <div className="flex space-x-2">
+          <Button variant="ghost" size="icon" onClick={toggleFullscreen}>
+            {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+          </Button>
         </div>
-      );
-    },
-  }
-);
+      </CardHeader>
+      <CardContent className="p-0">
+        <div className={`w-full ${isFullscreen ? 'h-[calc(100vh-4rem)]' : 'h-[550px]'}`}>
+          <Excalidraw initialData={initialData} />
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default StyledWhiteboard;

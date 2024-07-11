@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
 
             <div className="lg:ml-32 p-1">
               <span>
-                &copy; {new Date().getFullYear()} SpaceFlow.
+                &copy; {new Date().getFullYear()} Netflow.
               </span>{" "}
               <span>
                 Illustrations by{" "}

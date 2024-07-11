@@ -3,6 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next-intl/client';
 import { useFormatter, useTranslations } from 'next-intl';
+import { CommandDialogDemo } from '@/app/[locale]/dashboard/blocknote/__component/SearchCommand';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	hideOnMobile?: boolean;
@@ -55,6 +56,7 @@ const Welcoming = React.forwardRef<HTMLDivElement, Props>(
 					<p className='text-muted-foreground text-sm sm:text-base sm:max-w-xl '>
 						{day[0].toUpperCase() + day.slice(1)}
 					</p>
+					<CommandDialogDemo />
 				</div>
 			);
 	}

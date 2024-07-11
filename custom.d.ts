@@ -1,3 +1,5 @@
 declare module 'html2pdf.js'
 declare module 'react-beautiful-dnd'
-declare module 'react-modal'
+declare module 'react-chartjs-2'
+declare module '@radix-ui/react-icons'
+declare module 'jspdf'

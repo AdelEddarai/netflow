@@ -18,7 +18,7 @@ export const ProviderSigInBtns = ({ signInCard, disabled, onLoading }: Props) =>
 				disabled={disabled}
 				onLoading={onLoading}
 				providerName='google'
-				className='w-full rounded-[1.9rem] border text-sm h-12 sm:h-10 sm:text-base  '>
+				className='w-full rounded-[1.9rem] border text-sm h-12 sm:h-10 sm:text-base disabled:bg-gray-700 '>
 				<GoogleLogo className='mr-2' width={20} height={20} />
 				{signInCard ? t('SIGN_IN.PROVIDERS.GOOGLE') : t('SIGN_UP.PROVIDERS.GOOGLE')}
 			</ProviderSignInBtn>

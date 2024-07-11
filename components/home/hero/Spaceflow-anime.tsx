@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { PiStarFourFill } from "react-icons/pi";
 
 
-const Spaceflow = () => {
+const Netflow = () => {
     useEffect(() => {
         let index = 0,
             interval = 1300;
@@ -32,7 +32,7 @@ const Spaceflow = () => {
                 <p className="text-3xl font-medium">
                     {" "}
                     <span className="inline-block magic bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 bg-clip-text text-transparent relative text-4xl font-bold">
-                        <span>SpaceFlow</span>
+                        <span>Netflow</span>
 
                         <PiStarFourFill className="magic-star [--size:clamp(20px,1.5vw,30px)] block h-[--size] w-[--size] top-[--star-top] left-[--star-left] absolute animate-starScale text-purple-500" />
                         <PiStarFourFill className="magic-star [--size:clamp(20px,1.5vw,30px)] block h-[--size] w-[--size] top-[--star-top] left-[--star-left] absolute animate-starScale text-purple-500" />
@@ -43,4 +43,4 @@ const Spaceflow = () => {
     )
 }
 
-export default Spaceflow
+export default Netflow
