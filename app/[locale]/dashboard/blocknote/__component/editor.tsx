@@ -5,20 +5,13 @@ import {
   Block,
   BlockNoteEditor,
   BlockNoteSchema,
-  DefaultBlockSchema,
   defaultBlockSpecs,
   filterSuggestionItems,
-  InlineContent,
   insertOrUpdateBlock,
   PartialBlock,
-  TableContent,
-  defaultBlockSchema,
-  defaultInlineContentSchema,
-  defaultStyleSchema
 } from "@blocknote/core";
 
 import {
-  DefaultReactSuggestionItem,
   SuggestionMenuController,
   getDefaultReactSlashMenuItems,
 } from "@blocknote/react";
@@ -45,27 +38,18 @@ import {
 
 
 import { RiAlertFill } from "react-icons/ri";
-import { HiOutlineGlobeAlt } from "react-icons/hi";
 
 
 import YPartyKitProvider from "y-partykit/provider";
 import * as Y from "yjs";
 import './JsonBlock.css'
-import html2pdf from 'html2pdf.js';
-
 import { CiCalendar } from "react-icons/ci";
 import { Alert } from "./Alert";
 import { Calendar } from './Calenderss'
-import QuoteBlock from "./Quote"
-import { CardBlock } from "./CardBlock";
-import { CiCreditCard2 } from "react-icons/ci";
-import { IoIosQuote } from "react-icons/io";
-
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -104,6 +88,14 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { format } from 'date-fns';
 import TextAreabove from "./Textareaabove";
 import { Skeleton } from "@/components/ui/skeleton"
+import { downloadPDF } from "./PdfUtils";
+import { fencedCodeBlock } from "./CodeBlock";
+import { TbCode } from 'react-icons/tb'
+import { TbBlockquote } from 'react-icons/tb'
+import { BlockQuoteBlock } from "./QuoteBlock";
+import { Blockboard } from "./WhiteBoardBlock";
+import { LineChart, PencilIcon } from "lucide-react";
+import { ChartBlock } from "./ChartBlock";
 
 // Our schema with block specs, which contain the configs and implementations for blocks
 // that we want our editor to use.
@@ -112,8 +104,11 @@ const schema = BlockNoteSchema.create({
     ...defaultBlockSpecs,
     alert: Alert,
     calendar: Calendar,
-    quote: QuoteBlock,
-    pdf: PDF
+    pdf: PDF,
+    fencedCode: fencedCodeBlock,
+    blockquote: BlockQuoteBlock,
+    blockboard: Blockboard,
+    chartblock: ChartBlock,
   },
 });
 
@@ -186,22 +181,56 @@ const insertCalendar = (editor: typeof schema.BlockNoteEditor) => ({
   icon: <CiCalendar />,
 });
 
-const insertQuote = (editor: typeof schema.BlockNoteEditor) => ({
-  title: "Quote",
+const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
+  title: 'Fenced Code',
   onItemClick: () => {
-    insertOrUpdateBlock(editor, {
-      type: "quote",
-    });
+    editor.updateBlock(editor.getTextCursorPosition().block, {
+      type: 'fencedCode',
+    })
   },
-  aliases: [
-    "quote",
-    "citation",
-    "quotation",
-  ],
-  group: "Other",
-  icon: <IoIosQuote />,
-});
+  aliases: ['code'],
+  group: 'Other',
+  icon: <TbCode />,
+})
 
+const insertBlockQuote = (editor: typeof schema.BlockNoteEditor) => ({
+  title: 'Blockquote',
+  onItemClick: () => {
+    editor.updateBlock(editor.getTextCursorPosition().block, {
+      type: 'blockquote',
+    })
+  },
+  aliases: ['quote'],
+  subtext: 'Used to define a block of text referenced from another source',
+  group: 'Other',
+  icon: <TbBlockquote />,
+})
+
+const isertBlockboard = (editor: typeof schema.BlockNoteEditor) => ({
+  title: 'Blockboard',
+  onItemClick: () => {
+    editor.updateBlock(editor.getTextCursorPosition().block, {
+      type: 'blockboard',
+    })
+  },
+  aliases: ['board'],
+  subtext: 'Used to define a block of text referenced from another source',
+  group: 'Other',
+  icon: <PencilIcon />,
+})
+
+const isertBlocChart = (editor: typeof schema.BlockNoteEditor) => ({
+  title: 'ChartBlock',
+  onItemClick: () => {
+    editor.updateBlock(editor.getTextCursorPosition().block, {
+      type: 'chartblock',
+    })
+  },
+  aliases: ['charts'],
+  subtext: 'Used to define a block of text referenced from another source',
+  group: 'Other',
+  icon: <LineChart />,
+})
 
 
 
@@ -273,6 +302,7 @@ export default function App() {
 
   const [searchTerm, setSearchTerm] = useState('');
   const [numericFilters, setNumericFilters] = useState<{ [key: string]: { condition: '>' | '<'; value: number } | null }>({});
+
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -434,79 +464,8 @@ export default function App() {
 
 
   // download to pdf
-  const downloadPDF = async () => {
-    // Create a temporary element to hold the HTML content
-    const element: HTMLElement = document.createElement('div');
-    element.innerHTML = html;
-
-    // Ensure text color is black
-    element.style.color = 'black';
-
-    document.body.appendChild(element);
-
-    // Function to check if all images are loaded
-    const loadImages = (element: HTMLElement): Promise<void[]> => {
-      const images: HTMLCollectionOf<HTMLImageElement> = element.getElementsByTagName('img');
-      return Promise.all(Array.from(images).map(img => {
-        return new Promise<void>((resolve, reject) => {
-          img.onload = () => resolve();
-          img.onerror = () => reject(new Error(`Failed to load image: ${img.src}`));
-          // Trigger load event in case the image is already cached
-          if (img.complete) {
-            resolve();
-          }
-        });
-      }));
-    };
-
-    try {
-      // Wait for all images to load
-      await loadImages(element);
-
-      // Options for html2canvas to handle cross-origin images
-      const canvas = await html2canvas(element, { scale: 2, useCORS: true });
-
-      // Create a PDF document
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgData = canvas.toDataURL('image/jpeg');
-
-      // Get dimensions of the canvas and PDF page
-      const imgWidth = 210; // A4 width in mm
-      const pageHeight = 297; // A4 height in mm
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      let heightLeft = imgHeight;
-      let position = 0;
-
-      // Add the first page
-      pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
-
-      // Add more pages if necessary
-      while (heightLeft >= 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
-
-      // Generate the PDF as a data URL
-      const pdfDataUrl = pdf.output('dataurlstring');
-
-      // Open the PDF in a new window for preview
-      const pdfWindow = window.open("");
-      if (pdfWindow) {
-        pdfWindow.document.write(
-          `<iframe width='100%' height='100%' src='${pdfDataUrl}'></iframe>`
-        );
-      }
-
-    } catch (error) {
-      console.error('Error loading images: ', error);
-    } finally {
-      // Clean up by removing the temporary element
-      document.body.removeChild(element);
-    }
+  const handleDownloadPDF = () => {
+    downloadPDF(html);
   };
 
   // Function to download HTML content as a PNG image
@@ -794,7 +753,7 @@ export default function App() {
               <DropdownMenuLabel>Download as</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={downloadHTML}>Html</DropdownMenuItem>
-              <DropdownMenuItem onClick={downloadPDF}>Pdf</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleDownloadPDF}>Pdf</DropdownMenuItem>
               <DropdownMenuItem onClick={downloadPNG}>Png</DropdownMenuItem>
               <DropdownMenuItem onClick={downloadTableAsCSV}>CSV <div>  <TbTableExport />  </div></DropdownMenuItem>
             </DropdownMenuContent>
@@ -924,7 +883,7 @@ export default function App() {
                     triggerCharacter={"/"}
                     getItems={async (query) =>
                       filterSuggestionItems(
-                        [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertQuote(editor), insertPDF(editor)],
+                        [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCalendar(editor), insertPDF(editor), insertFencedCodeBlock(editor), insertBlockQuote(editor), isertBlockboard(editor), isertBlocChart(editor)],
                         query
                       )
                     }
