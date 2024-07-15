@@ -72,14 +72,14 @@ export const CommandDialogDemo = () => {
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Settings">
-            <Link href="dashboard/settings">
+            <Link href="/settings">
               <CommandItem>
                 <GearIcon className="mr-2 h-4 w-4" />
                 <span>Settings</span>
                 <CommandShortcut>⌘S</CommandShortcut>
               </CommandItem>
             </Link>
-            <Link href="dashboard/room">
+            <Link href="/room">
               <CommandItem>
                 <GearIcon className="mr-2 h-4 w-4" />
                 <span>VideoChat</span>

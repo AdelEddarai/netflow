@@ -49,12 +49,12 @@ export default function Page() {
     }
   }
 
-  const handleDragStart = (e: any) => {
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     const img = new Image();
     e.dataTransfer.setDragImage(img, 0, 0);
   };
 
-  const handleDrag = (e: any) => {
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>) => {
     if (e.clientX && e.clientY) {
       setPosition({ x: e.clientX, y: e.clientY });
     }

@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { BarElement, CategoryScale, Chart as ChartJS, LinearScale, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer, BarChart } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
@@ -20,6 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Input } from '@/components/ui/input';
+import { Scatter } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend);
 
@@ -184,6 +184,59 @@ const CSVTable: React.FC<CSVTableProps> = ({ csvData, searchTerm, setSearchTerm,
   };
 
 
+  const calculateOutliers = (columnIndex: number): { outliers: number[], lowerBound: number, upperBound: number } => {
+    const values = filteredData
+      .map(row => parseFloat(row[columnIndex]))
+      .filter(value => !isNaN(value))
+      .sort((a, b) => a - b);
+
+    const q1 = values[Math.floor(values.length / 4)];
+    const q3 = values[Math.floor(3 * values.length / 4)];
+    const iqr = q3 - q1;
+    const lowerBound = q1 - 1.5 * iqr;
+    const upperBound = q3 + 1.5 * iqr;
+
+    const outliers = values.filter(value => value < lowerBound || value > upperBound);
+
+    return { outliers, lowerBound, upperBound };
+  };
+
+  const calculateFrequencyDistribution = (columnIndex: number, bins: number = 10): { labels: string[], frequencies: number[] } => {
+    const values = filteredData
+      .map(row => parseFloat(row[columnIndex]))
+      .filter(value => !isNaN(value));
+
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min;
+    const binWidth = range / bins;
+
+    const frequencies = new Array(bins).fill(0);
+    const labels = [];
+
+    for (let i = 0; i < bins; i++) {
+      const binStart = min + i * binWidth;
+      const binEnd = binStart + binWidth;
+      labels.push(`${binStart.toFixed(2)} - ${binEnd.toFixed(2)}`);
+
+      frequencies[i] = values.filter(value => value >= binStart && value < binEnd).length;
+    }
+
+    return { labels, frequencies };
+  };
+
+  const calculateZScores = (columnIndex: number): number[] => {
+    const values = filteredData
+      .map(row => parseFloat(row[columnIndex]))
+      .filter(value => !isNaN(value));
+
+    const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+    const stdDev = Math.sqrt(values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / values.length);
+
+    return values.map(value => (value - mean) / stdDev);
+  };
+
+
 
   const handleSort = (column: string) => {
     if (column === sortColumn) {
@@ -199,131 +252,193 @@ const CSVTable: React.FC<CSVTableProps> = ({ csvData, searchTerm, setSearchTerm,
     <div className="w-full h-auto p-4 mt-4 bg-black shadow overflow-x-auto border rounded-md">
       {/* Dialog settings */}
       <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">Open Settings</Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent className="max-w-[90vw] max-h-[90vh] flex flex-col">
-        <AlertDialogHeader className="flex-shrink-0">
-          <AlertDialogTitle>Data Analysis Settings</AlertDialogTitle>
-        </AlertDialogHeader>
-        <AlertDialogDescription className="flex-grow overflow-y-auto">
-          <div className="space-y-4">
-            <div className="flex justify-between space-x-4">
-              <div>
-                <label className="mr-2">First Column:</label>
-                <select className="p-1 border rounded" onChange={(e) => setSelectedColumnIndex(parseInt(e.target.value))} value={selectedColumnIndex ?? -1}>
-                  <option value={-1}>-- Select Column --</option>
-                  {headers.map((header, index) => (
-                    <option key={index} value={index}>{header}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="mr-2">Second Column (for Correlation):</label>
-                <select className="p-1 border rounded" onChange={(e) => setSecondColumnIndex(parseInt(e.target.value))} value={secondColumnIndex ?? -1}>
-                  <option value={-1}>-- Select Column --</option>
-                  {headers.map((header, index) => (
-                    <option key={index} value={index}>{header}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <Input
-                type="text"
-                placeholder="Search..."
-                className="w-full p-2 border rounded"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-              {headers.map((header, index) => (
-                <div key={index} className="space-y-1">
-                  <span className="text-sm font-medium">{header}:</span>
-                  <div className="flex space-x-2">
-                    <Input
-                      type="number"
-                      placeholder=">"
-                      className="w-full p-1 text-xs border rounded"
-                      onChange={(e) => handleNumericFilterChange(index, '>', e.target.value)}
-                    />
-                    <Input
-                      type="number"
-                      placeholder="<"
-                      className="w-full p-1 text-xs border rounded"
-                      onChange={(e) => handleNumericFilterChange(index, '<', e.target.value)}
-                    />
-                  </div>
+        <AlertDialogTrigger asChild>
+          <Button variant="outline">Open Settings</Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent className="max-w-[90vw] max-h-[90vh] flex flex-col">
+          <AlertDialogHeader className="flex-shrink-0">
+            <AlertDialogTitle>Data Analysis Settings</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogDescription className="flex-grow overflow-y-auto">
+            <div className="space-y-4">
+              <div className="flex justify-between space-x-4">
+                <div>
+                  <label className="mr-2">First Column:</label>
+                  <select className="p-1 border rounded" onChange={(e) => setSelectedColumnIndex(parseInt(e.target.value))} value={selectedColumnIndex ?? -1}>
+                    <option value={-1}>-- Select Column --</option>
+                    {headers.map((header, index) => (
+                      <option key={index} value={index}>{header}</option>
+                    ))}
+                  </select>
                 </div>
-              ))}
-            </div>
+                <div>
+                  <label className="mr-2">Second Column (for Correlation):</label>
+                  <select className="p-1 border rounded" onChange={(e) => setSecondColumnIndex(parseInt(e.target.value))} value={secondColumnIndex ?? -1}>
+                    <option value={-1}>-- Select Column --</option>
+                    {headers.map((header, index) => (
+                      <option key={index} value={index}>{header}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
 
-            <div className="flex flex-wrap gap-2">
-              <Button onClick={() => handleStatCalculation(calculateSum, 'Sum')}>Sum</Button>
-              <Button onClick={() => handleStatCalculation(calculateAverage, 'Average')}>Average</Button>
-              <Button onClick={() => handleStatCalculation(calculateMedian, 'Median')}>Median</Button>
-              <Button onClick={() => handleStatCalculation(calculateStandardDeviation, 'Standard Deviation')}>Std Dev</Button>
-              <Button onClick={handleCorrelation}>Correlation Matrix</Button>
-            </div>
+              <div>
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full p-2 border rounded"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
 
-            {statResult && chartData && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>{statResult.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p>{statResult.value}</p>
-                </CardContent>
-              </Card>
-            )}
-
-            {correlationData && (
-              <Card className="mt-4">
-                <CardHeader>
-                  <CardTitle>Correlation Heatmap</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="overflow-x-auto">
-                    <svg width={correlationData.labels.length * 60} height={correlationData.labels.length * 60}>
-                      {correlationData.matrix.map((row: number[], i: number) =>
-                        row.map((value: number, j: number) => (
-                          <g key={`${i}-${j}`}>
-                            <rect
-                              x={j * 60}
-                              y={i * 60}
-                              width={60}
-                              height={60}
-                              fill={`rgb(${255 - Math.abs(value) * 255}, ${255 - Math.abs(value) * 255}, 255)`}
-                            />
-                            <text x={j * 60 + 30} y={i * 60 + 30} textAnchor="middle" dominantBaseline="middle" fill="black">
-                              {value.toFixed(2)}
-                            </text>
-                          </g>
-                        ))
-                      )}
-                      {correlationData.labels.map((label: string, i: number) => (
-                        <React.Fragment key={`label-${i}`}>
-                          <text x={-10} y={i * 60 + 30} textAnchor="end" dominantBaseline="middle">{label}</text>
-                          <text x={i * 60 + 30} y={correlationData.labels.length * 60 + 20} textAnchor="middle">{label}</text>
-                        </React.Fragment>
-                      ))}
-                    </svg>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {headers.map((header, index) => (
+                  <div key={index} className="space-y-1">
+                    <span className="text-sm font-medium">{header}:</span>
+                    <div className="flex space-x-2">
+                      <Input
+                        type="number"
+                        placeholder=">"
+                        className="w-full p-1 text-xs border rounded"
+                        onChange={(e) => handleNumericFilterChange(index, '>', e.target.value)}
+                      />
+                      <Input
+                        type="number"
+                        placeholder="<"
+                        className="w-full p-1 text-xs border rounded"
+                        onChange={(e) => handleNumericFilterChange(index, '<', e.target.value)}
+                      />
+                    </div>
                   </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-        </AlertDialogDescription>
-        <AlertDialogFooter className="flex-shrink-0">
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Save Changes</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                <Button onClick={() => handleStatCalculation(calculateSum, 'Sum')}>Sum</Button>
+                <Button onClick={() => handleStatCalculation(calculateAverage, 'Average')}>Average</Button>
+                <Button onClick={() => handleStatCalculation(calculateMedian, 'Median')}>Median</Button>
+                <Button onClick={() => handleStatCalculation(calculateStandardDeviation, 'Standard Deviation')}>Std Dev</Button>
+                <Button onClick={handleCorrelation}>Correlation Matrix</Button>
+              </div>
+
+              {statResult && chartData && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{statResult.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>{statResult.value}</p>
+                  </CardContent>
+                </Card>
+              )}
+
+              {correlationData && (
+                <Card className="mt-4">
+                  <CardHeader>
+                    <CardTitle>Correlation Heatmap</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="overflow-x-auto">
+                      <svg width={correlationData.labels.length * 60} height={correlationData.labels.length * 60}>
+                        {correlationData.matrix.map((row: number[], i: number) =>
+                          row.map((value: number, j: number) => (
+                            <g key={`${i}-${j}`}>
+                              <rect
+                                x={j * 60}
+                                y={i * 60}
+                                width={60}
+                                height={60}
+                                fill={`rgb(${255 - Math.abs(value) * 255}, ${255 - Math.abs(value) * 255}, 255)`}
+                              />
+                              <text x={j * 60 + 30} y={i * 60 + 30} textAnchor="middle" dominantBaseline="middle" fill="black">
+                                {value.toFixed(2)}
+                              </text>
+                            </g>
+                          ))
+                        )}
+                        {correlationData.labels.map((label: string, i: number) => (
+                          <React.Fragment key={`label-${i}`}>
+                            <text x={-10} y={i * 60 + 30} textAnchor="end" dominantBaseline="middle">{label}</text>
+                            <text x={i * 60 + 30} y={correlationData.labels.length * 60 + 20} textAnchor="middle">{label}</text>
+                          </React.Fragment>
+                        ))}
+                      </svg>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              {chartData && chartData.datasets && (
+                <Card className="mt-4">
+                  <CardHeader>
+                    <CardTitle>{chartData.datasets[0].label}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div style={{ height: '400px' }}>
+                      {chartData.datasets[0].label === 'Frequency' ? (
+                        <Bar data={chartData} options={{ responsive: true, maintainAspectRatio: false, borderColor: 'rgba(75, 192, 75, 1)' }} />
+                      ) : (
+                        <Scatter data={chartData} options={{
+                          responsive: true,
+                          maintainAspectRatio: false,
+                          scales: {
+                            x: { type: 'linear', position: 'bottom' },
+                            y: { type: 'linear', position: 'left' }
+                          }
+                        }} />
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
+              <div className="mt-4 flex space-x-2">
+                {/* ... (previous buttons) */}
+                <Button onClick={() => {
+                  const result = calculateOutliers(selectedColumnIndex!);
+                  setStatResult({
+                    title: 'Outliers',
+                    value: `Lower bound: ${result.lowerBound.toFixed(2)}, Upper bound: ${result.upperBound.toFixed(2)}, Outliers: ${result.outliers.join(', ')}`
+                  });
+                }}>Detect Outliers</Button>
+                <Button onClick={() => {
+                  const { labels, frequencies } = calculateFrequencyDistribution(selectedColumnIndex!);
+                  setChartData({ labels, datasets: [{ label: 'Frequency', data: frequencies, backgroundColor: 'rgba(0, 255, 0, 0.6)' }] });
+                }}>Frequency Distribution</Button>
+                <Button onClick={() => {
+                  const zScores = calculateZScores(selectedColumnIndex!);
+                  setChartData({
+                    datasets: [{
+                      label: 'Z-Scores',
+                      data: zScores.map((score, index) => ({ x: index, y: score })),
+                      backgroundColor: 'rgba(0, 255, 0, 0.6)'
+                    }]
+                  });
+                }}>Z-Scores</Button>
+              </div>
+
+
+              {statResult && chartData && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{statResult.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>{statResult.value}</p>
+                  </CardContent>
+                </Card>
+              )}
+
+            </div>
+          </AlertDialogDescription>
+          <AlertDialogFooter className="flex-shrink-0">
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction>Save Changes</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      );
 
 
       <div className="mb-4 flex justify-end space-x-4">
@@ -375,13 +490,13 @@ const CSVTable: React.FC<CSVTableProps> = ({ csvData, searchTerm, setSearchTerm,
         </tbody>
       </table>
 
-      <div className="mt-4 flex space-x-2">
+      {/* <div className="mt-4 flex space-x-2">
         <Button onClick={() => handleStatCalculation(calculateSum, 'Sum')}>Sum</Button>
         <Button onClick={() => handleStatCalculation(calculateAverage, 'Average')}>Average</Button>
         <Button onClick={() => handleStatCalculation(calculateMedian, 'Median')}>Median</Button>
         <Button onClick={() => handleStatCalculation(calculateStandardDeviation, 'Standard Deviation')}>Std Dev</Button>
         <Button onClick={handleCorrelation}>Correlation Matrix</Button>
-      </div>
+      </div> */}
 
 
       {statResult && chartData && (
@@ -395,7 +510,7 @@ const CSVTable: React.FC<CSVTableProps> = ({ csvData, searchTerm, setSearchTerm,
         </Card>
       )}
 
-      {correlationData && (
+      {/* {correlationData && (
         <Card className="mt-4">
           <CardHeader>
             <CardTitle>Correlation Heatmap</CardTitle>
@@ -429,7 +544,8 @@ const CSVTable: React.FC<CSVTableProps> = ({ csvData, searchTerm, setSearchTerm,
             </div>
           </CardContent>
         </Card>
-      )}
+      )} */}
+
     </div>
   );
 };
