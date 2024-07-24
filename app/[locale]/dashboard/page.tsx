@@ -3,7 +3,6 @@ import Analytics from '@/components/Analytics/Analyticss';
 import Welcoming from '@/components/common/Welcoming';
 import { DashboardHeader } from '@/components/header/DashboardHeader';
 import { HomeRecentActivityContainer } from '@/components/homeRecentAcrivity/HomeRecentActivityContainer';
-import FlowBoard from '@/components/kanban/FlowBoard';
 import  KanbanBoard  from '@/components/kanban/KanbanTable';
 import { TableComponent } from '@/components/table/TableComponent';
 import { getInitialHomeRecentActivitiy } from '@/lib/api';
