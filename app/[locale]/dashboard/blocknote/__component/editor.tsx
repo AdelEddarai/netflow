@@ -82,7 +82,6 @@ import {
 } from "@/components/ui/tooltip"
 
 import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import { useTheme } from "next-themes";
 import TextareaAutosize from 'react-textarea-autosize';
 import { format } from 'date-fns';
@@ -96,6 +95,12 @@ import { BlockQuoteBlock } from "./QuoteBlock";
 import { Blockboard } from "./WhiteBoardBlock";
 import { LineChart, PencilIcon } from "lucide-react";
 import { ChartBlock } from "./ChartBlock";
+
+import { Switch } from "@/components/ui/switch"
+import { useParams } from "next/navigation";
+
+
+
 
 // Our schema with block specs, which contain the configs and implementations for blocks
 // that we want our editor to use.
@@ -111,6 +116,7 @@ const schema = BlockNoteSchema.create({
     chartblock: ChartBlock,
   },
 });
+
 
 
 async function uploadFile(file: File) {
@@ -276,7 +282,12 @@ function SaveIndicator({ status }: { status: string }) {
 
 
 
-export default function App() {
+interface Props {
+	userId: string;
+}
+
+
+export default function App({ userId }: Props) {
   const [initialContent, setInitialContent] = useState<
     PartialBlock[] | undefined | "loading"
   >("loading");
@@ -306,8 +317,17 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [isAccordionVisible, setIsAccordionVisible] = useState(false);
 
 
+
+
+
+
+  const handleSwitchChange = (checked: any) => {
+    toast.success('it switched successfully')
+    setIsAccordionVisible(checked);
+  };
 
   const doc = useMemo(() => new Y.Doc(), []);
 
@@ -398,8 +418,6 @@ export default function App() {
   }, [initialContent, provider, username, userColor]);
 
 
-
-
   const saveContent = useCallback(async () => {
     if (editor) {
       setSaveStatus("saving");
@@ -438,27 +456,6 @@ export default function App() {
     toast.success('the file has succesfully download')
   };
 
-
-
-  function getImageType(content: string): string {
-    // Assuming 'content' contains HTML content with images
-    // Extract image URLs from the content
-    const imageUrls = content.match(/<img[^>]+src="(http[s]?:\/\/[^">]+)"/gi) || [];
-
-    // Iterate through the image URLs to determine their types
-    for (const imageUrl of imageUrls) {
-      if (imageUrl.endsWith('.png')) {
-        return 'png';
-      } else if (imageUrl.endsWith('.jpg') || imageUrl.endsWith('.jpeg')) {
-        return 'jpeg';
-      } else if (imageUrl.endsWith('.webp')) {
-        return 'webp';
-      } // Add support for other image types as needed
-    }
-
-    // Default to JPEG if no specific type is detected
-    return 'jpeg';
-  }
 
 
 
@@ -703,6 +700,10 @@ export default function App() {
     return "Loading content...";
   }
 
+
+
+
+
   const customDarkTheme = {
     colors: {
       editor: {
@@ -736,97 +737,109 @@ export default function App() {
 
   return (
     <div>
-      <div className="flex items-center space-x-4">
-        <button onClick={saveContent}>
-          {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
-        </button>
-        <SaveIndicator status={saveStatus} />
+      <div className="flex flex-col sm:flex-row items-center sm:space-x-4">
 
-        <div className='ml-28'>
-          <Toaster richColors />
+        <div className="hidden sm:flex items-center space-x-4">
+          <button onClick={saveContent}>
+            {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
+          </button>
+          <SaveIndicator status={saveStatus} />
+
+          <div className='ml-28'>
+            <Toaster richColors />
+            <DropdownMenu>
+              <div className='m-4'>
+                <DropdownMenuTrigger> <Button variant="outline"> <CiExport /> </Button></DropdownMenuTrigger>
+              </div>
+
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Download as</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={downloadHTML}>Html</DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadPDF}>Pdf</DropdownMenuItem>
+                <DropdownMenuItem onClick={downloadPNG}>Png</DropdownMenuItem>
+                <DropdownMenuItem onClick={downloadTableAsCSV}>CSV <div>  <TbTableExport />  </div></DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+
+
           <DropdownMenu>
             <div className='m-4'>
-              <DropdownMenuTrigger> <Button variant="outline"> <CiExport /> </Button></DropdownMenuTrigger>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <DropdownMenuTrigger> <Button variant="outline"> <CiImport /> </Button></DropdownMenuTrigger>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Import</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
 
             <DropdownMenuContent>
-              <DropdownMenuLabel>Download as</DropdownMenuLabel>
+              <DropdownMenuLabel>Import</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={downloadHTML}>Html</DropdownMenuItem>
-              <DropdownMenuItem onClick={handleDownloadPDF}>Pdf</DropdownMenuItem>
-              <DropdownMenuItem onClick={downloadPNG}>Png</DropdownMenuItem>
-              <DropdownMenuItem onClick={downloadTableAsCSV}>CSV <div>  <TbTableExport />  </div></DropdownMenuItem>
+              <DropdownMenuItem onClick={importCSV}>CSV</DropdownMenuItem>
+              <DropdownMenuItem onClick={importHTML}>HTML</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
 
 
-
-        <DropdownMenu>
-          <div className='m-4'>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <DropdownMenuTrigger> <Button variant="outline"> <CiImport /> </Button></DropdownMenuTrigger>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Import</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Import</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={importCSV}>CSV</DropdownMenuItem>
-            <DropdownMenuItem onClick={importHTML}>HTML</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-
-        <AlertDialog>
-          <div className='m-4'>
-            <AlertDialogTrigger> <Button variant="outline"> <PiShareNetworkThin /> </Button> </AlertDialogTrigger>
-          </div>
-
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Enter Room Details</AlertDialogTitle>
-              <AlertDialogDescription>
-                Please enter the name for the room, your username, and select a color.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <div className="grid gap-4">
-              <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="roomName">Room Name</Label>
-                <Input id="roomName" value={roomName} onChange={(e) => setRoomName(e.target.value)} className="col-span-2 h-8" />
-              </div>
-              <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} className="col-span-2 h-8" />
-              </div>
-              <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor="userColor">User Color</Label>
-                <Input type="color" id="userColor" value={userColor} onChange={(e) => setUserColor(e.target.value)} className="col-span-2 h-8" />
-              </div>
+          <AlertDialog>
+            <div className='m-4'>
+              <AlertDialogTrigger> <Button variant="outline"> <PiShareNetworkThin /> </Button> </AlertDialogTrigger>
             </div>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleSaveRoomName}>Save</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
 
-        <Button onClick={handleVisualize} variant={"outline"} disabled={loading}>
-          {loading ? (
-            <PiSpinnerThin className="animate-spin" />
-          ) : (
-            'Visualize Table Data'
-          )}
-        </Button>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Enter Room Details</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Please enter the name for the room, your username, and select a color.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <div className="grid gap-4">
+                <div className="grid grid-cols-3 items-center gap-4">
+                  <Label htmlFor="roomName">Room Name</Label>
+                  <Input id="roomName" value={roomName} onChange={(e) => setRoomName(e.target.value)} className="col-span-2 h-8" />
+                </div>
+                <div className="grid grid-cols-3 items-center gap-4">
+                  <Label htmlFor="username">Username</Label>
+                  <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} className="col-span-2 h-8" />
+                </div>
+                <div className="grid grid-cols-3 items-center gap-4">
+                  <Label htmlFor="userColor">User Color</Label>
+                  <Input type="color" id="userColor" value={userColor} onChange={(e) => setUserColor(e.target.value)} className="col-span-2 h-8" />
+                </div>
+              </div>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleSaveRoomName}>Save</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
 
-        <CommandDialogDemo />
+          <Button onClick={handleVisualize} variant={"outline"} disabled={loading}>
+            {loading ? (
+              <PiSpinnerThin className="animate-spin" />
+            ) : (
+              'Visualize Table Data'
+            )}
+          </Button>
+
+          <CommandDialogDemo />
+
+          {/* Switch to dev mode for accordion */}
+          <div className="flex items-center space-x-2">
+            <Switch id="accordion-switch" onCheckedChange={handleSwitchChange} />
+            <label htmlFor="accordion-switch">
+              {isAccordionVisible ? "Hide Accordion" : "Show Accordion"}
+            </label>
+          </div>
+
+        </div>
       </div>
 
       <div className="max-w-4xl mx-auto">
@@ -891,78 +904,80 @@ export default function App() {
                 </BlockNoteView>
               </div>
             </div>
-            </>
+          </>
         )}
-          </div>
-          
-
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="item-1">
-            <AccordionTrigger>Analyze the Data</AccordionTrigger>
-            <AccordionContent>
-
-              <ChartFiltering
-                csvData={csvData}
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                numericFilters={numericFilters}
-                setNumericFilters={setNumericFilters}
-              />
-              <CSVTable
-                csvData={csvData}
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-                numericFilters={numericFilters}
-                setNumericFilters={setNumericFilters}
-              />
-
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-2">
-            <AccordionTrigger>HTML</AccordionTrigger>
-            <AccordionContent>
-              <div className="item bordered">
-                <pre>
-                  <code>{html}</code>
-                </pre>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-3">
-            <AccordionTrigger>Markdown</AccordionTrigger>
-            <AccordionContent>
-              <div className={"item bordered"}>
-                <pre>
-                  <code>{markdown}</code>
-                </pre>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-4">
-            <AccordionTrigger>JSOn</AccordionTrigger>
-            <AccordionContent>
-              <div className={"item bordered"}>
-                <pre>
-                  <code>{JSON.stringify(blocks, null, 2)}</code>
-                </pre>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value="item-5">
-            <AccordionTrigger>Html Output</AccordionTrigger>
-            <AccordionContent>
-              <div className="mt-4">
-                <h3>HTML Input:</h3>
-                <textarea
-                  value={htmlContent}
-                  onChange={htmlInputChanged}
-                  className="w-full h-32 p-2 border rounded"
-                  placeholder="Paste or type HTML here"
-                />
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
       </div>
-      );
+
+
+      <div className="space-y-4">
+        {isAccordionVisible && (
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Analyze the Data</AccordionTrigger>
+              <AccordionContent>
+                <ChartFiltering
+                  csvData={csvData}
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                  numericFilters={numericFilters}
+                  setNumericFilters={setNumericFilters}
+                />
+                <CSVTable
+                  csvData={csvData}
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                  numericFilters={numericFilters}
+                  setNumericFilters={setNumericFilters}
+                />
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2">
+              <AccordionTrigger>HTML</AccordionTrigger>
+              <AccordionContent>
+                <div className="item bordered">
+                  <pre>
+                    <code>{html}</code>
+                  </pre>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-3">
+              <AccordionTrigger>Markdown</AccordionTrigger>
+              <AccordionContent>
+                <div className={"item bordered"}>
+                  <pre>
+                    <code>{markdown}</code>
+                  </pre>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-4">
+              <AccordionTrigger>JSON</AccordionTrigger>
+              <AccordionContent>
+                <div className={"item bordered"}>
+                  <pre>
+                    <code>{JSON.stringify(blocks, null, 2)}</code>
+                  </pre>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-5">
+              <AccordionTrigger>Html Output</AccordionTrigger>
+              <AccordionContent>
+                <div className="mt-4">
+                  <h3>HTML Input:</h3>
+                  <textarea
+                    value={htmlContent}
+                    onChange={htmlInputChanged}
+                    className="w-full h-32 p-2 border rounded"
+                    placeholder="Paste or type HTML here"
+                  />
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        )}
+      </div>
+    </div>
+  );
 }

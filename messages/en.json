@@ -970,6 +970,7 @@
 		"STARRED": "Starred",
 		"ASSIGNED-TO-ME": "Assigned to me",
 		"CALENDAR": "Calendar",
-		"CHAT": "Chat"
+		"CHAT": "Chat",
+		"BLOCKNOTES": "Blocknotes"
 	}
 }

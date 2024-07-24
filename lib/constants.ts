@@ -278,4 +278,8 @@ export const navLinks = [
 		title: 'PRODUCT.SUBTITLES.EASY',
 		href: 'Easy-To-Find',
 	},
+	{
+		title: 'PRODUCT.SUBTITLES.BLOCKNOTE',
+		href: 'Blocknote',
+	},
 ];

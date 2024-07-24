@@ -120,20 +120,6 @@ const Analytics: FC<Props> = ({ userId, initialData }) => {
 
   return (
     <div className='w-full mt-10 justify-center items-center grid grid-cols-1'>
-      {/* <Card className='mt-8'>
-        <h2 className='text-xl font-bold p-2'>Workspace Additions Per Day</h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <BarChart data={barChartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="count" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
-      </Card> */}
-
       {/* Bar Chart */}
 
       <Card className='dark:bg-black'>
@@ -163,85 +149,7 @@ const Analytics: FC<Props> = ({ userId, initialData }) => {
         </CardContent>
       </Card>
 
-      {/* <Card>
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
-        <div className="grid flex-1 gap-1 text-center sm:text-left">
-          <CardTitle>Area Chart - Interactive</CardTitle>
-          <CardDescription>
-            Showing total visitors for the last 3 months
-          </CardDescription>
-        </div>
-      </CardHeader>
-      <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
-        >
-          <AreaChart data={lineChartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="day"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              minTickGap={32}
-            />
-            <ChartTooltip
-              cursor={false}
-              content={
-                <ChartTooltipContent
-                  labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                    })
-                  }}
-                  indicator="dot"
-                />
-              }
-            />
-            <Area
-              dataKey="count"
-              type="natural"
-              fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
-            <Area
-              dataKey="day"
-              type="natural"
-              fill="url(#fillDesktop)"
-              stroke="var(--color-desktop)"
-              stackId="a"
-            />
-            <ChartLegend content={<ChartLegendContent />} />
-          </AreaChart>
-        </ChartContainer>
-      </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
-        <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
-        </div>
-      </CardFooter>
-    </Card> */}
-
-      {/* Line Chart */}
-      {/* <Card className='mt-8'>
-        <h2 className='text-xl font-bold p-2'>Trend of Workspace Additions</h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart data={lineChartData}>
-            <XAxis dataKey="day" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="count" stroke="#8884d8" color='green' />
-          </LineChart>
-        </ResponsiveContainer>
-      </Card> */}
-
+      
       <Card className="dark:bg-black mt-4">
         <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
           <div className="grid flex-1 gap-1 text-center sm:text-left">

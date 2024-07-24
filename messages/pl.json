@@ -940,6 +940,7 @@
 		"STARRED": "Wyróżnione",
 		"ASSIGNED-TO-ME": "Przypisane do mnie",
 		"CALENDAR": "Kalendarz",
-		"CHAT": "Czat"
+		"CHAT": "Czat",
+		"BLOCKNOTES": "Blocknote"
 	}
 }

@@ -38,7 +38,7 @@ const Dashboard = async () => {
 				<div className="p-3">
 				<KanbanBoard userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />				
 				</div>
-				<FlowBoard userId={session.user.id} initialData={initialRecentActivity ? initialRecentActivity : []} />
+				
 			</main>
 		</>
 	);

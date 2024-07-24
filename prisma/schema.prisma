@@ -118,6 +118,7 @@ model Task {
   assignedToTask assignedToTask[]
 }
 
+
 model MindMap {
   id                String              @id @default(cuid())
   createdAt         DateTime            @default(now())
@@ -218,6 +219,8 @@ model Notification {
   mindMapId        String?
 }
 
+
+
 model Conversation {
   id          String    @id @default(uuid())
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
@@ -298,4 +301,5 @@ enum NotfiyType {
   NEW_ROLE
   NEW_ASSIGMENT_TASK
   NEW_ASSIGMENT_MIND_MAP
+  NEW_BLOCK_NOTE
 }
