@@ -17,7 +17,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { LoadingState } from '@/components/ui/loading-state';
 import { domain } from '@/lib/api';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useChangeCodeToEmoji } from '@/hooks/useChangeCodeToEmoji';
 
 interface Props {

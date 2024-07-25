@@ -3,7 +3,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/ca
 import { SignUpCardContent } from './SignUpCardContent';
 import { SignInCardContent } from './SignInCardContent';
 import { useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { AppLogo } from '@/components/ui/app-logo';
 
 interface Props {

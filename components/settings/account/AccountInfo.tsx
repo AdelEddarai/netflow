@@ -37,7 +37,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useChangeLocale } from '@/hooks/useChangeLocale';
 import { LoadingState } from '@/components/ui/loading-state';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 interface Props {
 	session: Session;
 }

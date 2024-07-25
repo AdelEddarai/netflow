@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Menu } from 'lucide-react';
 import { AppLogo } from '@/components/ui/app-logo';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { LocaleSwitcher } from '@/components/switchers/LocaleSwitcher';
 import { ThemeSwitcher } from '@/components/switchers/ThemeSwitcher';
 import { buttonVariants } from '@/components/ui/button';

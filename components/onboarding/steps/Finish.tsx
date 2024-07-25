@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useToast } from '@/components/ui/use-toast';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 export const Finish = () => {
 	const { workspaceName, workspaceImage, surname, useCase, name } = useOnboardingForm();

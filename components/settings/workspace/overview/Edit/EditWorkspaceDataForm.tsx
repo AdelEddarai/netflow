@@ -19,7 +19,7 @@ import { useTranslations } from 'next-intl';
 import { LoadingState } from '@/components/ui/loading-state';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { SettingsWorkspace } from '@/types/extended';
 import Warning from '@/components/ui/warning';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';

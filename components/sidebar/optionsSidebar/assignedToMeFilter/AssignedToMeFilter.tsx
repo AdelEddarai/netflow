@@ -3,7 +3,7 @@ import { Workspace } from '@prisma/client';
 import React, { useMemo } from 'react';
 import { AssignedToMeWorkspace } from './AssignedToMeWorkspace';
 import ActiveLink from '@/components/ui/active-link';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { LayoutGrid } from 'lucide-react';
 import { Label } from '@/components/ui/label';

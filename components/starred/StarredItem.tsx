@@ -2,7 +2,7 @@
 import React from 'react';
 import { StarredItem as StarredItemType } from '@/types/saved';
 import { Card, CardContent } from '@/components/ui/card';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { ReadOnlyEmoji } from '../common/ReadOnlyEmoji';
 import { MoreHorizontal, Star, StarOff } from 'lucide-react';
 import { useFormatter, useTranslations } from 'next-intl';
@@ -15,7 +15,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useUnstarItem } from '@/hooks/useUnstarItem';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useTuncateText } from '@/hooks/useTruncateText';
 import { StarSvg } from '../common/StarSvg';
 

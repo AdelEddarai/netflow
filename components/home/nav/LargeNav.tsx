@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { AppLogo } from '@/components/ui/app-logo';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { LocaleSwitcher } from '@/components/switchers/LocaleSwitcher';
 import { ThemeSwitcher } from '@/components/switchers/ThemeSwitcher';
 import { Button, buttonVariants } from '@/components/ui/button';

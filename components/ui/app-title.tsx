@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppLogo } from './app-logo';
 import { cn } from '@/lib/utils';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 interface Props {
 	size?: number;
 	className?: string;

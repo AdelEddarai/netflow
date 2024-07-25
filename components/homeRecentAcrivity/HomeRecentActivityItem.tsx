@@ -6,10 +6,10 @@ import { useFormatter, useTranslations } from 'next-intl';
 import { UserHoverInfoCard } from '@/components/common/UserHoverInfoCard';
 import { Button } from '@/components/ui/button';
 import { useTuncateText } from '@/hooks/useTruncateText';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { HomeRecentActivity } from '@/types/extended';
 import { StarSvg } from '../common/StarSvg';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	activityItem: HomeRecentActivity;

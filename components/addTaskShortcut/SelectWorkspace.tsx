@@ -3,7 +3,7 @@ import { CustomColors, Workspace } from '@prisma/client';
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 
 interface Props {

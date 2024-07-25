@@ -1,5 +1,5 @@
 'use client';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { useEffect } from 'react';

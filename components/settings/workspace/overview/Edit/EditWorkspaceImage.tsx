@@ -23,7 +23,7 @@ import { useTranslations } from 'next-intl';
 import axios, { AxiosError } from 'axios';
 import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/components/ui/use-toast';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useUploadThing } from '@/lib/uploadthing';
 import { LoadingState } from '@/components/ui/loading-state';
 

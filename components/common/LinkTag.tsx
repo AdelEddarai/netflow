@@ -1,6 +1,6 @@
 'use client';
 import { Tag } from 'lucide-react';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import React, { useMemo } from 'react';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';

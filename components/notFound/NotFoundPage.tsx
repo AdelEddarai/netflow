@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { LocaleSwitcher } from '../switchers/LocaleSwitcher';
 import { ThemeSwitcher } from '../switchers/ThemeSwitcher';
 import { useTranslations } from 'next-intl';

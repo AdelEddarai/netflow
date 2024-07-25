@@ -6,7 +6,7 @@ import { ReadOnlyEmoji } from '@/components/common/ReadOnlyEmoji';
 import { useFormatter, useTranslations } from 'next-intl';
 import { UserHoverInfoCard } from '@/components/common/UserHoverInfoCard';
 import { useTuncateText } from '@/hooks/useTruncateText';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { StarSvg } from '@/components/common/StarSvg';
 import { AssignedToTaskUser } from './AssignedToTaskUser';
 import { TagItem } from './TagItem';

@@ -22,11 +22,11 @@ import {
 
 import { MoreHorizontal, Pencil, Star, StarOff, Trash } from 'lucide-react';
 import Warning from '@/components/ui/warning';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useToast } from '@/components/ui/use-toast';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { LoadingState } from '@/components/ui/loading-state';
 import { UserPermisson } from '@prisma/client';

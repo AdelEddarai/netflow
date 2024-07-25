@@ -18,7 +18,7 @@ import { UserAvatar } from '@/components/ui/user-avatar';
 import { Check, Moon, Sun, Globe, Settings2, LogOut } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import { useChangeLocale } from '@/hooks/useChangeLocale';
 import Image from 'next/image';

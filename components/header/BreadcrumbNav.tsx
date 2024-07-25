@@ -2,7 +2,7 @@
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
 interface Props {

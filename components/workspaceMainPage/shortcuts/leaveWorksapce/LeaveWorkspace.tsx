@@ -16,7 +16,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useTranslations } from 'next-intl';
 import { useToast } from '@/components/ui/use-toast';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { LoadingState } from '@/components/ui/loading-state';
 
 interface Props {

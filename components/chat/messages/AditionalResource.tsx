@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { AditionalResource as AditionalResourceType } from '@/types/extended';
 import { AditionalRecourceTypes } from '@prisma/client';
 import { ExternalLink, FileText } from 'lucide-react';
-import Link from 'next-intl/link';
+import Link from 'next/link';
+
 
 interface Props {
 	file: AditionalResourceType;

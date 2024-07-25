@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import Link from 'next-intl/link';
-import { usePathname } from 'next-intl/client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useToggleSidebar } from '@/context/ToggleSidebar';

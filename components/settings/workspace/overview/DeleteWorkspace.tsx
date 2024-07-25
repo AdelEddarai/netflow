@@ -29,7 +29,7 @@ import axios, { AxiosError } from 'axios';
 import { useToast } from '@/components/ui/use-toast';
 import { useMutation } from '@tanstack/react-query';
 import { LoadingState } from '@/components/ui/loading-state';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	workspace: SettingsWorkspace;

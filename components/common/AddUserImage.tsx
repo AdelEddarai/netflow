@@ -20,7 +20,7 @@ import { useUploadThing } from '@/lib/uploadthing';
 import { LoadingState } from '../ui/loading-state';
 import { useSession } from 'next-auth/react';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { User as UserType } from '@prisma/client';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';

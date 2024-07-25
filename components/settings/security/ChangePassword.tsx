@@ -18,7 +18,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslations } from 'next-intl';
 import { User } from '@prisma/client';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { LoadingState } from '@/components/ui/loading-state';
 
 export const ChangePassword = () => {

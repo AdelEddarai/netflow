@@ -14,7 +14,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { useToast } from '@/components/ui/use-toast';
 import { useTranslations } from 'next-intl';
 import { LoadingState } from '@/components/ui/loading-state';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { SubscriptionUser } from '@/types/extended';
 import { useChangeCodeToEmoji } from '@/hooks/useChangeCodeToEmoji';
 

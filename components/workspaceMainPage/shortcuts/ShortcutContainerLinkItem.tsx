@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { LucideIcon } from 'lucide-react';
 import { UserPermisson } from '@prisma/client';
 import { buttonVariants } from '@/components/ui/button';

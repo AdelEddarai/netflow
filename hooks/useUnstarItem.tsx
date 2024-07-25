@@ -5,7 +5,7 @@ import { StarredItem } from '@/types/saved';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	id: string;

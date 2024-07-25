@@ -7,7 +7,7 @@ import { useUserActivityStatus } from './UserActivityStatus';
 import { FilterUser, UserActiveItemList } from '@/types/extended';
 import { useQuery } from '@tanstack/react-query';
 import { useParams, useSearchParams } from 'next/navigation';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	children: React.ReactNode;

@@ -11,7 +11,7 @@ import { Plus } from 'lucide-react';
 import { CommandContainer } from './CommandContainer ';
 import { CustomColors, Tag } from '@prisma/client';
 import { LoadingState } from '@/components/ui/loading-state';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 

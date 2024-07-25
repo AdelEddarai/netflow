@@ -5,7 +5,7 @@ import { BellDot } from 'lucide-react';
 import { useTuncateText } from '@/hooks/useTruncateText';
 import { UserNotification } from '@/types/extended';
 import { useFormatter, useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { useCreateNotifayItem } from '@/hooks/useCreateNotifayItem';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';

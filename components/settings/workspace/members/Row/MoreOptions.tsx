@@ -25,7 +25,7 @@ import {
 	DialogOverlay,
 } from '@/components/ui/dialog';
 
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { MoreHorizontal } from 'lucide-react';
 import { SubscriptionUser } from '@/types/extended';
 import { LoadingState } from '@/components/ui/loading-state';

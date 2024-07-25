@@ -5,9 +5,9 @@ import { ReadOnlyEmoji } from '@/components/common/ReadOnlyEmoji';
 import { AssignedToMeDataItem } from '@/types/extended';
 import { useFormatter, useTranslations } from 'next-intl';
 import { UserHoverInfoCard } from '@/components/common/UserHoverInfoCard';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import { useTuncateText } from '@/hooks/useTruncateText';
 import { StarSvg } from '../common/StarSvg';
 

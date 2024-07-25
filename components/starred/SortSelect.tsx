@@ -7,7 +7,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 import {
 	QueryObserverResult,
 	RefetchOptions,

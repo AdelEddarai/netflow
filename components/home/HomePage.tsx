@@ -6,19 +6,11 @@ import { Header } from './header/Header';
 import { Section } from './section/Section';
 import { TextSection } from './section/TextSection';
 import {
-	homePageAssigmentFilterAndStarredImgs,
 	homePageCalendarImgs,
 	homePageChatImgs,
 	homePageMindMapsImgs,
-	homePagePomodoroImgs,
-	homePageRolesAndSettingsImgs,
-	homePageTasksImgs,
 } from '@/lib/constants';
 import { Footer } from './footer/Footer';
-
-
-import { useEffect } from "react";
-import { PiStarFourFill } from "react-icons/pi";
 import SplitAbout from './about/About';
 import Hero from './hero/Hero';
 import { AnimatedTooltipPreview } from './hero/Tooltibedemo';

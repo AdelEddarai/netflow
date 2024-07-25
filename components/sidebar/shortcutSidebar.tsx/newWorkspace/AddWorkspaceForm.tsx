@@ -21,7 +21,7 @@ import { useTranslations } from 'next-intl';
 import { LoadingState } from '@/components/ui/loading-state';
 import { useMutation } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
-import { useRouter } from 'next-intl/client';
+import { useRouter } from 'next/navigation';
 
 interface Props {
 	onSetOpen: React.Dispatch<React.SetStateAction<boolean>>;
