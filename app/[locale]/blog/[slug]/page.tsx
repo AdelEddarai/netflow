@@ -1,3 +1,5 @@
+// app/[locale]/blog/[slug]/page.tsx
+
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -11,9 +13,9 @@ interface Param {
   slug: string;
 }
 
-export const dynamicParams = false;
+export const dynamicParams = true;
 
-export default function Page({
+export default function BlogPost({
   params,
 }: {
   params: Param;
