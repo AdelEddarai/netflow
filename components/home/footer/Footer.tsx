@@ -11,8 +11,8 @@ const footerLinks = [
   {
     title: "Product",
     links: [
-      { title: "AI", url: "https://inke.app" },
-      { title: "What's new", url: "/buy" }
+      { title: "Blog", url: "/blog" },
+      { title: "What's new", url: "/blog" }
     ],
   },
   {
