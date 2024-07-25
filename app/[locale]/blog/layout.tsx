@@ -30,7 +30,7 @@ function Footer(): React.ReactElement {
               target="_blank"
               className="font-medium"
             >
-              Fuma
+              Adel
             </a>
           </p>
         </div>
