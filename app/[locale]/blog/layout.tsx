@@ -1,19 +1,16 @@
-// app/[locale]/blog/layout.tsx
-
 import type { ReactNode } from 'react';
 import { HomeLayout } from 'fumadocs-ui/home-layout';
 import 'fumadocs-ui/style.css';
 
-export default function BlogLayout({
+
+export default function Layout({
   children,
 }: {
   children: ReactNode;
 }): React.ReactElement {
   return (
     <HomeLayout>
-      <div className="blog-container">
-        {children}
-      </div>
+      {children}
       <Footer />
     </HomeLayout>
   );
@@ -28,12 +25,12 @@ function Footer(): React.ReactElement {
           <p className="text-xs">
             Built with ❤️ by{' '}
             <a
-              href="/"
+              href="https://fuma-dev.vercel.app"
               rel="noreferrer noopener"
               target="_blank"
               className="font-medium"
             >
-              Adel
+              Fuma
             </a>
           </p>
         </div>
