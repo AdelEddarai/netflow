@@ -738,109 +738,106 @@ export default function App({ userId }: Props) {
   return (
     <div>
       <div className="flex flex-col sm:flex-row items-center sm:space-x-4">
-
-        <div className="hidden sm:flex items-center space-x-4">
-          <button onClick={saveContent}>
-            {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
-          </button>
-          <SaveIndicator status={saveStatus} />
-
-          <div className='ml-28'>
-            <Toaster richColors />
-            <DropdownMenu>
-              <div className='m-4'>
-                <DropdownMenuTrigger> <Button variant="outline"> <CiExport /> </Button></DropdownMenuTrigger>
-              </div>
-
-              <DropdownMenuContent>
-                <DropdownMenuLabel>Download as</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={downloadHTML}>Html</DropdownMenuItem>
-                <DropdownMenuItem onClick={handleDownloadPDF}>Pdf</DropdownMenuItem>
-                <DropdownMenuItem onClick={downloadPNG}>Png</DropdownMenuItem>
-                <DropdownMenuItem onClick={downloadTableAsCSV}>CSV <div>  <TbTableExport />  </div></DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-
-
-
-          <DropdownMenu>
-            <div className='m-4'>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <DropdownMenuTrigger> <Button variant="outline"> <CiImport /> </Button></DropdownMenuTrigger>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Import</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-
-            <DropdownMenuContent>
-              <DropdownMenuLabel>Import</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={importCSV}>CSV</DropdownMenuItem>
-              <DropdownMenuItem onClick={importHTML}>HTML</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-
-          <AlertDialog>
-            <div className='m-4'>
-              <AlertDialogTrigger> <Button variant="outline"> <PiShareNetworkThin /> </Button> </AlertDialogTrigger>
-            </div>
-
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Enter Room Details</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Please enter the name for the room, your username, and select a color.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <div className="grid gap-4">
-                <div className="grid grid-cols-3 items-center gap-4">
-                  <Label htmlFor="roomName">Room Name</Label>
-                  <Input id="roomName" value={roomName} onChange={(e) => setRoomName(e.target.value)} className="col-span-2 h-8" />
-                </div>
-                <div className="grid grid-cols-3 items-center gap-4">
-                  <Label htmlFor="username">Username</Label>
-                  <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} className="col-span-2 h-8" />
-                </div>
-                <div className="grid grid-cols-3 items-center gap-4">
-                  <Label htmlFor="userColor">User Color</Label>
-                  <Input type="color" id="userColor" value={userColor} onChange={(e) => setUserColor(e.target.value)} className="col-span-2 h-8" />
-                </div>
-              </div>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                <AlertDialogAction onClick={handleSaveRoomName}>Save</AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-
-          <Button onClick={handleVisualize} variant={"outline"} disabled={loading}>
-            {loading ? (
-              <PiSpinnerThin className="animate-spin" />
-            ) : (
-              'Visualize Table Data'
-            )}
-          </Button>
-
-          <CommandDialogDemo />
-
-          {/* Switch to dev mode for accordion */}
-          <div className="flex items-center space-x-2">
-            <Switch id="accordion-switch" onCheckedChange={handleSwitchChange} />
-            <label htmlFor="accordion-switch">
-              {isAccordionVisible ? "Hide Accordion" : "Show Accordion"}
-            </label>
-          </div>
-
+  <div className="flex items-center space-x-4">
+    <button onClick={saveContent}>
+      {saveStatus === "saving" ? "Saving" : saveStatus === "pending" ? "Pending" : "Saved"}
+    </button>
+    <SaveIndicator status={saveStatus} />
+    <div className='ml-28'>
+      <Toaster richColors />
+      <DropdownMenu>
+        <div className='m-4'>
+          <DropdownMenuTrigger> <Button variant="outline"> <CiExport /> </Button></DropdownMenuTrigger>
         </div>
+
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Download as</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={downloadHTML}>Html</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleDownloadPDF}>Pdf</DropdownMenuItem>
+          <DropdownMenuItem onClick={downloadPNG}>Png</DropdownMenuItem>
+          <DropdownMenuItem onClick={downloadTableAsCSV}>CSV <div>  <TbTableExport />  </div></DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+
+    <DropdownMenu>
+      <div className='m-4'>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DropdownMenuTrigger> <Button variant="outline"> <CiImport /> </Button></DropdownMenuTrigger>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Import</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
+
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Import</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={importCSV}>CSV</DropdownMenuItem>
+        <DropdownMenuItem onClick={importHTML}>HTML</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+
+    <AlertDialog>
+      <div className='m-4'>
+        <AlertDialogTrigger> <Button variant="outline"> <PiShareNetworkThin /> </Button> </AlertDialogTrigger>
+      </div>
+
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Enter Room Details</AlertDialogTitle>
+          <AlertDialogDescription>
+            Please enter the name for the room, your username, and select a color.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <div className="grid gap-4">
+          <div className="grid grid-cols-3 items-center gap-4">
+            <Label htmlFor="roomName">Room Name</Label>
+            <Input id="roomName" value={roomName} onChange={(e) => setRoomName(e.target.value)} className="col-span-2 h-8" />
+          </div>
+          <div className="grid grid-cols-3 items-center gap-4">
+            <Label htmlFor="username">Username</Label>
+            <Input id="username" value={username} onChange={(e) => setUsername(e.target.value)} className="col-span-2 h-8" />
+          </div>
+          <div className="grid grid-cols-3 items-center gap-4">
+            <Label htmlFor="userColor">User Color</Label>
+            <Input type="color" id="userColor" value={userColor} onChange={(e) => setUserColor(e.target.value)} className="col-span-2 h-8" />
+          </div>
+        </div>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={handleSaveRoomName}>Save</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+
+    <div className="hidden sm:block">
+      <Button onClick={handleVisualize} variant={"outline"} disabled={loading}>
+        {loading ? (
+          <PiSpinnerThin className="animate-spin" />
+        ) : (
+          'Visualize Table Data'
+        )}
+      </Button>
+    </div>
+
+    <CommandDialogDemo />
+
+    {/* Switch to dev mode for accordion */}
+    <div className="hidden sm:flex items-center space-x-2">
+      <Switch id="accordion-switch" onCheckedChange={handleSwitchChange} />
+      <label htmlFor="accordion-switch">
+        {isAccordionVisible ? "Hide Accordion" : "Show Accordion"}
+      </label>
+    </div>
+
+  </div>
+</div>
 
       <div className="max-w-4xl mx-auto">
         {isLoading ? (

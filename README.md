@@ -1,4 +1,4 @@
-## Netflow-  probably the best productivity app :dragon:
+## Netflow-  probably the best productivity app
 
 [Netflow]('Netflow') is a AI Knowledge based collaboration based system  
 
