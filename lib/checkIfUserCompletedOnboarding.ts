@@ -1,4 +1,4 @@
-import { redirect } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 import { getAuthSession } from './auth';
 
 export const checkIfUserCompletedOnboarding = async (onboardingSite?: boolean) => {
