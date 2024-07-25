@@ -27,7 +27,7 @@ const RootLayout = async ({
 }) => {
 	const isValidLocale = locales.some((cur) => cur === locale);
 	if (!isValidLocale) notFound();
-	const messages = await getMessages(locale);
+	const messages = await getMessages();
 
 	return (
 		<html lang={locale} suppressHydrationWarning>
