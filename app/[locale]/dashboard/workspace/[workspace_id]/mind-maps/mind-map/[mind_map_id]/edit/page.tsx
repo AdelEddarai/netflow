@@ -8,7 +8,7 @@ import { getMindMap, getUserWorkspaceRole, getWorkspace } from '@/lib/api';
 import { getAuthSession } from '@/lib/auth';
 import { checkIfUserCompletedOnboarding } from '@/lib/checkIfUserCompletedOnboarding';
 import { Metadata } from 'next';
-import { redirect } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 
 interface Params {
     params: {

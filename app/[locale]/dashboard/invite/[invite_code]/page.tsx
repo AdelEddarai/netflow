@@ -2,7 +2,7 @@ import { checkIfUserCompletedOnboarding } from '@/lib/checkIfUserCompletedOnboar
 import { db } from '@/lib/db';
 import { NotfiyType } from '@prisma/client';
 import { Metadata } from 'next';
-import { redirect } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 import { notFound } from 'next/navigation';
 
 interface Params {
