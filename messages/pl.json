@@ -5,7 +5,7 @@
     "USERNAME": "اسم المستخدم",
     "SIGN_IN": {
       "TITLE": "تسجيل الدخول",
-      "DESC": "مرحبًا بك مرة أخرى في StudyFlow",
+      "DESC": "مرحبًا بك مرة أخرى في NetFlow",
       "SUBMIT_BTN": "تسجيل الدخول",
       "FORGOT_PASSWORD": "نسيت كلمة المرور؟",
       "DONT_HAVE_ACCOUNT": {
@@ -192,7 +192,7 @@
 			"SIGN_IN": "تم تسجيل الدخول!",
 			"IMAGE_PROFILE_UPDATE": "تم تحديث صورة ملفك الشخصي!",
 			"IMAGE_PROFILE_DELETE": "تم حذف صورة ملفك الشخصي!",
-			"ONBOARDING_COMPLETE": "مرحبًا بك في StudyFlow!",
+			"ONBOARDING_COMPLETE": "مرحبًا بك في NetFlow!",
 			"PROFILE_EDITED": "تم تحديث الملف الشخصي!",
 			"DELETED_INFO": "تم حذف حسابك",
 			"PASSWORD_CHANGED": "تم تغيير كلمة المرور",
@@ -310,7 +310,7 @@
 		},
 		"ACCOUNT": {
 			"TITLE": "الحساب",
-			"DESC": "إدارة حساب StudyFlow الخاص بك. سيتم تطبيق جميع التغييرات على حسابك على جميع مساحات العمل.",
+			"DESC": "إدارة حساب NetFlow الخاص بك. سيتم تطبيق جميع التغييرات على حسابك على جميع مساحات العمل.",
 			"IMAGE": "صورة الملف الشخصي",
 			"USERNAME": "اسم المستخدم",
 			"FIRST_NAME": "الاسم الأول (اختياري)",
@@ -882,7 +882,7 @@
 		"SECTION": {
 			"BEST_FRIEND": {
 				"TITLE": "Twój nowy najlepszy przyjaciel",
-				"DESC": "Zwiększ produktywność swojego zespołu dzięki StudyFlow - ostatecznemu narzędziu, które konsoliduje wszystkie niezbędne narzędzia w jednej zintegrowannej przestrzeni roboczej."
+				"DESC": "Zwiększ produktywność swojego zespołu dzięki NetFlow - ostatecznemu narzędziu, które konsoliduje wszystkie niezbędne narzędzia w jednej zintegrowannej przestrzeni roboczej."
 			},
 			"MIND_MAPS": {
 				"TITLE": "Mapy Myśli",

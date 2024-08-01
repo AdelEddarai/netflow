@@ -210,7 +210,7 @@
 			"SIGN_IN": "You have been log in!",
 			"IMAGE_PROFILE_UPDATE": "Your profile image has been updated!",
 			"IMAGE_PROFILE_DELETE": "Your profile image has been deleted!",
-			"ONBOARDING_COMPLETE": "Welcome in StudyFlow!",
+			"ONBOARDING_COMPLETE": "Welcome in NetFlow!",
 			"PROFILE_EDITED": "Profile has been updated!",
 			"DELETED_INFO": "Your account has beed deleted",
 			"PASSWORD_CHANGED": "Password has benn changed",
@@ -327,7 +327,7 @@
 		},
 		"ACCOUNT": {
 			"TITLE": "Account",
-			"DESC": "Manage your StudyFlow account. All changes to your account will be applied to all workspaces.",
+			"DESC": "Manage your NetFlow account. All changes to your account will be applied to all workspaces.",
 			"IMAGE": "PROFILE IMAGE",
 			"USERNAME": "USERNAME",
 			"FIRST_NAME": "FIRST NAME (OPTIONAL)",
@@ -910,7 +910,7 @@
 		"SECTION": {
 			"BEST_FRIEND": {
 				"TITLE": "Your new best friend",
-				"DESC": "Supercharge your team's productivity with StudyFlow - the ultimate toolkit consolidating all your essential tools in one unified workspace."
+				"DESC": "Supercharge your team's productivity with NetFlow - the ultimate toolkit consolidating all your essential tools in one unified workspace."
 			},
 			"MIND_MAPS": {
 				"TITLE": "Mind Maps",

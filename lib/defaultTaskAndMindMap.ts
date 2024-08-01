@@ -84,7 +84,7 @@ export const defaultMindMap = {
 };
 
 export const defaultTask = {
-	title: 'Welcome to StudyFlow',
+	title: 'Welcome to NetFlow',
 	emoji: '1f44b',
 	content: {
 		type: 'doc',
@@ -218,7 +218,7 @@ export const defaultTask = {
 								type: 'link',
 								attrs: {
 									rel: 'noopener noreferrer nofollow',
-									href: 'https://github.com/sepetowski/studyFlow',
+									href: 'https://github.com/AdelEddarai/netflow',
 									class: null,
 									target: '_blank',
 								},

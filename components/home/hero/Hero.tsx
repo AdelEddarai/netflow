@@ -24,9 +24,9 @@ const Hero = () => {
           <h1 className="text-6xl font-bold tracking-tight max-w-[40rem] max-[372px]:text-5xl relative hero-heading">
             Focus. Flow. Achieve <p className='text-green-200'>With</p>
           </h1>
-          <p className="text-md opacity-80 max-w-[30rem] w-full relative">
+          <div className="text-md opacity-80 max-w-[30rem] w-full relative">
             <Netflow />
-          </p>
+          </div>
           <div className="flex flex-wrap gap-3 p-2">
             <Link
               href={'/sign-up'}

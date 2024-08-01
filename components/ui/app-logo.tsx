@@ -14,7 +14,7 @@ export const AppLogo = ({ height = 800, width = 800, className }: Props) => {
 			alt='logo app'
 			width={width}
 			height={height}
-			src='/studyFlow.jpg'
+			src='/'
 			priority
 		/>
 	);

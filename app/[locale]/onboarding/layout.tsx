@@ -3,7 +3,7 @@ import { ThemeSwitcher } from '@/components/switchers/ThemeSwitcher';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-	title: 'StudyFlow - Onboarding',
+	title: 'NetFlow - Onboarding',
 	description:
 		'Complete the account setup process and start your journey with us. Finish setting up your account to access all features and begin exploring what our platform has to offer.',
 };
