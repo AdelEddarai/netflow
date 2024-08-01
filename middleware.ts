@@ -38,3 +38,7 @@ export default function middleware(req: NextRequest) {
         return (authMiddleware as any)(req);
     }
 }
+
+export const config = {
+    matcher: ['/((?!api|_next|.*\\..*).*)'],
+};
