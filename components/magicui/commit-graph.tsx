@@ -8,7 +8,7 @@ import { Activity } from 'lucide-react';
 import { ClientError } from '../error/ClientError';
 import { useTranslations } from 'next-intl';
 import { HomeRecentActivity } from '@/types/extended';
-import { format, parseISO, eachWeekOfInterval, eachDayOfInterval, subYears, addDays } from 'date-fns';
+import { format, parseISO, eachWeekOfInterval, eachDayOfInterval, subYears, addDays, subMonths } from 'date-fns';
 import {
   Tooltip,
   TooltipContent,
@@ -25,6 +25,7 @@ export const CommitGraph = ({ userId, initialData }: Props) => {
   const t = useTranslations('HOME_PAGE');
   const [isAllFetched, setIsAllFetched] = useState(false);
   const [activityData, setActivityData] = useState<Record<string, number>>({});
+  const [isMobile, setIsMobile] = useState(false);
 
   const lastActivityItem = useRef<null | HTMLDivElement>(null);
   const { entry, ref } = useIntersection({
@@ -73,6 +74,15 @@ export const CommitGraph = ({ userId, initialData }: Props) => {
     }
   }, [data]);
 
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   if (isError) return <ClientError message={t('ERROR')} />;
 
   if (data?.pages.every(page => page.length === 0))
@@ -94,18 +104,18 @@ export const CommitGraph = ({ userId, initialData }: Props) => {
   };
 
   const today = new Date();
-  const oneYearAgo = subYears(today, 1);
-  const weeks = eachWeekOfInterval({ start: oneYearAgo, end: today });
+  const startDate = isMobile ? subMonths(today, 6) : subYears(today, 1);
+  const weeks = eachWeekOfInterval({ start: startDate, end: today });
 
   return (
     <div className='w-full mt-10 p-4 rounded-md border'>
       <h2 className="text-2xl font-bold mb-4">Activity Contribution Graph</h2>
       <TooltipProvider>
-        <div className="flex">
+        <div className="flex flex-wrap justify-center md:justify-start overflow-x-auto">
           {weeks.map((week) => {
             const days = eachDayOfInterval({ start: week, end: addDays(week, 6) });
             return (
-              <div key={week.toISOString()} className="flex flex-col gap-1">
+              <div key={week.toISOString()} className="flex flex-col gap-1 mb-1 md:mb-0">
                 {days.map((day) => {
                   const formattedDate = format(day, 'yyyy-MM-dd');
                   const month = format(day, 'yyyy-MM');
@@ -114,7 +124,7 @@ export const CommitGraph = ({ userId, initialData }: Props) => {
                     <Tooltip key={formattedDate}>
                       <TooltipTrigger>
                         <div
-                          className={`w-3 h-3 ${getColor(count)} rounded-sm cursor-pointer`}
+                          className={`w-2 h-2 md:w-3 md:h-3 ${getColor(count)} rounded-sm cursor-pointer`}
                         />
                       </TooltipTrigger>
                       <TooltipContent>
@@ -129,14 +139,14 @@ export const CommitGraph = ({ userId, initialData }: Props) => {
           })}
         </div>
       </TooltipProvider>
-      <div className="mt-2 flex items-center justify-end">
+      <div className="mt-4 flex flex-wrap items-center justify-center md:justify-end">
         <span className="text-sm mr-2">Less</span>
         <div className="flex gap-1">
-          <div className="w-3 h-3 bg-gray-100 rounded-sm" />
-          <div className="w-3 h-3 bg-green-200 rounded-sm" />
-          <div className="w-3 h-3 bg-green-400 rounded-sm" />
-          <div className="w-3 h-3 bg-green-600 rounded-sm" />
-          <div className="w-3 h-3 bg-green-800 rounded-sm" />
+          <div className="w-2 h-2 md:w-3 md:h-3 bg-gray-100 rounded-sm" />
+          <div className="w-2 h-2 md:w-3 md:h-3 bg-green-200 rounded-sm" />
+          <div className="w-2 h-2 md:w-3 md:h-3 bg-green-400 rounded-sm" />
+          <div className="w-2 h-2 md:w-3 md:h-3 bg-green-600 rounded-sm" />
+          <div className="w-2 h-2 md:w-3 md:h-3 bg-green-800 rounded-sm" />
         </div>
         <span className="text-sm ml-2">More</span>
       </div>
