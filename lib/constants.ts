@@ -69,7 +69,7 @@ export const topSidebarLinks = [
 	{
 		href: '/dashboard/blocknote',
 		Icon: StickyNote,
-		hoverTextKey: 'BLOCKNOTE',
+		hoverTextKey: 'BLOCKNOTE_HOVER',
 	},
 	
 ];

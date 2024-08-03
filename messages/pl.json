@@ -259,7 +259,8 @@
 			"ASSIGNED_TO_ME_HOVER": "المخصصة لي",
 			"NEW_WORKSAPCE_HOVER": "مساحة عمل جديدة",
 			"NEW_WORKSAPCE_DIALOG_TITLE": "إنشاء مساحة عمل جديدة",
-			"NEW_WORKSAPCE_DIALOG_DESC": "تذكر أنه يمكنك امتلاك ما يصل إلى 5 مساحات عمل نشطة في نفس الوقت."
+			"NEW_WORKSAPCE_DIALOG_DESC": "تذكر أنه يمكنك امتلاك ما يصل إلى 5 مساحات عمل نشطة في نفس الوقت.",
+			"BLOCKNOTE_HOVER": "Blocknote"
 		},
 		"SETTINGS": {
 			"GENERAL": "عام",

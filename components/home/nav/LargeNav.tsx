@@ -32,7 +32,7 @@ export const LargeNav = () => {
 					}}>
 					<AppLogo className='w-10 h-10' />
 					<p className='text-2xl font-semibold'>
-						Study<span className='text-primary'>Flow</span>
+						Net<span className='text-primary'>Flow</span>
 					</p>
 				</Button>
 				<NavigationMenu>

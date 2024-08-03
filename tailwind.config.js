@@ -60,23 +60,26 @@ const config = {
 				sm: 'calc(var(--radius) - 4px)',
 			},
 			keyframes: {
-				  "accordion-down": {
+				"accordion-down": {
 					from: { height: "0" },
 					to: { height: "var(--radix-accordion-content-height)" },
-					},
-					"accordion-up": {
+				},
+				"accordion-up": {
 					from: { height: "var(--radix-accordion-content-height)" },
 					to: { height: "0" },
-					},
-				
+				},
+				grid: {
+					"0%": { transform: "translateY(-50%)" },
+					"100%": { transform: "translateY(0)" },
+				},
 				starScale: {
 					"from, to": {
-					  transform: "rotate(0) scale(0)",
-					  opacity: 0,
+						transform: "rotate(0) scale(0)",
+						opacity: 0,
 					},
 					"50%": {
-					  transform: "rotate(180deg) scale(1)",
-					  opacity: 1,
+						transform: "rotate(180deg) scale(1)",
+						opacity: 1,
 					},
 				},
 				accordionDown: {
@@ -92,10 +95,10 @@ const config = {
 				},
 				marquee: {
 					"0%": {
-					  transform: "translateX(0%)",
+						transform: "translateX(0%)",
 					},
 					"100%": {
-					  transform: "translateX(calc(-100% - var(--gap)))",
+						transform: "translateX(calc(-100% - var(--gap)))",
 					},
 				},
 			},
@@ -107,6 +110,7 @@ const config = {
 				marquee: "marquee 30s linear infinite",
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
+				grid: "grid 15s linear infinite",
 			},
 		},
 	},

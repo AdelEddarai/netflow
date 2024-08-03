@@ -4,23 +4,30 @@ import Link from "next/link";
 import mindmaps from './HeroImage.png'
 import DotPattern from "./dot-pattern";
 import Netflow from "./Spaceflow-anime";
+import RetroGrid from "@/components/magicui/retro-grid";
 
 
 
 const Hero = () => {
   return (
     <>
-      <DotPattern
+      {/* <DotPattern
         width={20}
         height={20}
         cx={2}
         cy={2}
         cr={1}
         className="fill-blue-400/40"
-      />
+      /> */}
       <div className="flex flex-col items-center justify-center gap-[8rem] text-center px-4 mt-2">
         <div className="w-full h-[10rem] bg-zinc-950 mx-auto absolute top-[-4rem] blur-[100px] opacity-30 z-[1]"></div>
         <div className="flex flex-col items-center justify-center gap-4 text-center">
+      
+          {/* <span className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-[#ffd319] via-[#ff2975] to-[#8c1eff] bg-clip-text text-center text-7xl font-bold leading-none tracking-tighter text-transparent">
+            NetFlow
+          </span> */}
+    
+          <RetroGrid />
           <h1 className="text-6xl font-bold tracking-tight max-w-[40rem] max-[372px]:text-5xl relative hero-heading">
             Focus. Flow. Achieve <p className='text-green-200'>With</p>
           </h1>

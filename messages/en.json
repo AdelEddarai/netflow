@@ -276,7 +276,8 @@
 			"ASSIGNED_TO_ME_HOVER": "Assigned to me",
 			"NEW_WORKSAPCE_HOVER": "New workscape",
 			"NEW_WORKSAPCE_DIALOG_TITLE": "Create new workscape",
-			"NEW_WORKSAPCE_DIALOG_DESC": "Remember that you can have a maximum of 5 active workspaces at the same time."
+			"NEW_WORKSAPCE_DIALOG_DESC": "Remember that you can have a maximum of 5 active workspaces at the same time.",
+			"BLOCKNOTE_HOVER": "Blocknote"
 		},
 		"SETTINGS": {
 			"GENERAL": "General",
