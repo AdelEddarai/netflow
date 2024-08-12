@@ -80,8 +80,3 @@ export function generateMetadata({ params }: { params: Param }): Metadata {
   });
 }
 
-export function generateStaticParams(): Param[] {
-  return blog.getPages().map<Param>((page) => ({
-    slug: page.slugs[0],
-  }));
-}
