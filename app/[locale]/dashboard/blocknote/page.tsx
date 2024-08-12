@@ -28,7 +28,7 @@ const Page = async () => {
         <ResizablePanelGroup direction="horizontal" className="h-full">
           <ResizablePanel defaultSize={99}>
             <Suspense fallback={<LoadingState className='w-12 h-12' />}>
-            <Editor userId={session.user.id} />
+            <Editor />
             </Suspense>
           </ResizablePanel>
           <ResizableHandle />

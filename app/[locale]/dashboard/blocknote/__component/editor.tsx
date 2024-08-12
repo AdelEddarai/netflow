@@ -287,7 +287,7 @@ interface Props {
 }
 
 
-export default function App({ userId }: Props) {
+export default function App() {
   const [initialContent, setInitialContent] = useState<
     PartialBlock[] | undefined | "loading"
   >("loading");
