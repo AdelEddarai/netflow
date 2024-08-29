@@ -35,6 +35,19 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model BlockNote {
+  id        String   @id @default(uuid())
+  title     String
+  content   Json
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  userId    String   @map("user_id")
+
+  @@map("blocknote")
+}
+
+
+
 model User {
   id                       String              @id @default(cuid())
   name                     String?
@@ -117,7 +130,6 @@ model Task {
   savedTask      savedTask[]
   assignedToTask assignedToTask[]
 }
-
 
 model MindMap {
   id                String              @id @default(cuid())
@@ -219,8 +231,6 @@ model Notification {
   mindMapId        String?
 }
 
-
-
 model Conversation {
   id          String    @id @default(uuid())
   workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
@@ -301,5 +311,4 @@ enum NotfiyType {
   NEW_ROLE
   NEW_ASSIGMENT_TASK
   NEW_ASSIGMENT_MIND_MAP
-  NEW_BLOCK_NOTE
 }

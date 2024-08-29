@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { usePathname } from 'next/navigation';
 import { Settings } from './settingsOptions/Settings';
 import { CreatedWorkspacesInfo } from '@/components/common/CreatedWorkspacesInfo';
 import { Workspace } from '@prisma/client';
@@ -9,6 +8,7 @@ import { WorkspaceOptions } from './workspaceOptions/WorkspaceOptions';
 import { PomodoroLinks } from './pomodoro/PomodoroLinks';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { AssignedToMeFilter } from './assignedToMeFilter/AssignedToMeFilter';
+import { usePathname } from 'next/navigation';
 
 interface Props {
 	createdWorkspaces: number;

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { HomeLayout } from 'fumadocs-ui/home-layout';
 import 'fumadocs-ui/style.css';
-
+import './style.css'
 
 export default function Layout({
   children,

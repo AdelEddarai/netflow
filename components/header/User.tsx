@@ -46,7 +46,7 @@ export const User = ({ profileImage, email, username }: Props) => {
 					<Image
 						src={profileImage}
 						alt='profile image'
-						className='w-10 h-10 lg:w-12 lg:h-12 rounded-full object-cover'
+						className='w-8 h-8 lg:w-10 lg:h-10 rounded-full object-cover'
 						width={300}
 						height={300}
 					/>

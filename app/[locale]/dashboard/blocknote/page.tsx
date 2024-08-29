@@ -6,7 +6,6 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/componen
 import { Suspense } from "react";
 import { LoadingState } from "@/components/ui/loading-state";
 import { Metadata } from "next";
-import TldrawBlock from "./__component/TldrawBlock";
 
 const Editor = dynamic(() => import("./__component/editor"), { ssr: false });
 
@@ -31,11 +30,7 @@ const Page = async () => {
             <Editor />
             </Suspense>
           </ResizablePanel>
-          <ResizableHandle />
-          <ResizablePanel defaultSize={1}>
-            <TldrawBlock />
-          </ResizablePanel>
-          <ResizableHandle />
+  
         </ResizablePanelGroup>
       </main>
     </div>

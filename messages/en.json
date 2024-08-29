@@ -892,7 +892,9 @@
 					"POMODORO": "Pomodoro",
 					"CHAT": "Chat & Notifications",
 					"CALENDAR": "Integrated Calendar",
-					"EASY": "Easy Access"
+					"EASY": "Easy Access",
+					"BLOCKNOTES": "Easy report"
+
 				}
 			},
 			"SIGN_IN": "Log in",
@@ -972,6 +974,6 @@
 		"ASSIGNED-TO-ME": "Assigned to me",
 		"CALENDAR": "Calendar",
 		"CHAT": "Chat",
-		"BLOCKNOTES": "Blocknotes"
+		"BLOCKNOTES": "Blocknote"
 	}
 }

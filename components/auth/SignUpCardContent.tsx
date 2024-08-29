@@ -11,9 +11,9 @@ import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { ProviderSigInBtns } from './ProviderSigInBtns';
 import { LoadingState } from '@/components/ui/loading-state';
-import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useToast } from '@/components/ui/use-toast';
+import { useRouter } from 'next/navigation';
 
 export const SignUpCardContent = () => {
 	const t = useTranslations('AUTH');
@@ -76,7 +76,7 @@ export const SignUpCardContent = () => {
 		<CardContent>
 			<Form {...form}>
 				<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-7'>
-					{/* <ProviderSigInBtns onLoading={setIsLoading} disabled={isLoading} /> */}
+					<ProviderSigInBtns onLoading={setIsLoading} disabled={isLoading} />
 					<div className='space-y-1.5'>
 						<FormField
 							control={form.control}

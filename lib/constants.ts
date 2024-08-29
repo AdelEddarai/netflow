@@ -67,7 +67,7 @@ export const topSidebarLinks = [
 		hoverTextKey: 'ASSIGNED_TO_ME_HOVER',
 	},
 	{
-		href: '/dashboard/blocknote',
+		href: '/dashboard/dashblock',
 		Icon: StickyNote,
 		hoverTextKey: 'BLOCKNOTE_HOVER',
 	},

@@ -23,7 +23,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 			<ToggleSidebarProvider>
 			  <ResizablePanelGroup direction="horizontal">
 	  
-				<ResizablePanel defaultSize={15}>
+				<ResizablePanel defaultSize={5}>
 				  <div className="h-screen w-full overflow-hidden">
 					<Sidebar />
 				  </div>
@@ -31,7 +31,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 	  
 				<ResizableHandle withHandle />
 	  
-				<ResizablePanel defaultSize={85}>
+				<ResizablePanel defaultSize={95}>
 				  <div className="relative p-4 md:p-6 lg:px-10 flex-grow flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-secondary scrollbar-track-background h-screen">
 					{children}
 				  </div>
