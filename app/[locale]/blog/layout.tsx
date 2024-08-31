@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { HomeLayout } from 'fumadocs-ui/home-layout';
 import 'fumadocs-ui/style.css';
-import './style.css'
+
 
 export default function Layout({
   children,
@@ -25,12 +25,12 @@ function Footer(): React.ReactElement {
           <p className="text-xs">
             Built with ❤️ by{' '}
             <a
-              href="https://fuma-dev.vercel.app"
+              href="/"
               rel="noreferrer noopener"
               target="_blank"
               className="font-medium"
             >
-              Fuma
+              Netflow
             </a>
           </p>
         </div>
