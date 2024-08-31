@@ -75,6 +75,25 @@ export async function getBlockNoteById(id: string) {
   }
 }
 
+export async function gePublictBlockNoteById(id: string) {
+  try {
+    const blockNote = await prisma.blockNote.findUnique({
+      where: {
+        id: id,
+      },
+    })
+
+    if (!blockNote) {
+      return { success: false, error: 'BlockNote not found' }
+    }
+
+    return { success: true, blockNote }
+  } catch (error) {
+    console.error('Error fetching BlockNote:', error)
+    return { success: false, error: String(error) }
+  }
+}
+
 export async function updateBlockNote(id: string, title: string, content: any): Promise<{ success: boolean; blockNote?: BlockNote; error?: string }> {
   try {
     const session = await getServerSession(authOptions)

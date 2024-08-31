@@ -2,10 +2,10 @@
 
 import { Block } from "@blocknote/core";
 import BlockNoteContent from "../../dashboard/blocknote/[id]/BlocknoteContent";
-import { getBlockNoteById } from "../../dashboard/blocknote/action";
+import { gePublictBlockNoteById } from "../../dashboard/blocknote/action";
 
 export default async function BlockNotePuplish({ params }: { params: { id: string } }) {
-  const result = await getBlockNoteById(params.id);
+  const result = await gePublictBlockNoteById(params.id);
 
   if (!result.success || !result.blockNote) {
     return <div>Error: {result.error || 'BlockNote not found'}</div>;
