@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import { Block, BlockNoteEditor } from "@blocknote/core";
+import { Block, BlockNoteEditor, PartialBlock } from "@blocknote/core";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface TemplateCardProps {
@@ -77,7 +77,7 @@ const templates = [
         type: "paragraph",
         content: "Ensure all steps are completed within the first week."
       }
-    ]
+    ] as Block[]
   },
   {
     title: "Lesson Plan",
@@ -86,7 +86,7 @@ const templates = [
     content: [
       {
         type: "heading",
-        content: "Weekly Lesson Plan",
+        content: [{ type: "text", text: "Weekly Lesson Plan" }],
         props: { level: 1 }
       },
       {
@@ -95,22 +95,22 @@ const templates = [
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Day" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "Topic" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "Activities" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "Resources" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Day" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Topic" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Activities" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Resources" }] }] }
             ]
           },
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Monday" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Monday" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "" }] }] }
             ]
           },
-          // ... (rows for other days of the week)
+          // Add more rows for other days of the week
         ]
       }
     ]
@@ -122,12 +122,12 @@ const templates = [
     content: [
       {
         type: "heading",
-        content: "Customer Profile",
+        content: [{ type: "text", text: "Customer Profile" }],
         props: { level: 1 }
       },
       {
         type: "heading",
-        content: "Customer Information",
+        content: [{ type: "text", text: "Customer Information" }],
         props: { level: 2 }
       },
       {
@@ -136,29 +136,29 @@ const templates = [
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Name" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "John Doe" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Name" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "John Doe" }] }] }
             ]
           },
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Company" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "ABC Corporation" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Company" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "ABC Corporation" }] }] }
             ]
           },
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Position" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "CEO" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Position" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "CEO" }] }] }
             ]
           }
         ]
       },
       {
         type: "heading",
-        content: "Contact Details",
+        content: [{ type: "text", text: "Contact Details" }],
         props: { level: 2 }
       },
       {
@@ -167,29 +167,29 @@ const templates = [
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Email" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "john.doe@example.com" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Email" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "john.doe@example.com" }] }] }
             ]
           },
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Phone" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "(123) 456-7890" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Phone" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "(123) 456-7890" }] }] }
             ]
           },
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Address" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "123 Main St, City, State" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Address" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "123 Main St, City, State" }] }] }
             ]
           }
         ]
       },
       {
         type: "heading",
-        content: "Interaction History",
+        content: [{ type: "text", text: "Interaction History" }],
         props: { level: 2 }
       },
       {
@@ -198,34 +198,34 @@ const templates = [
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "Date" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "Description" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Date" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Description" }] }] }
             ]
           },
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "2023-01-01" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "Initial contact made" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "2023-01-01" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Initial contact made" }] }] }
             ]
           },
           {
             type: "tableRow",
             content: [
-              { type: "tableCell", content: [{ type: "paragraph", content: "2023-01-15" }] },
-              { type: "tableCell", content: [{ type: "paragraph", content: "Follow-up call scheduled" }] }
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "2023-01-15" }] }] },
+              { type: "tableCell", content: [{ type: "paragraph", content: [{ type: "text", text: "Follow-up call scheduled" }] }] }
             ]
           }
         ]
       },
       {
         type: "heading",
-        content: "Notes",
+        content: [{ type: "text", text: "Notes" }],
         props: { level: 2 }
       },
       {
         type: "paragraph",
-        content: "Add any additional notes or comments here."
+        content: [{ type: "text", text: "Add any additional notes or comments here." }]
       },
     ]
   },
@@ -236,54 +236,72 @@ const templates = [
     content: [
       {
         type: "heading",
-        content: "Quarterly Business Report",
+        content: [{ type: "text", text: "Quarterly Business Report" }],
         props: { level: 1 }
       },
       {
         type: "heading",
-        content: "Executive Summary",
+        content: [{ type: "text", text: "Executive Summary" }],
         props: { level: 2 }
       },
       {
         type: "paragraph",
-        content: "Brief overview of the report's main points and findings."
+        content: [{ type: "text", text: "Brief overview of the report's main points and findings." }]
       },
       {
         type: "heading",
-        content: "Financial Performance",
+        content: [{ type: "text", text: "Financial Performance" }],
         props: { level: 2 }
       },
       {
         type: "paragraph",
-        content: "Overview of key financial metrics and performance indicators."
+        content: [{ type: "text", text: "Overview of key financial metrics and performance indicators." }]
       },
       {
         type: "heading",
-        content: "Operational Highlights",
+        content: [{ type: "text", text: "Operational Highlights" }],
         props: { level: 2 }
       },
       {
         type: "bulletListItem",
-        content: "Key operational achievement or milestone"
+        content: [{ type: "text", text: "Key operational achievement or milestone" }]
       },
       {
         type: "bulletListItem",
-        content: "Another significant operational development"
+        content: [{ type: "text", text: "Another significant operational development" }]
       },
-      // ... (sections for Challenges, Opportunities, Next Steps, etc.)
+      {
+        type: "heading",
+        content: [{ type: "text", text: "Challenges and Opportunities" }],
+        props: { level: 2 }
+      },
+      {
+        type: "paragraph",
+        content: [{ type: "text", text: "Discuss current challenges and potential opportunities for growth." }]
+      },
+      {
+        type: "heading",
+        content: [{ type: "text", text: "Next Steps" }],
+        props: { level: 2 }
+      },
+      {
+        type: "paragraph",
+        content: [{ type: "text", text: "Outline the planned actions and strategies for the next quarter." }]
+      }
     ]
   }
+  // ... other templates remain unchanged
 ];
 
-interface TemplateCardsProps {
-  editor: BlockNoteEditor;
+interface TemplateCardsProps<T extends BlockNoteEditor> {
+  editor: T;
 }
-
-const TemplateCards: React.FC<TemplateCardsProps> = ({ editor }) => {
-  const handleSelectTemplate = (content: Block[]) => {
+function TemplateCards<T extends BlockNoteEditor>({ editor }: TemplateCardsProps<T>) {
+  const handleSelectTemplate = (content: PartialBlock[]) => {
     const currentBlock = editor.getTextCursorPosition().block;
     editor.insertBlocks(content, currentBlock, 'after');
   };
+
 
   return (
     <div className="flex flex-wrap gap-4 mb-4">
@@ -292,7 +310,7 @@ const TemplateCards: React.FC<TemplateCardsProps> = ({ editor }) => {
           key={index}
           title={template.title}
           description={template.description}
-          content={template.content}
+          content={template.content as Block[]}
           color={template.color}
           onSelect={handleSelectTemplate}
         />
