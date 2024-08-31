@@ -27,7 +27,7 @@ import { ArrowUpDown, MoreHorizontal, Paintbrush, Maximize2, X, Download } from 
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { DialogClose } from '@radix-ui/react-dialog';
 import html2canvas from 'html2canvas';
-import DataManipulationWorkflow from './DataManipulateFlow';
+
 
 type PapaParseResult = {
   data: any[][];
@@ -279,9 +279,9 @@ const CSVViewer = () => {
         <>
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold">CSV Data</h2>
-            <Button variant="outline" onClick={() => setShowWorkflow(!showWorkflow)} className="mr-2">
+            {/* <Button variant="outline" onClick={() => setShowWorkflow(!showWorkflow)} className="mr-2">
                 {showWorkflow ? 'Hide Workflow' : 'Show Workflow'}
-              </Button>
+              </Button> */}
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="outline">
@@ -342,11 +342,11 @@ const CSVViewer = () => {
 
           {showChart && renderChart()}
           
-          {showWorkflow && (
+          {/* {showWorkflow && (
             <div className="mb-4">
               <DataManipulationWorkflow csvData={csvData} onDataChange={handleDataChange} />
             </div>
-          )}
+          )} */}
 
           {/* <h3 className="text-xl font-bold mt-10">Original Data</h3>
           <div className='mt-6'>
