@@ -578,8 +578,10 @@ const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
                   />
            </BlockNoteView>       
       </div>
-
-      <TemplateCards editor={editor} />
+      
+      <TemplateCards 
+      // @ts-ignore
+      editor={editor} />
 
       {/* <div>Your BlockNotes:</div>
       <ul>
