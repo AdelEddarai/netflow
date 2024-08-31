@@ -4,6 +4,7 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/lib/auth"
 import { BlockNote } from "@prisma/client"
+import {prisma} from '../../../../lib/db'
 
 export async function saveBlockNote(title: string, content: any) {
   try {
@@ -98,3 +99,4 @@ export async function updateBlockNote(id: string, title: string, content: any): 
     return { success: false, error: String(error) }
   }
 }
+

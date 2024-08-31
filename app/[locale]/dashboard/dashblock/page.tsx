@@ -5,6 +5,9 @@ import { PlusIcon, PencilIcon } from 'lucide-react';
 import Link from 'next/link';
 import { getUserBlockNotes } from '../blocknote/action';
 import { useState, useEffect } from 'react';
+import BlockNoteTimeline from './BlocknoteTimeLine';
+import { CiCircleChevLeft } from "react-icons/ci";
+import { Footer } from '@/components/home/footer/Footer';
 
 export default function DashboardPage() {
   const [blockNotes, setBlockNotes] = useState<any[]>([]);
@@ -25,7 +28,11 @@ export default function DashboardPage() {
   if (error) return <div>Error: {error}</div>;
 
   return (
+    <>
     <div className="container mx-auto p-4">
+      <Link href={"/dashboard"}>
+      <CiCircleChevLeft size={24} />
+      </Link>
       <h1 className="text-2xl font-bold mb-6">Your BlockNotes</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {/* New BlockNote Card */}
@@ -62,7 +69,17 @@ export default function DashboardPage() {
           <p>No BlockNotes found. Create a new one to get started!</p>
         )}
       </div>
+      
+      {blockNotes.length > 0 && (
+        <div className="mt-6">
+          <h2 className="text-xl font-semibold mb-4">BlockNotes Timeline</h2>
+          <BlockNoteTimeline blockNotes={blockNotes} />
+        </div>
+      )}
+
     </div>
+    <Footer />
+    </>	
   );
 }
 

@@ -27,6 +27,10 @@ import { BlockQuoteBlock } from "./QuoteBlock";
 import { PDF } from "./PdfBlock";
 import { fencedCodeBlock } from "./CodeBlock";
 import { BsChatQuote, BsCodeSlash, BsFiletypeCsv, BsFiletypePdf } from "react-icons/bs";
+import TemplateCards from "./BlockTemplates/Blocktemplate";
+import { ImMagicWand } from "react-icons/im";
+import { useCompletion } from "ai/react";
+
 
 interface Props {
   title: string;
@@ -143,6 +147,62 @@ export default function App() {
   const [saveStatus, setSaveStatus] = useState<'saved' | 'pending' | 'saving' | 'error'>('saved');
   const [html, setHTML] = useState<string>("");
   const [csvData, setCsvData] = useState<string>('');
+
+  const { complete } = useCompletion({
+    id: 'note_blocks',
+    api: '/api/generate',
+    onResponse: (response) => {
+      if (response.status === 429) {
+        return;
+      }
+      if (response.body) {
+        const reader = response.body.getReader();
+        let decoder = new TextDecoder();
+
+        reader.read().then(function processText({ done, value }) {
+          if (done) {
+            return;
+          }
+
+          let chunk = decoder.decode(value, { stream: true });
+
+          editor?._tiptapEditor.commands.insertContent(chunk);
+
+          reader.read().then(processText);
+        });
+      } else {
+        console.error('Response body is null');
+      }
+    },
+    onError: (e) => {
+      console.error(e.message);
+    },
+  });
+
+  const insertMagicAi = (editor: BlockNoteEditor) => {
+    const prevText = editor._tiptapEditor.state.doc.textBetween(
+        Math.max(0, editor._tiptapEditor.state.selection.from - 5000),
+        editor._tiptapEditor.state.selection.from - 1,
+        '\n'
+    );
+    complete(prevText);
+  };
+
+  const insertMagicItem = (editor: BlockNoteEditor) => ({
+    title: 'Insert Magic Text',
+    onItemClick: async () => {
+      const prevText = editor._tiptapEditor.state.doc.textBetween(
+          Math.max(0, editor._tiptapEditor.state.selection.from - 5000),
+          editor._tiptapEditor.state.selection.from - 1,
+          '\n'
+      );
+      insertMagicAi(editor);
+    },
+    aliases: ['autocomplete', 'ai'],
+    group: 'AI',
+    icon: <ImMagicWand size={18} />,
+    subtext: 'Continue your note with AI-generated text',
+  });
 
 
   const handleHtmlDownload = () => {
@@ -519,7 +579,9 @@ const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
            </BlockNoteView>       
       </div>
 
-      <div>Your BlockNotes:</div>
+      <TemplateCards editor={editor} />
+
+      {/* <div>Your BlockNotes:</div>
       <ul>
         {userBlockNotes.map((note) => (
           <>
@@ -532,7 +594,7 @@ const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
             {note.json}
           </>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 }

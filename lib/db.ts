@@ -7,6 +7,7 @@ declare global {
 }
 
 let prisma: PrismaClient;
+
 if (process.env.NODE_ENV === 'production') {
 	prisma = new PrismaClient();
 } else {
@@ -16,4 +17,5 @@ if (process.env.NODE_ENV === 'production') {
 	prisma = global.prisma;
 }
 
-export const db = prisma;
+// Export both prisma and db
+export { prisma, prisma as db };
