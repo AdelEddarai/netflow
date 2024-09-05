@@ -195,68 +195,6 @@ const CSVViewer = () => {
     </Table>
   );
 
-  // const renderTable = (fullScreen: boolean = false) => (
-  //   <Table className={fullScreen ? "w-full" : "mb-4"}>
-  //     <TableHeader>
-  //       <TableRow>
-  //         {headers.map((header, index) => (
-  //           <TableHead key={index} className="cursor-pointer" onClick={() => requestSort(header)}>
-  //             <div className="flex items-center">
-  //               {header}
-  //               <ArrowUpDown className="ml-2 h-4 w-4" />
-  //             </div>
-  //           </TableHead>
-  //         ))}
-  //       </TableRow>
-  //     </TableHeader>
-  //     <TableBody>
-  //       {(fullScreen ? filteredData : filteredData.slice(0, 10)).map((row, rowIndex) => (
-  //         <TableRow key={rowIndex}>
-  //           {row.map((cell: any, cellIndex: number) => (
-  //             <TableCell 
-  //               key={cellIndex} 
-  //               style={{backgroundColor: cellColors[`${rowIndex}-${cellIndex}`] || 'inherit'}}
-  //             >
-  //               <div className="flex items-center justify-between">
-  //                 {cell}
-  //                 <Popover>
-  //                   <PopoverTrigger>
-  //                     <MoreHorizontal className="h-4 w-4" />
-  //                   </PopoverTrigger>
-  //                   <PopoverContent className="w-40">
-  //                     <div className="flex flex-col space-y-2">
-  //                       <Button 
-  //                         onClick={() => colorCell(rowIndex, cellIndex, 'lightblue')}
-  //                         className="flex items-center"
-  //                       >
-  //                         <Paintbrush className="mr-2 h-4 w-4" />
-  //                         Color Blue
-  //                       </Button>
-  //                       <Button 
-  //                         onClick={() => colorCell(rowIndex, cellIndex, 'lightgreen')}
-  //                         className="flex items-center"
-  //                       >
-  //                         <Paintbrush className="mr-2 h-4 w-4" />
-  //                         Color Green
-  //                       </Button>
-  //                       <Button 
-  //                         onClick={() => colorCell(rowIndex, cellIndex, 'lightyellow')}
-  //                         className="flex items-center"
-  //                       >
-  //                         <Paintbrush className="mr-2 h-4 w-4" />
-  //                         Color Yellow
-  //                       </Button>
-  //                     </div>
-  //                   </PopoverContent>
-  //                 </Popover>
-  //               </div>
-  //             </TableCell>
-  //           ))}
-  //         </TableRow>
-  //       ))}
-  //     </TableBody>
-  //   </Table>
-  // );
 
   return (
     <div className="p-4">

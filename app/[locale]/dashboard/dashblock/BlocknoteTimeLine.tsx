@@ -20,7 +20,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-import { format, startOfMonth, endOfMonth, eachDayOfInterval } from "date-fns";
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, addMonths, subMonths } from "date-fns";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+
 
 interface BlockNote {
   id: string;
@@ -39,15 +41,15 @@ const BlockNoteTimelineCalendar: React.FC<BlockNoteTimelineProps> = ({ blockNote
   const eventMap = blockNotes.reduce((acc: Record<string, Array<{ type: 'created' | 'updated', note: BlockNote }>>, note) => {
     const createdDate = format(new Date(note.createdAt), 'yyyy-MM-dd');
     const updatedDate = format(new Date(note.updatedAt), 'yyyy-MM-dd');
-    
+
     if (!acc[createdDate]) acc[createdDate] = [];
     if (!acc[updatedDate]) acc[updatedDate] = [];
-    
+
     acc[createdDate].push({ type: 'created', note });
     if (createdDate !== updatedDate) {
       acc[updatedDate].push({ type: 'updated', note });
     }
-    
+
     return acc;
   }, {});
 
@@ -99,6 +101,14 @@ const BlockNoteTimelineCalendar: React.FC<BlockNoteTimelineProps> = ({ blockNote
     );
   };
 
+  const handleNextMonth = () => {
+    setCurrentMonth(addMonths(currentMonth, 1));
+  };
+
+  const handlePreviousMonth = () => {
+    setCurrentMonth(subMonths(currentMonth, 1));
+  };
+
   return (
     <Card className="w-full dark:bg-black">
       <CardHeader>
@@ -106,6 +116,10 @@ const BlockNoteTimelineCalendar: React.FC<BlockNoteTimelineProps> = ({ blockNote
         <CardDescription>{format(currentMonth, 'MMMM yyyy')}</CardDescription>
       </CardHeader>
       <CardContent>
+        <div className="flex justify-between mb-4">
+          <Button onClick={handlePreviousMonth} variant={"outline"}><AiOutlineLeft /></Button>
+          <Button onClick={handleNextMonth} variant={"outline"}><AiOutlineRight /></Button>
+        </div>
         <div className="grid grid-cols-7 gap-1">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
             <div key={day} className="text-center font-semibold">{day}</div>
@@ -151,13 +165,13 @@ const BlockNoteTimelineCalendar: React.FC<BlockNoteTimelineProps> = ({ blockNote
 const BlockNoteChart: React.FC<BlockNoteTimelineProps> = ({ blockNotes }) => {
     // Sort notes by updatedAt date, most recent first
     const sortedNotes = [...blockNotes].sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
-  
+
     const chartData = sortedNotes.map(note => ({
       title: note.title.length > 20 ? note.title.substring(0, 17) + '...' : note.title,
       daysSinceCreation: Math.floor((new Date().getTime() - new Date(note.createdAt).getTime()) / (1000 * 3600 * 24)),
       daysSinceUpdate: Math.floor((new Date().getTime() - new Date(note.updatedAt).getTime()) / (1000 * 3600 * 24)),
     }));
-  
+
     const chartConfig = {
       daysSinceCreation: {
         label: "Days Since Creation",
@@ -168,9 +182,9 @@ const BlockNoteChart: React.FC<BlockNoteTimelineProps> = ({ blockNotes }) => {
         color: "hsl(var(--chart-2))",
       },
     } satisfies ChartConfig;
-  
+
     const mostRecentNote = sortedNotes[0];
-  
+
     return (
       <Card className='dark:bg-black'>
         <CardHeader>

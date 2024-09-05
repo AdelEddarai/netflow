@@ -2,21 +2,18 @@
 
 import { Block, BlockNoteEditor, BlockNoteSchema, defaultBlockSpecs, filterSuggestionItems, insertOrUpdateBlock } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
-import { getDefaultReactSlashMenuItems, SuggestionMenuController, useBlockNote, useCreateBlockNote } from "@blocknote/react";
+import { FormattingToolbar, FormattingToolbarController, getDefaultReactSlashMenuItems, SuggestionMenuController, useBlockNote, useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
-import React, { useState, useEffect, ReactElement, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import './JsonBlock.css'
 import { getUserBlockNotes, saveBlockNote } from "../action";
-import Link from "next/link";
 import { useTheme } from "next-themes";
 import TextareaAutosize from 'react-textarea-autosize';
 import TextAreabove from "./Textareaabove";
 import SaveStatusIndicator from "./SaveStatus";
 import { Button } from "@/components/ui/button";
 import { Toaster, toast } from 'sonner'
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer';
-import htmlParser from 'html-react-parser';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { parse } from 'node-html-parser';
 import { PartialBlock } from "@blocknote/core";
@@ -30,103 +27,13 @@ import { BsChatQuote, BsCodeSlash, BsFiletypeCsv, BsFiletypePdf } from "react-ic
 import TemplateCards from "./BlockTemplates/Blocktemplate";
 import { ImMagicWand } from "react-icons/im";
 import { useCompletion } from "ai/react";
+import './aityping.css'
+import FormattingToolbarComponent from "./FormatsToolbars";
+import ChartVisualizer from "./DataDash/ChartVisulizer";
+import { DiagramBlock } from "./DiagramBlock";
 
-
-interface Props {
-  title: string;
-  content: string;
-}
-
-// Define styles for PDF
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'column',
-    backgroundColor: '#FFFFFF',
-    padding: 30,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  content: {
-    fontSize: 12,
-    marginBottom: 10,
-  },
-  table: { 
-    width: 'auto', 
-    borderStyle: 'solid', 
-    borderWidth: 1, 
-    borderRightWidth: 0, 
-    borderBottomWidth: 0 
-  },
-  tableRow: { 
-    margin: 'auto', 
-    flexDirection: 'row' 
-  },
-  tableCol: { 
-    width: '25%', 
-    borderStyle: 'solid', 
-    borderWidth: 1, 
-    borderLeftWidth: 0, 
-    borderTopWidth: 0 
-  },
-  tableCell: { 
-    margin: 'auto', 
-    marginTop: 5, 
-    fontSize: 10 
-  }
-});
-
-
-// Helper function to convert HTML to PDF-compatible components
-const htmlToPdfComponents = (htmlContent: string): ReactElement[] => {
-  const elements = htmlParser(htmlContent);
-  
-  const convertElement = (element: any): ReactElement => {
-    if (typeof element === 'string') {
-      return <Text>{element}</Text>;
-    }
-
-    switch (element.type) {
-      case 'p':
-        return <Text style={styles.content}>{React.Children.map(element.props.children, convertElement)}</Text>;
-      case 'table':
-        return (
-          <View style={styles.table}>
-            {React.Children.map(element.props.children, (row: any, i: number) => (
-              <View style={styles.tableRow} key={i}>
-                {React.Children.map(row.props.children, (cell: any, j: number) => (
-                  <View style={styles.tableCol} key={j}>
-                    <Text style={styles.tableCell}>{cell.props.children}</Text>
-                  </View>
-                ))}
-              </View>
-            ))}
-          </View>
-        );
-      default:
-        return <Text>{element.props.children}</Text>;
-    }
-  };
-
-  return React.Children.map(elements, convertElement);
-};
-
-// PDF Document component
-const MyDocument: React.FC<Props> = ({ title, content }) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <Text style={styles.title}>{title}</Text>
-      <View style={styles.content}>
-        {htmlToPdfComponents(content)}
-      </View>
-    </Page>
-  </Document>
-);
 
 // For Blocks
-
 const schema = BlockNoteSchema.create({
   blockSpecs: {
     ...defaultBlockSpecs,
@@ -135,6 +42,7 @@ const schema = BlockNoteSchema.create({
     blockquote: BlockQuoteBlock,
     pdf: PDF,
     fencedCode: fencedCodeBlock,
+    diagramblock: DiagramBlock
   },
 });
 
@@ -147,44 +55,80 @@ export default function App() {
   const [saveStatus, setSaveStatus] = useState<'saved' | 'pending' | 'saving' | 'error'>('saved');
   const [html, setHTML] = useState<string>("");
   const [csvData, setCsvData] = useState<string>('');
+  // for ai text typing
+  const [aiText, setAiText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const aiOutputRef = useRef<HTMLDivElement>(null);
+  // for data visulize
+  const [tableData, setTableData] = useState<any[]>([]);
+  const [showChart, setShowChart] = useState(false);
+  const [chartType, setChartType] = useState<'line' | 'bar'>('line');
+  const [xAxisKey, setXAxisKey] = useState<string>('');
+  const [yAxisKeys, setYAxisKeys] = useState<string[]>([]);
+
+  // Create the editor instance
+  const editor = useCreateBlockNote({
+    schema,
+    initialContent: [
+      {
+        type: "paragraph",
+        content: "Welcome to this Netflow demo!",
+      },
+    ],
+    uploadFile,
+  });
 
   const { complete } = useCompletion({
     id: 'note_blocks',
     api: '/api/generate',
     onResponse: (response) => {
       if (response.status === 429) {
+        toast.error('Rate limit exceeded. Please try again later.');
         return;
       }
       if (response.body) {
         const reader = response.body.getReader();
         let decoder = new TextDecoder();
 
-        reader.read().then(function processText({ done, value }) {
+        setIsTyping(true);
+        setAiText('');
+
+        reader.read().then(function processText({ done, value }): Promise<void> {
           if (done) {
-            return;
+            setIsTyping(false);
+            return Promise.resolve();
           }
 
           let chunk = decoder.decode(value, { stream: true });
+          setAiText(prevText => prevText + chunk);
 
-          editor?._tiptapEditor.commands.insertContent(chunk);
-
-          reader.read().then(processText);
+          return reader.read().then(processText);
         });
       } else {
         console.error('Response body is null');
+        setIsTyping(false);
       }
     },
     onError: (e) => {
       console.error(e.message);
+      toast.error('An error occurred while generating text.');
+      setIsTyping(false);
     },
   });
 
+  useEffect(() => {
+    if (aiOutputRef.current) {
+      aiOutputRef.current.scrollTop = aiOutputRef.current.scrollHeight;
+    }
+  }, [aiText]);
+
   const insertMagicAi = (editor: BlockNoteEditor) => {
     const prevText = editor._tiptapEditor.state.doc.textBetween(
-        Math.max(0, editor._tiptapEditor.state.selection.from - 5000),
-        editor._tiptapEditor.state.selection.from - 1,
-        '\n'
+      Math.max(0, editor._tiptapEditor.state.selection.from - 5000),
+      editor._tiptapEditor.state.selection.from - 1,
+      '\n'
     );
+    setAiText('');  // Clear previous AI text
     complete(prevText);
   };
 
@@ -192,9 +136,9 @@ export default function App() {
     title: 'Insert Magic Text',
     onItemClick: async () => {
       const prevText = editor._tiptapEditor.state.doc.textBetween(
-          Math.max(0, editor._tiptapEditor.state.selection.from - 5000),
-          editor._tiptapEditor.state.selection.from - 1,
-          '\n'
+        Math.max(0, editor._tiptapEditor.state.selection.from - 5000),
+        editor._tiptapEditor.state.selection.from - 1,
+        '\n'
       );
       insertMagicAi(editor);
     },
@@ -204,7 +148,58 @@ export default function App() {
     subtext: 'Continue your note with AI-generated text',
   });
 
+  // Function to convert AI-generated Markdown-style table to BlockNote.js format
+  function convertAiTableToBlockNote(aiGeneratedTable: string): PartialBlock[] {
+    const rows = aiGeneratedTable.trim().split('\n');
+    const tableRows = rows.filter(row => !row.match(/^\s*\|[-:]+\|/)); // Remove separator row
 
+    const tableBlock: PartialBlock = {
+      type: "table",
+      // @ts-ignore
+      content: tableRows.map(row => ({
+        type: "tableRow",
+        content: row.split('|').filter(cell => cell.trim() !== '').map(cell => ({
+          type: "tableCell",
+          content: [{
+            type: "paragraph",
+            content: cell.trim()
+          }]
+        }))
+      }))
+    };
+
+    return [tableBlock];
+  }
+
+  // Modified function to insert AI-generated content into the editor
+  const insertAiTextIntoEditor = () => {
+    if (aiText && editor) {
+      const blocks: PartialBlock[] = [];
+      // Updated regular expression without /s flag
+      // @ts-ignore
+      const parts = aiText.split(/(\|.*\|)/s);  // Split text and tables;
+
+      parts.forEach(part => {
+        if (part.trim().startsWith('|') && part.trim().endsWith('|')) {
+          // This part is likely a table
+          blocks.push(...convertAiTableToBlockNote(part));
+        } else if (part.trim()) {
+          // This is regular text
+          blocks.push({
+            type: "paragraph",
+            content: part.trim()
+          });
+        }
+      });
+
+      editor.insertBlocks(
+        blocks,
+        editor.getTextCursorPosition().block,
+        'after'
+      );
+      setAiText('');  // Clear AI text after inserting
+    }
+  };
   const handleHtmlDownload = () => {
     const element = document.createElement("a");
     const file = new Blob([html], { type: 'text/html' });
@@ -219,11 +214,11 @@ export default function App() {
   function htmlTableToCsv(html: string): string | null {
     const root = parse(html);
     const table = root.querySelector('table');
-  
+
     if (!table) {
       return null; // No table found
     }
-  
+
     const rows = table.querySelectorAll('tr');
     const csvRows = rows.map(row => {
       const cells = row.querySelectorAll('td, th');
@@ -237,13 +232,13 @@ export default function App() {
         return content;
       }).join(',');
     });
-  
+
     return csvRows.join('\n');
   }
 
   function handleCsvDownload(html: string) {
     const csv = htmlTableToCsv(html);
-    
+
     if (csv) {
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const link = document.createElement('a');
@@ -274,112 +269,115 @@ export default function App() {
     );
   };
 
-// Create the editor instance
-const editor = useCreateBlockNote({
-  schema,
-  initialContent: [
-    {
-      type: "paragraph",
-      content: "Welcome to this Netflow demo!",
-    },
-  ],
-  uploadFile,
-});
 
 
 
-const handleContentChange = () => {
-  setBlocks(editor.document);
-  setSaveStatus('pending');
-};
+  const handleContentChange = () => {
+    setBlocks(editor.document);
+    setSaveStatus('pending');
+
+  };
 
 
-async function uploadFile(file: File) {
-  const body = new FormData();
-  body.append("file", file);
+  async function uploadFile(file: File) {
+    const body = new FormData();
+    body.append("file", file);
 
-  const ret = await fetch("https://tmpfiles.org/api/v1/upload", {
-    method: "POST",
-    body: body,
-  });
-  return (await ret.json()).data.url.replace(
-    "tmpfiles.org/",
-    "tmpfiles.org/dl/"
-  );
-}
+    const ret = await fetch("https://tmpfiles.org/api/v1/upload", {
+      method: "POST",
+      body: body,
+    });
+    return (await ret.json()).data.url.replace(
+      "tmpfiles.org/",
+      "tmpfiles.org/dl/"
+    );
+  }
 
   // Slash menu item to insert an Alert block
-const insertAlert = (editor: typeof schema.BlockNoteEditor) => ({
-  title: "Alert",
-  onItemClick: () => {
-    insertOrUpdateBlock(editor, {
-      type: "alert",
-    });
-  },
-  aliases: [
-    "alert",
-    "notification",
-    "emphasize",
-    "warning",
-    "error",
-    "info",
-    "success",
-  ],
-  group: "Other",
-  icon: <RiAlertFill />,
-});
+  const insertAlert = (editor: typeof schema.BlockNoteEditor) => ({
+    title: "Alert",
+    onItemClick: () => {
+      insertOrUpdateBlock(editor, {
+        type: "alert",
+      });
+    },
+    aliases: [
+      "alert",
+      "notification",
+      "emphasize",
+      "warning",
+      "error",
+      "info",
+      "success",
+    ],
+    group: "Other",
+    icon: <RiAlertFill />,
+  });
 
-// Slash menu item to insert an Alert block
-const insertCsviwer = (editor: typeof schema.BlockNoteEditor) => ({
-  title: 'Csviewer',
-  onItemClick: () => {
-    editor.updateBlock(editor.getTextCursorPosition().block, {
-      type: 'csviewer',
-    })
-  },
-  aliases: ['csv'],
-  subtext: 'Used to define a block of text referenced from another source',
-  group: 'Other',
-  icon: <BsFiletypeCsv />,
-})
+  // Slash menu item to insert an csv chart
+  const insertCsviwer = (editor: typeof schema.BlockNoteEditor) => ({
+    title: 'Csviewer',
+    onItemClick: () => {
+      editor.updateBlock(editor.getTextCursorPosition().block, {
+        type: 'csviewer',
+      })
+    },
+    aliases: ['csv'],
+    subtext: 'Used to define a block of text referenced from another source',
+    group: 'Other',
+    icon: <BsFiletypeCsv />,
+  })
 
-const insertBlockQuote = (editor: typeof schema.BlockNoteEditor) => ({
-  title: 'Blockquote',
-  onItemClick: () => {
-    editor.updateBlock(editor.getTextCursorPosition().block, {
-      type: 'blockquote',
-    })
-  },
-  aliases: ['quote'],
-  subtext: 'Used to define a block of text referenced from another source',
-  group: 'Other',
-  icon: <BsChatQuote />,
-})
+  const insertDiagram = (editor: typeof schema.BlockNoteEditor) => ({
+    title: 'Diagram',
+    onItemClick: () => {
+      editor.updateBlock(editor.getTextCursorPosition().block, {
+        type: 'diagrams',
+      })
+    },
+    aliases: ['graph'],
+    subtext: 'Used to graph diagram using code',
+    group: 'Other',
+    icon: <BsFiletypeCsv />,
+  })
 
-// Slash menu item to insert a PDF block
-const insertPDF = (editor: typeof schema.BlockNoteEditor) => ({
-  title: "PDF",
-  onItemClick: () => {
-    insertOrUpdateBlock(editor, {
-      type: "pdf",
-    });
-  },
-  aliases: ["pdf", "document", "embed", "file"],
-  group: "Other",
-  icon: <BsFiletypePdf />,
-});
+  const insertBlockQuote = (editor: typeof schema.BlockNoteEditor) => ({
+    title: 'Blockquote',
+    onItemClick: () => {
+      editor.updateBlock(editor.getTextCursorPosition().block, {
+        type: 'blockquote',
+      })
+    },
+    aliases: ['quote'],
+    subtext: 'Used to define a block of text referenced from another source',
+    group: 'Other',
+    icon: <BsChatQuote />,
+  })
 
-const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
-  title: 'Fenced Code',
-  onItemClick: () => {
-    editor.updateBlock(editor.getTextCursorPosition().block, {
-      type: 'fencedCode',
-    })
-  },
-  aliases: ['code'],
-  group: 'Other',
-  icon: <BsCodeSlash />,
-})
+  // Slash menu item to insert a PDF block
+  const insertPDF = (editor: typeof schema.BlockNoteEditor) => ({
+    title: "PDF",
+    onItemClick: () => {
+      insertOrUpdateBlock(editor, {
+        type: "pdf",
+      });
+    },
+    aliases: ["pdf", "document", "embed", "file"],
+    group: "Other",
+    icon: <BsFiletypePdf />,
+  });
+
+  const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
+    title: 'Fenced Code',
+    onItemClick: () => {
+      editor.updateBlock(editor.getTextCursorPosition().block, {
+        type: 'fencedCode',
+      })
+    },
+    aliases: ['code'],
+    group: 'Other',
+    icon: <BsCodeSlash />,
+  })
 
 
   const importCSV = useCallback(() => {
@@ -466,6 +464,49 @@ const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
     }
   };
 
+  const tableToCSV = (table: HTMLTableElement): string => {
+    const rows = Array.from(table.querySelectorAll('tr'));
+    return rows.map(row =>
+      Array.from(row.querySelectorAll('th, td'))
+        .map(cell => cell.textContent?.trim() || '')
+        .join(',')
+    ).join('\n');
+  };
+
+  const handleVisualize = () => {
+    const table = document.querySelector('table');
+    if (table) {
+      const csvContent = tableToCSV(table);
+      setCsvData(csvContent);
+
+      const rows = csvContent.split('\n');
+      const headers = rows[0].split(',').map(header => header.trim());
+      const parsedData = rows.slice(1).map(row => {
+        const values = row.split(',');
+        return headers.reduce((obj, header, index) => {
+          obj[header] = isNaN(Number(values[index])) ? values[index] : Number(values[index]);
+          return obj;
+        }, {} as Record<string, string | number>);
+      });
+
+      setTableData(parsedData);
+      setXAxisKey(headers[0]);
+      setYAxisKeys(headers.slice(1));
+      setShowChart(true);
+      toast.success('Visualizing table data');
+    } else {
+      toast.warning('No table found!');
+    }
+  };
+
+  
+  // You need to reset the showChart and tableData states when a new table is created or the data changes
+  useEffect(() => {
+    setShowChart(false);
+    setTableData([]);
+  }, [blocks]);
+
+
   const customDarkTheme = {
     colors: {
       editor: {
@@ -514,40 +555,39 @@ const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
             {saveStatus === 'saving' ? 'Saving...' : 'Save'}
           </Button>
           <DropdownMenu>
-          <div className='m-4'>
-            <DropdownMenuTrigger> <Button variant="outline"> Export </Button></DropdownMenuTrigger>
-          </div>
+            <div className='m-4'>
+              <DropdownMenuTrigger> <Button variant="outline"> Export </Button></DropdownMenuTrigger>
+            </div>
 
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Download as</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleHtmlDownload}>Html</DropdownMenuItem>
-            <DropdownMenuItem>
-            <PDFDownloadLink
-              document={<MyDocument title={title} content={html} />}
-              fileName={`${title}.pdf`}
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Download as</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleHtmlDownload}>Html</DropdownMenuItem>
+              <DropdownMenuItem>
+                <CsvDownloadButton html={html} />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Button variant={"outline"} onClick={importCSV}>CSV</Button>
+
+          <div className="flex items-center space-x-4">
+            <Button variant={"outline"} onClick={handleVisualize}>
+              Visualize Table
+            </Button>
+            <select 
+              value={chartType} 
+              onChange={(e) => setChartType(e.target.value as 'line' | 'bar')}
+              className="p-2 border rounded"
             >
-              {({ blob, loading, error }) =>
-                <Button
-                  variant={"outline"}
-                  disabled={loading}
-                  className="px-4 py-2"
-                >
-                  {'Download PDF'}
-                </Button>
-              }
-            </PDFDownloadLink>
-            </DropdownMenuItem>
-           <DropdownMenuItem>
-            <CsvDownloadButton html={html} />
-          </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        
-         <Button onClick={importCSV}>CSV</Button>
+              <option value="line">Line Chart</option>
+              <option value="bar">Bar Chart</option>
+            </select>
+          </div>
 
         </div>
       </div>
+
       {/* Cover Image */}
       <TextAreabove />
 
@@ -566,37 +606,68 @@ const insertFencedCodeBlock = (editor: typeof schema.BlockNoteEditor) => ({
           theme={resolvedTheme === "dark" ? customDarkTheme : "light"}
           onChange={handleContentChange}
           slashMenu={false}
+          formattingToolbar={false}
         >
-          <SuggestionMenuController
-                    triggerCharacter={"/"}
-                    getItems={async (query) =>
-                      filterSuggestionItems(
-                        [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCsviwer(editor), insertBlockQuote(editor),insertPDF(editor), insertFencedCodeBlock(editor)],
-                        query
-                      )
-                    }
-                  />
-           </BlockNoteView>       
-      </div>
-      
-      <TemplateCards 
-      // @ts-ignore
-      editor={editor} />
 
-      {/* <div>Your BlockNotes:</div>
-      <ul>
-        {userBlockNotes.map((note) => (
-          <>
-            <li key={note.id}>
-              <Link href={`/dashboard/blocknote/${note.id}`}>
-                {note.title}
-              </Link>
-              - Last updated: {new Date(note.updatedAt).toLocaleString()}
-            </li>
-            {note.json}
-          </>
-        ))}
-      </ul> */}
+          <FormattingToolbarController
+            formattingToolbar={() => (
+              <FormattingToolbar>
+                <FormattingToolbarComponent />
+              </FormattingToolbar>
+            )}
+          />
+          <SuggestionMenuController
+            triggerCharacter={"/"}
+            getItems={async (query) =>
+              filterSuggestionItems(
+                [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCsviwer(editor), insertBlockQuote(editor), insertPDF(editor), insertFencedCodeBlock(editor), insertMagicItem(editor), insertDiagram(editor)],
+                query
+              )
+            }
+          />
+        </BlockNoteView>
+        {isTyping && (
+          <div className="ai-typing-indicator">
+            AI is typing...
+          </div>
+        )}
+
+        {(isTyping || aiText) && (
+          <div className="ai-output-container">
+            <div ref={aiOutputRef} className="ai-output">
+              {aiText}
+            </div>
+            <Button
+              onClick={insertAiTextIntoEditor}
+              disabled={!aiText}
+              className="mt-2"
+              variant={"outline"}
+            >
+              Insert AI Text
+            </Button>
+          </div>
+        )}
+
+      </div>
+
+
+
+      {showChart && (
+        <div className="mt-4">
+          <ChartVisualizer 
+            data={tableData} 
+            title={title} 
+            chartType={chartType}
+            xAxisKey={xAxisKey}
+            yAxisKeys={yAxisKeys}
+          />
+        </div>
+      )}
+
+      <TemplateCards
+        // @ts-ignore
+        editor={editor} />
+
     </div>
   );
 }
