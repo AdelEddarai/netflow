@@ -620,6 +620,7 @@ export default function App() {
             triggerCharacter={"/"}
             getItems={async (query) =>
               filterSuggestionItems(
+                // @ts-ignore
                 [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCsviwer(editor), insertBlockQuote(editor), insertPDF(editor), insertFencedCodeBlock(editor), insertMagicItem(editor), insertDiagram(editor)],
                 query
               )
