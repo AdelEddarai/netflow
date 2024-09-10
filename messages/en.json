@@ -893,7 +893,7 @@
 					"CHAT": "Chat & Notifications",
 					"CALENDAR": "Integrated Calendar",
 					"EASY": "Easy Access",
-					"BLOCKNOTES": "Easy report"
+					"BLOCKNOTE": "Easy report"
 
 				}
 			},
@@ -974,6 +974,7 @@
 		"ASSIGNED-TO-ME": "Assigned to me",
 		"CALENDAR": "Calendar",
 		"CHAT": "Chat",
-		"BLOCKNOTE": "Blocknote"
+		"BLOCKNOTE": "Blocknote",
+		"EN": "Home"
 	}
 }

@@ -87,6 +87,7 @@
 		"embla-carousel-autoplay": "^8.0.0",
 		"embla-carousel-react": "^8.0.0",
 		"emoji-mart": "^5.5.2",
+		"file-saver": "^2.0.5",
 		"framer-motion": "^11.2.10",
 		"fs": "^0.0.1-security",
 		"fumadocs-core": "^12.5.6",

@@ -16,10 +16,10 @@ export async function saveBlockNote(title: string, content: any) {
     const blockNote = await prisma.blockNote.create({
       data: {
         title,
-        content,
+        content: JSON.stringify(content),
         userId: session.user.id,
       },
-    })
+    });
     return { success: true, id: blockNote.id }
   } catch (error) {
     console.error('Error saving BlockNote:', error)
@@ -75,22 +75,25 @@ export async function getBlockNoteById(id: string) {
   }
 }
 
-export async function gePublictBlockNoteById(id: string) {
+export async function gePublictBlockNoteById(id: string): Promise<
+  { success: true; blockNote: BlockNote } | 
+  { success: false; error: string }
+> {
   try {
     const blockNote = await prisma.blockNote.findUnique({
       where: {
         id: id,
       },
-    })
+    });
 
     if (!blockNote) {
-      return { success: false, error: 'BlockNote not found' }
+      return { success: false, error: 'BlockNote not found' };
     }
 
-    return { success: true, blockNote }
+    return { success: true, blockNote };
   } catch (error) {
-    console.error('Error fetching BlockNote:', error)
-    return { success: false, error: String(error) }
+    console.error('Error fetching BlockNote:', error);
+    return { success: false, error: String(error) };
   }
 }
 

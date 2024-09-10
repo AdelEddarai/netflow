@@ -864,7 +864,8 @@
 					"POMODORO": "Pomodoro",
 					"CHAT": "Czat & Powiadomienia",
 					"CALENDAR": "Zintegrowany kalendarz",
-					"EASY": "Łatwy dostęp"
+					"EASY": "Łatwy dostęp",
+					"BLOCKNOTE": "Easy report"
 				}
 			},
 			"SIGN_IN": "Zaloguj się",
@@ -942,6 +943,7 @@
 		"ASSIGNED-TO-ME": "Przypisane do mnie",
 		"CALENDAR": "Kalendarz",
 		"CHAT": "Czat",
-		"BLOCKNOTE": "Blocknote"
+		"BLOCKNOTE": "Blocknote",
+		"EN": "Home"
 	}
 }

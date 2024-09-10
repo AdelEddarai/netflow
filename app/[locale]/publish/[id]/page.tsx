@@ -1,25 +1,41 @@
-// app/publish/[id]/page.tsx
+import React from 'react';
+import { useCreateBlockNote } from "@blocknote/react";
+import "@blocknote/core/style.css";
+import { gePublictBlockNoteById } from '../../dashboard/blocknote/action';
+import { BlockNoteView } from '@blocknote/mantine';
 
-import { Block } from "@blocknote/core";
-import BlockNoteContent from "../../dashboard/blocknote/[id]/BlocknoteContent";
-import { gePublictBlockNoteById } from "../../dashboard/blocknote/action";
-
-export default async function BlockNotePuplish({ params }: { params: { id: string } }) {
+export default async function PublicBlockNotePage({ params }: { params: { id: string } }) {
   const result = await gePublictBlockNoteById(params.id);
 
-  if (!result.success || !result.blockNote) {
-    return <div>Error: {result.error || 'BlockNote not found'}</div>;
+  if (!result.success) {
+    return <div>Error: {result.error}</div>;
   }
 
   const { blockNote } = result;
 
+  if (!blockNote) {
+    return <div>Error: BlockNote not found</div>;
+  }
+
+  // Parse the content back to an object
+  const content = JSON.parse(blockNote.content as string);
+
+  // Client component for rendering BlockNoteView
+  const BlockNoteViewClient = () => {
+    const editor = useCreateBlockNote({
+      initialContent: content,
+    });
+
+    return (
+      <BlockNoteView editor={editor} editable={false} />
+    );
+  }
+
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">{blockNote.title}</h1>
-      <p className="text-sm text-gray-500 mb-4">
-        Last updated: {new Date(blockNote.updatedAt).toLocaleString()}
-      </p>
-      <BlockNoteContent content={blockNote.content} />
+    <div>
+      <h1>{blockNote.title}</h1>
+      <BlockNoteViewClient />
+      <p>Last updated: {new Date(blockNote.updatedAt).toLocaleString()}</p>
     </div>
   );
 }

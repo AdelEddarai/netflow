@@ -10,3 +10,6 @@
  
 update blocknote core/react/mantine from 0.13.5 to  => 0.14.5
 add whiteboard resize in the main page of blocknote
+
+
+if there is any session error look at the page inside workspace/[workspaceid]/page

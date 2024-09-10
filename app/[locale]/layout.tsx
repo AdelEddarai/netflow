@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
@@ -10,7 +9,6 @@ import { QueryProvider } from '@/providers/QueryProvider';
 import { locales } from '@/i18n';
 import Script from 'next/script'
 
-const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: 'Netflow',
@@ -47,7 +45,7 @@ const RootLayout = async ({
           `}
 				</Script>
 			</head>
-			<body className={inter.className}>
+			<body className=''>
 				<NextIntlClientProvider locale={locale} messages={messages}>
 					<AuthProvider>
 						<QueryProvider>

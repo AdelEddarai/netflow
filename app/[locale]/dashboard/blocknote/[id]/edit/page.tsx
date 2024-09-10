@@ -1,4 +1,3 @@
-// app/dashboard/blocknote/[id]/edit/page.tsx
 'use client'
 
 import { useEffect, useState } from 'react';
@@ -10,11 +9,13 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import { getBlockNoteById, updateBlockNote } from "../../../blocknote/action";
 import { Button } from '@/components/ui/button';
+import { saveAs } from 'file-saver';
 
 export default function EditBlockNotePage({ params }: { params: { id: string } }) {
   const [blockNote, setBlockNote] = useState<any>(null);
   const [title, setTitle] = useState<string>("");
   const [blocks, setBlocks] = useState<Block[]>([]);
+  const [markdownContent, setMarkdownContent] = useState<string>("");
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -38,6 +39,8 @@ export default function EditBlockNotePage({ params }: { params: { id: string } }
         setBlocks(content);
         if (content.length > 0) {
           editor.replaceBlocks(editor.document, content);
+          const markdown = await editor.blocksToMarkdownLossy(content); // Await the promise
+          setMarkdownContent(markdown);
         }
       } else {
         setError(result.error || 'Failed to fetch BlockNote');
@@ -65,6 +68,11 @@ export default function EditBlockNotePage({ params }: { params: { id: string } }
     }
   };
 
+  const handleDownloadMarkdown = () => {
+    const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });
+    saveAs(blob, `${title}.md`);
+  };
+
   if (error) return <div>Error: {error}</div>;
   if (!blockNote) return <div>Loading...</div>;
 
@@ -82,11 +90,22 @@ export default function EditBlockNotePage({ params }: { params: { id: string } }
       <div className="border rounded-lg p-4 mb-4">
         <BlockNoteView editor={editor} />
       </div>
+      {/* <div className="border rounded-lg p-4 mb-4">
+        <h3 className="text-lg font-bold mb-2">Markdown Content</h3>
+        <pre className="whitespace-pre-wrap">{markdownContent}</pre>
+      </div> */}
       <Button
         onClick={handleSave}
         disabled={isSaving}
       >
         {isSaving ? 'Saving...' : 'Save Changes'}
+      </Button>
+      <Button
+        variant={"outline"}
+        onClick={handleDownloadMarkdown}
+        className="ml-2"
+      >
+        Download Markdown
       </Button>
     </div>
   );

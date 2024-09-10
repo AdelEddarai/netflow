@@ -31,6 +31,8 @@ import './aityping.css'
 import FormattingToolbarComponent from "./FormatsToolbars";
 import ChartVisualizer from "./DataDash/ChartVisulizer";
 import { DiagramBlock } from "./DiagramBlock";
+import { FaSave, FaDownload, FaUpload, FaChartBar, FaChartLine } from 'react-icons/fa';
+import { Badge } from "@/components/ui/badge";
 
 
 // For Blocks
@@ -45,6 +47,17 @@ const schema = BlockNoteSchema.create({
     diagramblock: DiagramBlock
   },
 });
+
+// Define a type for your custom block types
+type CustomBlockType = 'alert' | 'csviewer' | 'blockquote' | 'pdf' | 'fencedCode' | 'diagramblock';
+
+// Define a type that includes both default and custom block types
+type AllBlockType = Block['type'] | CustomBlockType;
+
+// Define a type for the editor's document
+//@ts-ignore
+type EditorDocument = ReturnType<BlockNoteEditor['document']>;
+
 
 
 export default function App() {
@@ -66,6 +79,10 @@ export default function App() {
   const [xAxisKey, setXAxisKey] = useState<string>('');
   const [yAxisKeys, setYAxisKeys] = useState<string[]>([]);
 
+  const [showHtml, setShowHtml] = useState(false);
+  const [htmlOutput, setHtmlOutput] = useState('');
+
+
   // Create the editor instance
   const editor = useCreateBlockNote({
     schema,
@@ -77,6 +94,79 @@ export default function App() {
     ],
     uploadFile,
   });
+
+   // Custom HTML converter function
+ const customBlocksToHTML = async (document: EditorDocument): Promise<string> => {
+  let html = '';
+  for (const block of document) {
+    const blockType = block.type as AllBlockType;
+    switch (blockType) {
+      case 'paragraph':
+      case 'heading':
+      case 'bulletListItem':
+      case 'numberedListItem':
+      case 'checkListItem':
+      case 'image':
+        // Use the default conversion for standard blocks
+        html += await editor.blocksToHTMLLossy([block as Block]);
+        break;
+      case 'alert':
+        // Custom conversion for alert blocks
+        html += `<div class="alert">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
+        break;
+      case 'csviewer':
+        // Custom conversion for csviewer blocks
+        html += `<div class="csviewer">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
+        break;
+      case 'blockquote':
+        // Custom conversion for blockquote blocks
+        html += `<blockquote>${block.content?.map((c: any) => c.text).join('') || ''}</blockquote>`;
+        break;
+      case 'pdf':
+        // Custom conversion for pdf blocks
+        html += `<div class="pdf-embed">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
+        break;
+      case 'fencedCode':
+        // Custom conversion for fenced code blocks
+        html += `<pre><code>${block.content?.map((c: any) => c.text).join('') || ''}</code></pre>`;
+        break;
+      case 'diagramblock':
+        // Custom conversion for diagram blocks
+        html += `<div class="diagram">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
+        break;
+      default:
+        // For any unhandled block types
+        html += `<div class="unknown-block">${JSON.stringify(block)}</div>`;
+    }
+  }
+  return html;
+};
+
+
+  // to convert blocks to html
+  useEffect(() => {
+    const updateHtml = async () => {
+      if (editor && editor.document) {
+        try {
+          const html = await customBlocksToHTML(editor.document);
+          setHtmlOutput(html);
+        } catch (error) {
+          console.error('Error converting blocks to HTML:', error);
+          setHtmlOutput('Error converting to HTML');
+        }
+      }
+    };
+
+    updateHtml();
+  }, [editor]);
+
+
+  const handleContentChange = () => {
+    const updatedBlocks = editor.document;
+    setBlocks(updatedBlocks);
+    setSaveStatus('pending');
+  };
+
 
   const { complete } = useCompletion({
     id: 'note_blocks',
@@ -261,7 +351,7 @@ export default function App() {
   const CsvDownloadButton: React.FC<{ html: string }> = ({ html }) => {
     return (
       <Button
-        variant="outline"
+        
         onClick={() => handleCsvDownload(html)}
       >
         Download CSV
@@ -272,11 +362,11 @@ export default function App() {
 
 
 
-  const handleContentChange = () => {
-    setBlocks(editor.document);
-    setSaveStatus('pending');
+  // const handleContentChange = () => {
+  //   setBlocks(editor.document);
+  //   setSaveStatus('pending');
 
-  };
+  // };
 
 
   async function uploadFile(file: File) {
@@ -329,10 +419,10 @@ export default function App() {
   })
 
   const insertDiagram = (editor: typeof schema.BlockNoteEditor) => ({
-    title: 'Diagram',
+    title: 'diagram',
     onItemClick: () => {
       editor.updateBlock(editor.getTextCursorPosition().block, {
-        type: 'diagrams',
+        type: 'Diagram',
       })
     },
     aliases: ['graph'],
@@ -452,15 +542,15 @@ export default function App() {
       if (result.success) {
         setSaveStatus('saved');
         fetchUserBlockNotes(); // Refresh the list of BlockNotes
-        toast.success('blocknote has been saved')
+        toast.success('BlockNote has been saved');
       } else {
         setSaveStatus('error');
-        toast.error('Event has not been created' + result.error);
+        toast.error('Failed to save BlockNote: ' + result.error);
       }
     } catch (error) {
       console.error('Error saving BlockNote:', error);
       setSaveStatus('error');
-      toast.error('an error has occurd')
+      toast.error('An error occurred while saving');
     }
   };
 
@@ -543,49 +633,56 @@ export default function App() {
   return (
     <div className={"wrapper"}>
       <div className="flex flex-col sm:flex-row items-center sm:space-x-4 mb-4">
-        <div className="flex items-center space-x-4">
-          <SaveStatusIndicator status={saveStatus} />
-          <Toaster />
-          <Button
-            variant={"outline"}
-            onClick={handleSave}
-            disabled={saveStatus === 'saving'}
-            className="px-4 py-2"
-          >
-            {saveStatus === 'saving' ? 'Saving...' : 'Save'}
-          </Button>
-          <DropdownMenu>
-            <div className='m-4'>
-              <DropdownMenuTrigger> <Button variant="outline"> Export </Button></DropdownMenuTrigger>
-            </div>
+      <div className="flex items-center space-x-4">
+  <SaveStatusIndicator status={saveStatus} />
+  <Toaster />
+  <button
+    onClick={handleSave}
+    disabled={saveStatus === 'saving'}
+    className="text-sm p-2"
+  >
+    <Badge variant="outline">  <FaSave /></Badge>
+  </button>
+  <DropdownMenu>
+    <div className='m-4'>
+      <DropdownMenuTrigger>
+        <button className="text-sm p-2">
+        <Badge variant="outline"> <FaDownload /></Badge>
+        </button>
+      </DropdownMenuTrigger>
+    </div>
 
-            <DropdownMenuContent>
-              <DropdownMenuLabel>Download as</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleHtmlDownload}>Html</DropdownMenuItem>
-              <DropdownMenuItem>
-                <CsvDownloadButton html={html} />
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+    <DropdownMenuContent>
+      <DropdownMenuLabel>Download as</DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem onClick={handleHtmlDownload}>Html</DropdownMenuItem>
+      <DropdownMenuItem>
+        <CsvDownloadButton html={html} />
+      </DropdownMenuItem>
+    </DropdownMenuContent>
+  </DropdownMenu>
 
-          <Button variant={"outline"} onClick={importCSV}>CSV</Button>
+  <button onClick={importCSV} className="text-sm p-2">
+    <Badge variant="outline"><FaUpload /></Badge>
+  </button>
 
-          <div className="flex items-center space-x-4">
-            <Button variant={"outline"} onClick={handleVisualize}>
-              Visualize Table
-            </Button>
-            <select 
-              value={chartType} 
-              onChange={(e) => setChartType(e.target.value as 'line' | 'bar')}
-              className="p-2 border rounded"
-            >
-              <option value="line">Line Chart</option>
-              <option value="bar">Bar Chart</option>
-            </select>
-          </div>
+  
 
-        </div>
+  <div className="flex items-center space-x-4">
+    <button onClick={handleVisualize} className="text-sm p-2">
+    <Badge variant="outline"> <FaChartBar /></Badge>
+    </button>
+    
+    <select
+      value={chartType}
+      onChange={(e) => setChartType(e.target.value as 'line' | 'bar')}
+      className="p-1 border rounded text-sm"
+    >
+      <option value="line"><FaChartLine className="mr-2" /> Line Chart</option>
+      <option value="bar"><FaChartBar className="mr-2" /> Bar Chart</option>
+    </select>
+  </div>
+</div>
       </div>
 
       {/* Cover Image */}
@@ -668,6 +765,19 @@ export default function App() {
       <TemplateCards
         // @ts-ignore
         editor={editor} />
+
+      <div className="mt-4">
+        <Button onClick={() => setShowHtml(!showHtml)}>
+          {showHtml ? 'Hide HTML' : 'Show HTML'}
+        </Button>
+      </div>
+      
+      {showHtml && (
+        <div className="mt-4 p-4 rounded">
+          <h3 className="text-lg font-bold mb-2">HTML Output:</h3>
+          <pre className="whitespace-pre-wrap">{htmlOutput}</pre>
+        </div>
+      )}
 
     </div>
   );

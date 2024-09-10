@@ -4,7 +4,7 @@ import MermaidEditor from './BlocknoteBlocks/MermaidBlock'
 
 const DiagramBlock = createReactBlockSpec(
   {
-    type: 'diagrams',
+    type: 'Diagram',
     propSchema: {},
     content: 'inline',
   },
