@@ -11,10 +11,16 @@ To get started with Netflow, follow these steps:
 
 1. Install the dependencies:
    ```bash
-   pnpm install
+   npm install
 
 2. Run the development server:
 ```bash
-    pnpm run dev
+    npm run dev
 
-2. Replace the .env.local file with .env to set up your environment variables.
+here's a simple publish artice click the visulize button then u will see the magic; here it detect the table from blocknotejs then it convert it to csv then it turn it into chart 
+
+[text](https://netflow.netlify.app/en/publish/f624e421-38d0-4642-a93e-057a3edaca99)
+
+![Alt text](./netflow1.png)
+![Alt text](./netflow2.png)
+![Alt text](./netflow3.png)
