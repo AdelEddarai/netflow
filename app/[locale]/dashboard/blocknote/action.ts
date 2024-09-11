@@ -13,10 +13,13 @@ export async function saveBlockNote(title: string, content: any) {
       return { success: false, error: 'User not authenticated' }
     }
 
+    // Ensure content is always stored as a string
+    const contentString = typeof content === 'string' ? content : JSON.stringify(content);
+
     const blockNote = await prisma.blockNote.create({
       data: {
         title,
-        content: JSON.stringify(content),
+        content: contentString,
         userId: session.user.id,
       },
     });

@@ -96,52 +96,48 @@ export default function App() {
   });
 
    // Custom HTML converter function
- const customBlocksToHTML = async (document: EditorDocument): Promise<string> => {
-  let html = '';
-  for (const block of document) {
-    const blockType = block.type as AllBlockType;
-    switch (blockType) {
-      case 'paragraph':
-      case 'heading':
-      case 'bulletListItem':
-      case 'numberedListItem':
-      case 'checkListItem':
-      case 'image':
-        // Use the default conversion for standard blocks
-        html += await editor.blocksToHTMLLossy([block as Block]);
-        break;
-      case 'alert':
-        // Custom conversion for alert blocks
-        html += `<div class="alert">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
-        break;
-      case 'csviewer':
-        // Custom conversion for csviewer blocks
-        html += `<div class="csviewer">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
-        break;
-      case 'blockquote':
-        // Custom conversion for blockquote blocks
-        html += `<blockquote>${block.content?.map((c: any) => c.text).join('') || ''}</blockquote>`;
-        break;
-      case 'pdf':
-        // Custom conversion for pdf blocks
-        html += `<div class="pdf-embed">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
-        break;
-      case 'fencedCode':
-        // Custom conversion for fenced code blocks
-        html += `<pre><code>${block.content?.map((c: any) => c.text).join('') || ''}</code></pre>`;
-        break;
-      case 'diagramblock':
-        // Custom conversion for diagram blocks
-        html += `<div class="diagram">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
-        break;
-      default:
-        // For any unhandled block types
-        html += `<div class="unknown-block">${JSON.stringify(block)}</div>`;
+   const customBlocksToHTML = async (document: EditorDocument): Promise<string> => {
+    let html = '';
+    for (const block of document) {
+      const blockType = block.type as AllBlockType;
+      switch (blockType) {
+        case 'paragraph':
+        case 'heading':
+        case 'bulletListItem':
+        case 'numberedListItem':
+        case 'checkListItem':
+        case 'image':
+          // Use the default conversion for standard blocks
+          html += await editor.blocksToHTMLLossy([block as Block]);
+          break;
+        case 'alert':
+          html += `<div class="alert">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
+          break;
+        case 'csviewer':
+          html += `<div class="csviewer">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
+          break;
+        case 'blockquote':
+          html += `<blockquote>${block.content?.map((c: any) => c.text).join('') || ''}</blockquote>`;
+          break;
+        case 'pdf':
+          html += `<div class="pdf-embed">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
+          break;
+        case 'fencedCode':
+          html += `<pre><code>${block.content?.map((c: any) => c.text).join('') || ''}</code></pre>`;
+          break;
+        case 'diagramblock':
+          html += `<div class="diagram">${block.content?.map((c: any) => c.text).join('') || ''}</div>`;
+          break;
+        case 'table':
+          html += await editor.blocksToHTMLLossy([block as Block]);
+          break;
+        default:
+          // For any unhandled block types
+          html += `<div class="unknown-block">${JSON.stringify(block)}</div>`;
+      }
     }
-  }
-  return html;
-};
-
+    return html;
+  };
 
   // to convert blocks to html
   useEffect(() => {
@@ -156,7 +152,7 @@ export default function App() {
         }
       }
     };
-
+  
     updateHtml();
   }, [editor]);
 

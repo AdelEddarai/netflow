@@ -1,34 +1,34 @@
 import React from 'react';
 import { gePublictBlockNoteById } from '../../dashboard/blocknote/action';
-import dynamic from 'next/dynamic';
+import PublicBlockNotePageClient from './ClientPage';
 
-// Import the client component dynamically with ssr disabled
-const BlockNoteViewClient = dynamic(
-  () => import('./BlocknoteViewClient'),
-  { ssr: false }
-);
+
 
 export default async function PublicBlockNotePage({ params }: { params: { id: string } }) {
   const result = await gePublictBlockNoteById(params.id);
 
+
   if (!result.success) {
-    return <div>Error: {result.error}</div>;
+    return <div className="flex items-center justify-center h-screen bg-red-50 text-red-500">Error: {result.error}</div>;
   }
 
   const { blockNote } = result;
 
   if (!blockNote) {
-    return <div>Error: BlockNote not found</div>;
+    return <div className="flex items-center justify-center h-screen bg-yellow-50 text-yellow-700">Error: BlockNote not found</div>;
   }
 
-  // Parse the content back to an object
-  const content = JSON.parse(blockNote.content as string);
+  let content;
+  if (typeof blockNote.content === 'string') {
+    try {
+      content = JSON.parse(blockNote.content);
+    } catch (error) {
+      console.error('Error parsing content:', error);
+      return <div className="flex items-center justify-center h-screen bg-red-50 text-red-500">Error: Invalid content format</div>;
+    }
+  } else {
+    content = blockNote.content;
+  }
 
-  return (
-    <div>
-      <h1>{blockNote.title}</h1>
-      <BlockNoteViewClient initialContent={content} />
-      <p>Last updated: {new Date(blockNote.updatedAt).toLocaleString()}</p>
-    </div>
-  );
+  return <PublicBlockNotePageClient blockNote={blockNote} content={content} />;
 }
