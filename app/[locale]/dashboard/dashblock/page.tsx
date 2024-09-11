@@ -26,7 +26,7 @@ export default function DashboardPage() {
   }, []);
 
   const copyShareLink = (id: string) => {
-    const shareLink = `${window.location.origin}/publish/${id}`;
+    const shareLink = `${window.location.origin}/en/publish/${id}`;
     navigator.clipboard.writeText(shareLink).then(() => {
       alert('is done')
     });
