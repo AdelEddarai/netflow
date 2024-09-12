@@ -30,7 +30,7 @@ export const LargeNav = () => {
 							behavior: 'smooth',
 						});
 					}}>
-					<AppLogo className='w-10 h-10' />
+					{/* <AppLogo className='w-10 h-10' /> */}
 					<p className='text-2xl font-semibold'>
 						Net<span className='text-primary'>Flow</span>
 					</p>

@@ -49,9 +49,9 @@ export const HomePage = () => {
 					
 					<TextSection title='NEXT_GENERATION.TITLE' desc='NEXT_GENERATION.DESC' />
 
-					<div className='mt-4 p-4 flex justify-center items-center'>
+					{/* <div className='mt-4 p-4 flex justify-center items-center'>
 						<AnimatedTooltipPreview />
-					</div>
+					</div> */}
 					<Section id='Chat' title='CHAT.TITLE' desc='CHAT.DESC' images={homePageChatImgs} />
 					<Section
 						id='Calendar'
