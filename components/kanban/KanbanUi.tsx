@@ -55,6 +55,7 @@ const KanbanCard: React.FC<{
 
   return (
     <motion.div
+    // @ts-ignore
       ref={drag}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -125,6 +126,7 @@ const KanbanColumn: React.FC<{
 
   return (
     <motion.div 
+      // @ts-ignore
       ref={drop} 
       className="p-4 rounded-lg w-full sm:w-80 min-h-[300px]"
       animate={{
@@ -188,6 +190,7 @@ const TaskForm: React.FC<{
       </div>
       <div>
         <Label htmlFor="priority">Priority</Label>
+        {/* @ts-ignore */}
         <Select value={priority} onValueChange={setPriority}>
           <SelectTrigger id="priority">
             <SelectValue placeholder="Select priority" />
