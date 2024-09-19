@@ -117,7 +117,7 @@ export const SignUpCardContent = () => {
 						/>
 					</div>
 					<div className='space-y-2'>
-						<Button disabled={isLoading} className='w-full font-bold text-white ' type='submit'>
+						<Button disabled={isLoading} className='w-full font-bold ' type='submit'>
 							{isLoading ? (
 								<LoadingState loadingText={m('PENDING.LOADING')} />
 							) : (

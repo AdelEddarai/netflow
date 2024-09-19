@@ -116,6 +116,8 @@
 		"react-chartjs-2": "^5.2.0",
 		"react-contenteditable": "^3.3.7",
 		"react-day-picker": "^8.9.1",
+		"react-dnd": "^16.0.1",
+		"react-dnd-html5-backend": "^16.0.1",
 		"react-dom": "^18.3.1",
 		"react-dropzone": "^14.2.3",
 		"react-hook-form": "^7.47.0",

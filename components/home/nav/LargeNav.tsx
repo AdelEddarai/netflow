@@ -65,7 +65,9 @@ export const LargeNav = () => {
 					<Link
 						href={'/sign-in'}
 						className='border-b inline-block border-transparent hover:border-primary duration-200 transition-colors'>
+						<Button className='bg-green-500'>
 						{t('SIGN_IN')}
+						</Button>
 					</Link>
 					<Link href={'/sign-up'} className={`${buttonVariants({ variant: 'default' })}`}>
 						{t('SIGN_UP')}

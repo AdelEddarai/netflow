@@ -5,6 +5,7 @@ import mindmaps from './HeroImage.png'
 import DotPattern from "./dot-pattern";
 import Netflow from "./Spaceflow-anime";
 import RetroGrid from "@/components/magicui/retro-grid";
+import { Button } from "@/components/ui/button";
 
 
 
@@ -34,20 +35,6 @@ const Hero = () => {
           <div className="text-md opacity-80 max-w-[30rem] w-full relative">
             <Netflow />
           </div>
-          <div className="flex flex-wrap gap-3 p-2">
-            <Link
-              href={'/sign-up'}
-              className="px-4 py-2 dark:bg-white bg-green-600 dark:border-gray-700 rounded-md dark:text-black font-medium text-[14px] grow"
-            >
-              Get Started
-            </Link>
-            <Link
-              href="/"
-              className="px-4 py-2 bg-zinc-950 rounded-md text-white border border-white border-opacity-10 font-medium text-[14px] grow"
-            >
-              Pricing
-            </Link>
-          </div>
         </div>
         <div className="relative rounded-xl">
           <div className="h-[15rem] bg:[10rem] bg-black mx-auto absolute top-[-4rem] blur-[100px] opacity-20"></div>
@@ -60,6 +47,25 @@ const Hero = () => {
             className="w-full h-full object-cover rounded-xl"
           />
         </div>
+
+        <div className="flex flex-wrap gap-4 p-2">
+            <Link
+              href={'/sign-up'}
+            >
+              <Button className="bg-green-500 text-bold hover:text-black">
+                Get Started
+              </Button>
+              
+            </Link>
+            <Link
+              href="/blog"
+            >
+              <Button className="dark:bg-black text-white text-bold">
+                See Docs
+              </Button>
+            </Link>
+          </div>
+
       </div>
     </>
   );

@@ -100,7 +100,7 @@ export const SignInCardContent = () => {
 						/>
 					</div>
 
-					<Button disabled={isLoading} className='w-full font-bold text-white ' type='submit'>
+					<Button disabled={isLoading} className='w-full font-bold ' type='submit'>
 						{isLoading ? (
 							<LoadingState loadingText={m('PENDING.LOADING')} />
 						) : (

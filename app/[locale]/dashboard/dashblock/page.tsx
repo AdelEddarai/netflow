@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import BlockNoteTimeline from './BlocknoteTimeLine';
 import { CiCircleChevLeft } from "react-icons/ci";
 import { Footer } from '@/components/home/footer/Footer';
+import KanbanBoard from '@/components/kanban/KanbanUi';
 
 
 export default function DashboardPage() {
@@ -94,6 +95,8 @@ export default function DashboardPage() {
             <BlockNoteTimeline blockNotes={blockNotes} />
           </div>
         )}
+
+        <KanbanBoard />
       </div>
       <Footer />
       
