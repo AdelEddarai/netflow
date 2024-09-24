@@ -3,6 +3,8 @@
 import React from 'react';
 import { Block, BlockNoteEditor, PartialBlock } from "@blocknote/core";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { PlusCircle } from 'lucide-react';
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 interface TemplateCardProps {
   title: string;
@@ -15,18 +17,18 @@ interface TemplateCardProps {
 const TemplateCard: React.FC<TemplateCardProps> = ({ title, description, content, color, onSelect }) => {
   return (
     <Card 
-      className="w-[200px] h-[150px] cursor-pointer transition-all hover:scale-105"
-      style={{ borderTop: `4px solid ${color}` }}
-      onClick={() => onSelect(content)}
-    >
-      <CardHeader className="p-4">
-        <CardTitle className="text-sm">{title}</CardTitle>
-        <CardDescription className="text-xs">{description}</CardDescription>
-      </CardHeader>
-      <CardContent className="p-4 pt-0">
-        <div className="text-xs text-gray-500">Click to use template</div>
-      </CardContent>
-    </Card>
+        className="w-[180px] h-[120px] cursor-pointer transition-all hover:scale-105 flex flex-col justify-between"
+        style={{ borderLeft: `4px solid ${color}` }}
+        onClick={() => onSelect(content)}
+      >
+        <CardHeader className="p-3">
+          <CardTitle className="text-sm font-medium">{title}</CardTitle>
+          <CardDescription className="text-xs line-clamp-2">{description}</CardDescription>
+        </CardHeader>
+        <CardContent className="p-3 pt-0">
+          <div className="text-xs text-muted-foreground">Click to use</div>
+        </CardContent>
+      </Card>
   );
 };
 
@@ -296,27 +298,41 @@ const templates = [
 interface TemplateCardsProps<T extends BlockNoteEditor> {
   editor: T;
 }
+
 function TemplateCards<T extends BlockNoteEditor>({ editor }: TemplateCardsProps<T>) {
   const handleSelectTemplate = (content: PartialBlock[]) => {
     const currentBlock = editor.getTextCursorPosition().block;
     editor.insertBlocks(content, currentBlock, 'after');
-  };
-
+  }
 
   return (
-    <div className="flex flex-wrap gap-4 mb-4">
-      {templates.map((template, index) => (
-        <TemplateCard
-          key={index}
-          title={template.title}
-          description={template.description}
-          content={template.content as Block[]}
-          color={template.color}
-          onSelect={handleSelectTemplate}
-        />
-      ))}
-    </div>
-  );
+    <Card className="w-full mb-4">
+      <CardHeader className="p-4">
+        <CardTitle className="text-lg flex items-center">
+          <PlusCircle className="mr-2 h-5 w-5" />
+          Templates
+        </CardTitle>
+        <CardDescription>Choose a template to quickly start your document</CardDescription>
+      </CardHeader>
+      <CardContent className="p-4 pt-0">
+        <ScrollArea className="w-full whitespace-nowrap">
+          <div className="flex space-x-4">
+            {templates.map((template, index) => (
+              <TemplateCard
+                key={index}
+                title={template.title}
+                description={template.description}
+                content={template.content as Block[]}
+                color={template.color}
+                onSelect={handleSelectTemplate}
+              />
+            ))}
+          </div>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
+      </CardContent>
+    </Card>
+  )
 };
 
 export default TemplateCards;

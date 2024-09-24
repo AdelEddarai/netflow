@@ -4,7 +4,6 @@ import Welcoming from '@/components/common/Welcoming';
 import { DashboardHeader } from '@/components/header/DashboardHeader';
 import { Footer } from '@/components/home/footer/Footer';
 import { HomeRecentActivityContainer } from '@/components/homeRecentAcrivity/HomeRecentActivityContainer';
-// import  KanbanBoard  from '@/components/kanban/KanbanTable';
 import { CommitGraph } from '@/components/magicui/commit-graph';
 import { TableComponent } from '@/components/table/TableComponent';
 import { getInitialHomeRecentActivitiy } from '@/lib/api';

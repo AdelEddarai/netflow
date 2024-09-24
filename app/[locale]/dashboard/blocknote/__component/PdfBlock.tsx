@@ -1,3 +1,5 @@
+"use client"
+
 import { FileBlockConfig } from "@blocknote/core";
 import {
   AddFileButton,

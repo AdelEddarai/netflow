@@ -61,7 +61,7 @@ export const Finish = () => {
 				<p>
 					{t('FINISH.DESC_FIRST')}{' '}
 					<span>
-						Study<span className='text-primary font-semibold'>Flow</span>
+						Net<span className='text-primary font-semibold'>Flow</span>
 					</span>
 					{t('FINISH.DESC_SECOND')}
 				</p>

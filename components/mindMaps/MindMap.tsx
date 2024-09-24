@@ -17,14 +17,11 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import { TextNode } from './nodes/TextNode';
+import { SquareNode } from './nodes/SquareNode';
 import { Button } from '@/components/ui/button';
 import { EdgeOptions } from './EdgeOptions';
 import { Sheet } from '@/components/ui/sheet';
 import { EdgeOptionsSchema } from '@/schema/edgeOptionsSchema';
-import { CustomStraight } from './labels/CustomStraight';
-import { CustomStepSharp } from './labels/CustomStepSharp';
-import { CustomStepRounded } from './labels/CustomStepRounded';
-import { CustomBezier } from './labels/CustomBezier';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { PlusSquare, Save } from 'lucide-react';
 import { DeleteAllNodes } from './DeleteAllNodes';
@@ -39,8 +36,20 @@ import { EditInfo } from './editInfo/EditInfo';
 import { ExtendedMindMap } from '@/types/extended';
 import { useTranslations } from 'next-intl';
 import { v4 as uuidv4 } from 'uuid';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { CustomBezier } from './labels/CustomBezier';
+import { CustomStraight } from './labels/CustomStraight';
+import { CustomStepSharp } from './labels/CustomStepSharp';
+import { CustomStepRounded } from './labels/CustomStepRounded';
+import { CircleNode } from './nodes/CircleNode';
+import { HTTPRequestNode } from './nodes/HttpRequestNode';
 
-const nodeTypes = { textNode: TextNode };
+const nodeTypes = { 
+	textNode: TextNode,
+	circleNode: CircleNode,
+	squareNode: SquareNode,
+	httpsNode: HTTPRequestNode,
+};
 const edgeTypes: EdgeTypes = {
 	customBezier: CustomBezier,
 	customStraight: CustomStraight,
@@ -57,12 +66,9 @@ interface Props {
 
 export const MindMap = ({ initialInfo, workspaceId, candEdit, initialActiveTags }: Props) => {
 	const [openSheet, setOpenSheet] = useState(false);
-
 	const [nodes, setNodes] = useState<Node[]>([]);
 	const [edges, setEdges] = useState<Edge[]>([]);
-
 	const [clickedEdge, setClickedEdge] = useState<Edge | null>(null);
-
 	const [isMounted, setIsMounted] = useState(false);
 	const [editable, setEditable] = useState(candEdit);
 
@@ -92,11 +98,8 @@ export const MindMap = ({ initialInfo, workspaceId, candEdit, initialActiveTags 
 
 	const onNodesChange: OnNodesChange = useCallback(
 		(changes) => {
-			setNodes((nds) => {
-				return applyNodeChanges(changes, nds);
-			});
+			setNodes((nds) => applyNodeChanges(changes, nds));
 		},
-
 		[]
 	);
 
@@ -105,9 +108,7 @@ export const MindMap = ({ initialInfo, workspaceId, candEdit, initialActiveTags 
 	}, [candEdit]);
 
 	const onEdgesChange: OnEdgesChange = useCallback((changes) => {
-		setEdges((eds) => {
-			return applyEdgeChanges(changes, eds);
-		});
+		setEdges((eds) => applyEdgeChanges(changes, eds));
 	}, []);
 
 	const onEdgeClick = useCallback(
@@ -176,10 +177,10 @@ export const MindMap = ({ initialInfo, workspaceId, candEdit, initialActiveTags 
 		[debouncedMindMapInfo, onSetStatus]
 	);
 
-	const onAddNode = useCallback(() => {
+	const onAddNode = useCallback((nodeType: string) => {
 		const newNode = {
 			id: uuidv4(),
-			type: 'textNode',
+			type: nodeType,
 			position: { x: 0, y: 0 },
 			data: { text: '', color: 12, onDelete: onNodesDelete },
 		};
@@ -233,16 +234,24 @@ export const MindMap = ({ initialInfo, workspaceId, candEdit, initialActiveTags 
 							position='top-left'
 							className='bg-background  z-50 shadow-sm border rounded-sm py-0.5 px-3'>
 							<div className=' flex gap-2 w-full items-center '>
-								<HoverCard openDelay={250} closeDelay={250}>
-									<HoverCardTrigger asChild>
-										<Button variant={'ghost'} size={'icon'} onClick={onAddNode}>
+								<Popover>
+									<PopoverTrigger asChild>
+										<Button variant={'ghost'} size={'icon'}>
 											<PlusSquare size={20} />
 										</Button>
-									</HoverCardTrigger>
-									<HoverCardContent align='start' sideOffset={8}>
-										{t('HOVER_TIP.ADD_TILE')}
-									</HoverCardContent>
-								</HoverCard>
+									</PopoverTrigger>
+									<PopoverContent className="w-56">
+										<div className="grid gap-4">
+											<div className="grid grid-cols-2 items-center gap-4">
+												<Button onClick={() => onAddNode('textNode')}>Text</Button>
+												<Button onClick={() => onAddNode('circleNode')}>Circle</Button>
+												<Button onClick={() => onAddNode('squareNode')}>Square</Button>
+												<Button onClick={() => onAddNode('httpsNode')}>Https</Button>
+												
+											</div>
+										</div>
+									</PopoverContent>
+								</Popover>
 								<EditInfo
 									emoji={initialInfo.emoji}
 									title={initialInfo.title}
@@ -283,7 +292,6 @@ export const MindMap = ({ initialInfo, workspaceId, candEdit, initialActiveTags 
 					)}
 
 					<Background />
-					<MiniMap zoomable pannable className='rounded-md' />
 				</ReactFlow>
 			</div>
 		</div>

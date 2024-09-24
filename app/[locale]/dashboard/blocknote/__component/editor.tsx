@@ -27,12 +27,13 @@ import { BsChatQuote, BsCodeSlash, BsFiletypeCsv, BsFiletypePdf } from "react-ic
 import TemplateCards from "./BlockTemplates/Blocktemplate";
 import { ImMagicWand } from "react-icons/im";
 import { useCompletion } from "ai/react";
-import './aityping.css'
 import FormattingToolbarComponent from "./FormatsToolbars";
 import ChartVisualizer from "./DataDash/ChartVisulizer";
 import { DiagramBlock } from "./DiagramBlock";
 import { FaSave, FaDownload, FaUpload, FaChartBar, FaChartLine } from 'react-icons/fa';
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
 
 
 // For Blocks
@@ -147,7 +148,7 @@ export default function App() {
           const html = await customBlocksToHTML(editor.document);
           setHtmlOutput(html);
         } catch (error) {
-          console.error('Error converting blocks to HTML:', error);
+          toast.error('Error converting blocks to HTML:');
           setHtmlOutput('Error converting to HTML');
         }
       }
@@ -234,7 +235,7 @@ export default function App() {
     subtext: 'Continue your note with AI-generated text',
   });
 
-  // Function to convert AI-generated Markdown-style table to BlockNote.js format
+  // Function to convert AI-generated Markdown-style table to BlockNote.js format table
   function convertAiTableToBlockNote(aiGeneratedTable: string): PartialBlock[] {
     const rows = aiGeneratedTable.trim().split('\n');
     const tableRows = rows.filter(row => !row.match(/^\s*\|[-:]+\|/)); // Remove separator row
@@ -286,6 +287,7 @@ export default function App() {
       setAiText('');  // Clear AI text after inserting
     }
   };
+  
   const handleHtmlDownload = () => {
     const element = document.createElement("a");
     const file = new Blob([html], { type: 'text/html' });
@@ -339,6 +341,7 @@ export default function App() {
       }
     } else {
       console.log('No table found in the HTML content');
+      toast('to table found here in html content')
       // You might want to show a message to the user here
     }
   }
@@ -415,10 +418,10 @@ export default function App() {
   })
 
   const insertDiagram = (editor: typeof schema.BlockNoteEditor) => ({
-    title: 'diagram',
+    title: 'Diagram',
     onItemClick: () => {
       editor.updateBlock(editor.getTextCursorPosition().block, {
-        type: 'Diagram',
+        type: 'diagram',
       })
     },
     aliases: ['graph'],
@@ -627,154 +630,148 @@ export default function App() {
 
 
   return (
-    <div className={"wrapper"}>
-      <div className="flex flex-col sm:flex-row items-center sm:space-x-4 mb-4">
-      <div className="flex items-center space-x-4">
-  <SaveStatusIndicator status={saveStatus} />
-  <Toaster />
-  <button
-    onClick={handleSave}
-    disabled={saveStatus === 'saving'}
-    className="text-sm p-2"
-  >
-    <Badge variant="outline">  <FaSave /></Badge>
-  </button>
-  <DropdownMenu>
-    <div className='m-4'>
-      <DropdownMenuTrigger>
-        <button className="text-sm p-2">
-        <Badge variant="outline"> <FaDownload /></Badge>
-        </button>
-      </DropdownMenuTrigger>
-    </div>
-
-    <DropdownMenuContent>
-      <DropdownMenuLabel>Download as</DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem onClick={handleHtmlDownload}>Html</DropdownMenuItem>
-      <DropdownMenuItem>
-        <CsvDownloadButton html={html} />
-      </DropdownMenuItem>
-    </DropdownMenuContent>
-  </DropdownMenu>
-
-  <button onClick={importCSV} className="text-sm p-2">
-    <Badge variant="outline"><FaUpload /></Badge>
-  </button>
-
-  
-
-  <div className="flex items-center space-x-4">
-    <button onClick={handleVisualize} className="text-sm p-2">
-    <Badge variant="outline"> <FaChartBar /></Badge>
-    </button>
-    
-    <select
-      value={chartType}
-      onChange={(e) => setChartType(e.target.value as 'line' | 'bar')}
-      className="p-1 border rounded text-sm"
-    >
-      <option value="line"><FaChartLine className="mr-2" /> Line Chart</option>
-      <option value="bar"><FaChartBar className="mr-2" /> Bar Chart</option>
-    </select>
-  </div>
-</div>
-      </div>
-
-      {/* Cover Image */}
-      <TextAreabove />
-
-      <div className='ml-10'>
-        <TextareaAutosize
-          className=" w-full text-4xl font-bold focus:outline-none resize-none overflow-hidden bg-transparent"
-          value={title}
-          placeholder="Untitled"
-          onChange={(e) => setTitle(e.target.value)}
-          maxRows={3}
-        />
-      </div>
-      <div className={"item"}>
-        <BlockNoteView
-          editor={editor}
-          theme={resolvedTheme === "dark" ? customDarkTheme : "light"}
-          onChange={handleContentChange}
-          slashMenu={false}
-          formattingToolbar={false}
-        >
-
-          <FormattingToolbarController
-            formattingToolbar={() => (
-              <FormattingToolbar>
-                <FormattingToolbarComponent />
-              </FormattingToolbar>
-            )}
-          />
-          <SuggestionMenuController
-            triggerCharacter={"/"}
-            getItems={async (query) =>
-              filterSuggestionItems(
-                // @ts-ignore
-                [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCsviwer(editor), insertBlockQuote(editor), insertPDF(editor), insertFencedCodeBlock(editor), insertMagicItem(editor), insertDiagram(editor)],
-                query
-              )
-            }
-          />
-        </BlockNoteView>
-        {isTyping && (
-          <div className="ai-typing-indicator">
-            AI is typing...
+    <div className="min-h-screen">
+      <Card className="m-4">
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <SaveStatusIndicator status={saveStatus} />
           </div>
-        )}
-
-        {(isTyping || aiText) && (
-          <div className="ai-output-container">
-            <div ref={aiOutputRef} className="ai-output">
-              {aiText}
-            </div>
-            <Button
-              onClick={insertAiTextIntoEditor}
-              disabled={!aiText}
-              className="mt-2"
-              variant={"outline"}
-            >
-              Insert AI Text
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap gap-2 mb-4">
+            <Button variant="outline" size="sm" onClick={handleSave} disabled={saveStatus === 'saving'}>
+              <FaSave className="mr-2" /> Save
             </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <FaDownload className="mr-2" /> Download
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Download as</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleHtmlDownload}>HTML</DropdownMenuItem>
+                <DropdownMenuItem>
+                  <CsvDownloadButton html={''} /> {/* Assume html prop is properly handled */}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <Button variant="outline" size="sm" onClick={importCSV}>
+              <FaUpload className="mr-2" /> Import CSV
+            </Button>
+            <Button variant="outline" size="sm" onClick={handleVisualize}>
+              <FaChartBar className="mr-2" /> Visualize
+            </Button>
+            <select
+              value={chartType}
+              onChange={(e) => setChartType(e.target.value as 'line' | 'bar')}
+              className="p-2 border rounded text-sm"
+            >
+              <option value="line">Line Chart</option>
+              <option value="bar">Bar Chart</option>
+            </select>
           </div>
-        )}
 
-      </div>
+          <TextareaAutosize
+              className="text-4xl font-bold focus:outline-none resize-none overflow-hidden w-full"
+              value={title}
+              placeholder="Untitled"
+              onChange={(e) => setTitle(e.target.value)}
+              maxRows={3}
+            />
+          <TextAreabove />
+          <ScrollArea className="h-[60vh]">
+              <BlockNoteView
+              editor={editor}
+              theme={resolvedTheme === "dark" ? customDarkTheme : "light"}
+              onChange={handleContentChange}
+              slashMenu={false}
+              formattingToolbar={false}
+            >
+              <FormattingToolbarController
+                formattingToolbar={() => (
+                  <FormattingToolbar>
+                    <FormattingToolbarComponent />
+                  </FormattingToolbar>
+                )}
+              />
+              <SuggestionMenuController
+                triggerCharacter={"/"}
+                getItems={async (query) =>
+                  filterSuggestionItems(
+                    // @ts-ignore
+                    [...getDefaultReactSlashMenuItems(editor), insertAlert(editor), insertCsviwer(editor), insertBlockQuote(editor), insertPDF(editor), insertFencedCodeBlock(editor), insertMagicItem(editor), insertDiagram(editor)],
+                    query
+                  )
+                }
+              />
+            </BlockNoteView>
+          </ScrollArea>
 
+          {isTyping && (
+            <div className="mt-4 text-sm text-muted-foreground">
+              AI is typing...
+            </div>
+          )}
 
+          {(isTyping || aiText) && (
+            <Card className="mt-4">
+              <CardContent>
+                <div ref={aiOutputRef} className="mb-2">
+                  {aiText}
+                </div>
+                <Button
+                  onClick={insertAiTextIntoEditor}
+                  disabled={!aiText}
+                  variant="secondary"
+                >
+                  Insert AI Text
+                </Button>
+              </CardContent>
+            </Card>
+          )}
 
-      {showChart && (
-        <div className="mt-4">
-          <ChartVisualizer 
-            data={tableData} 
-            title={title} 
-            chartType={chartType}
-            xAxisKey={xAxisKey}
-            yAxisKeys={yAxisKeys}
-          />
-        </div>
-      )}
+          {showChart && (
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>Data Visualization</CardTitle>
+              </CardHeader>
+              <CardContent>
+              <ChartVisualizer 
+                data={tableData} 
+                title={title} 
+                chartType={chartType}
+                xAxisKey={xAxisKey}
+                yAxisKeys={yAxisKeys}
+              />
+              </CardContent>
+            </Card>
+          )}
 
       <TemplateCards
         // @ts-ignore
         editor={editor} />
 
-      <div className="mt-4">
-        <Button onClick={() => setShowHtml(!showHtml)}>
-          {showHtml ? 'Hide HTML' : 'Show HTML'}
-        </Button>
-      </div>
-      
-      {showHtml && (
-        <div className="mt-4 p-4 rounded">
-          <h3 className="text-lg font-bold mb-2">HTML Output:</h3>
-          <pre className="whitespace-pre-wrap">{htmlOutput}</pre>
-        </div>
-      )}
-
+          <div className="mt-4">
+            <Button onClick={() => setShowHtml(!showHtml)}>
+              {showHtml ? 'Hide HTML' : 'Show HTML'}
+            </Button>
+          </div>
+          
+          {showHtml && (
+            <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>HTML Output</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <pre className="whitespace-pre-wrap text-sm">{htmlOutput}</pre>
+              </CardContent>
+            </Card>
+          )}
+        </CardContent>
+      </Card>
+      <Toaster />
     </div>
   );
 }

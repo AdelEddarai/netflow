@@ -60,7 +60,7 @@ export const InviteContent = ({
 		navigator.clipboard.writeText(inviteURL);
 
 		toast({
-			title: 'Link skopiowany',
+			title: 'Link has coppied',
 		});
 	};
 

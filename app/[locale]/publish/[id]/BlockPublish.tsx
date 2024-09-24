@@ -3,24 +3,23 @@
 import React from 'react';
 import { useCreateBlockNote } from "@blocknote/react";
 import "@blocknote/core/style.css";
+import { BlockNoteEditor, Block } from '@blocknote/core';
 import { BlockNoteView } from '@blocknote/mantine';
-import { BlockNoteEditor } from '@blocknote/core';
 
 interface BlockNoteViewClientProps {
-  initialContent: any;
+  initialContent: Block[];
 }
+
 
 export default function BlockNoteViewClient({ initialContent }: BlockNoteViewClientProps) {
   const editor: BlockNoteEditor = useCreateBlockNote({
-    initialContent: initialContent,
+    initialContent: Array.isArray(initialContent) ? initialContent : [initialContent],
   });
 
-
   return (
-    <BlockNoteView 
-      editor={editor} 
+    <BlockNoteView
+      editor={editor}
       editable={false}
-      // Add any additional props or styling options here
     />
   );
 }

@@ -4,7 +4,7 @@ import MermaidEditor from './BlocknoteBlocks/MermaidBlock'
 
 const DiagramBlock = createReactBlockSpec(
   {
-    type: 'Diagram',
+    type: 'diagram',
     propSchema: {},
     content: 'inline',
   },
@@ -23,5 +23,6 @@ const DiagramBlock = createReactBlockSpec(
 )
 
 // FIXME: This is a temporary solution to avoid group key same error(to other)
+// TODO we need to work on diagram in dev and in publish
 
 export { DiagramBlock }
