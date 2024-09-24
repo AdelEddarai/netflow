@@ -34,6 +34,7 @@ import { FaSave, FaDownload, FaUpload, FaChartBar, FaChartLine } from 'react-ico
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
+import { HtmlOutput } from "./Blocks2Html";
 
 
 // For Blocks
@@ -759,16 +760,8 @@ export default function App() {
             </Button>
           </div>
           
-          {showHtml && (
-            <Card className="mt-4">
-              <CardHeader>
-                <CardTitle>HTML Output</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <pre className="whitespace-pre-wrap text-sm">{htmlOutput}</pre>
-              </CardContent>
-            </Card>
-          )}
+          {showHtml && <HtmlOutput html={htmlOutput} />}
+
         </CardContent>
       </Card>
       <Toaster />

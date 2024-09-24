@@ -30,20 +30,14 @@ export default function PublicBlockNotePageClient({ blockNote, content }: Public
   const [chartData, setChartData] = useState<any[]>([])
   const [chartType, setChartType] = useState<'line' | 'bar'>('line')
   const [loading, setLoading] = useState(true)
-  const [hasTable, setHasTable] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false)
-      checkForTable()
     }, 2000)
     return () => clearTimeout(timer)
   }, [])
 
-  const checkForTable = () => {
-    const table = document.querySelector('table')
-    setHasTable(!!table)
-  }
 
   const tableToCSV = (table: HTMLTableElement): string => {
     const rows = Array.from(table.querySelectorAll('tr'))
@@ -131,12 +125,10 @@ export default function PublicBlockNotePageClient({ blockNote, content }: Public
             ) : (
               <div className="space-y-4">
                 <div className="flex flex-wrap gap-2">
-                  {hasTable && (
                     <Button variant="outline" onClick={handleVisualize}>
                       <TableIcon className="mr-2 h-4 w-4" />
                       Visualize Table Data
                     </Button>
-                  )}
                   {showChart && (
                     <Button variant="outline" onClick={handleDownloadCSV}>
                       <Download className="mr-2 h-4 w-4" />

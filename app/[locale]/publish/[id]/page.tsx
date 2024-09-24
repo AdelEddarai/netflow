@@ -20,5 +20,6 @@ export default async function PublicBlockNotePage({ params }: { params: { id: st
     content = [];
   }
 
+  // @ts-ignore
   return <PublicBlockNotePageClient blockNote={blockNote} content={content} />;
 }
