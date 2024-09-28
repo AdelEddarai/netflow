@@ -15,12 +15,13 @@ import { Calendar } from "@/components/ui/calendar"
 import { motion, AnimatePresence, Reorder } from "framer-motion"
 import { format } from 'date-fns'
 import { getUserBlockNotes, updateBlockNote } from '@/app/[locale]/dashboard/blocknote/action'
-import { Loader2, Plus, Calendar as CalendarIcon, User, Flag, MoreVertical, X, ChevronDown, ChevronUp } from 'lucide-react'
+import { Plus, Calendar as CalendarIcon, User, Flag, MoreVertical, X, ChevronDown, ChevronUp, List, Columns } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
 
 interface KanbanTask {
   id: string
@@ -251,6 +252,36 @@ const TaskForm: React.FC<{
   )
 }
 
+const KanbanSkeleton: React.FC = () => {
+  return (
+    <div className="flex space-x-4">
+      {[1, 2, 3].map((column) => (
+        <div key={column} className="w-80">
+          <Skeleton className="h-8 w-40 mb-4" />
+          {[1, 2, 3].map((card) => (
+            <Card key={card} className="mb-4">
+              <CardHeader>
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-full mt-2" />
+              </CardHeader>
+              <CardContent>
+                <div className="flex justify-between items-center">
+                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-4 w-20" />
+                </div>
+                <div className="flex justify-between items-center mt-2">
+                  <Skeleton className="h-4 w-24" />
+                  <Skeleton className="h-4 w-24" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function EnhancedKanbanBoard() {
   const [tasks, setTasks] = useState<KanbanTask[]>([])
   const [columns, setColumns] = useState<Column[]>([
@@ -269,6 +300,7 @@ export default function EnhancedKanbanBoard() {
   const [newColumnTitle, setNewColumnTitle] = useState('')
   const [sprints, setSprints] = useState<Sprint[]>([])
   const [currentSprint, setCurrentSprint] = useState<Sprint | null>(null)
+  const [viewMode, setViewMode] = useState<'board' | 'list'>('board')
   const router = useRouter()
 
   useEffect(() => {
@@ -372,6 +404,10 @@ export default function EnhancedKanbanBoard() {
       return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
     })
 
+  const toggleViewMode = () => {
+    setViewMode(prevMode => prevMode === 'board' ? 'list' : 'board')
+  }
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="p-4 sm:p-8">
@@ -424,6 +460,10 @@ export default function EnhancedKanbanBoard() {
               <Button onClick={() => router.push('/dashboard/blocknote')}>
                 <Plus className="mr-2 h-4 w-4" /> Add Task
               </Button>
+              <Button onClick={toggleViewMode}>
+                {viewMode === 'board' ? <List className="mr-2 h-4 w-4" /> : <Columns className="mr-2 h-4 w-4" />}
+                {viewMode === 'board' ? 'List View' : 'Board View'}
+              </Button>
             </div>
             {currentSprint && (
               <div className="mb-4 p-4 rounded-lg">
@@ -435,10 +475,8 @@ export default function EnhancedKanbanBoard() {
               </div>
             )}
             {isLoading ? (
-              <div className="flex justify-center items-center h-64">
-                <Loader2 className="w-8 h-8 animate-spin" />
-              </div>
-            ) : (
+              <KanbanSkeleton />
+            ) : viewMode === 'board' ? (
               <Reorder.Group
                 axis="x"
                 values={columns}
@@ -469,6 +507,27 @@ export default function EnhancedKanbanBoard() {
                 ) : (
                   <Button variant="outline" onClick={() => setIsAddingColumn(true)}><Plus className="mr-2 h-4 w-4" /> Add Column</Button>
                 )}
+              </Reorder.Group>
+            ) : (
+              <Reorder.Group axis="y" values={filteredAndSortedTasks} onReorder={setTasks} className="space-y-2">
+                {filteredAndSortedTasks.map((task) => (
+                  <Reorder.Item key={task.id} value={task}>
+                    <Card className="cursor-move">
+                      <CardHeader>
+                        <CardTitle>{task.title}</CardTitle>
+                        <CardDescription>{task.description}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex justify-between items-center">
+                          <Badge>{task.status}</Badge>
+                          <Badge variant={task.priority as "default" | "secondary" | "destructive"}>{task.priority}</Badge>
+                          <span>{task.assignee}</span>
+                          <span>{task.dueDate ? format(new Date(task.dueDate), 'PP') : 'No due date'}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Reorder.Item>
+                ))}
               </Reorder.Group>
             )}
           </TabsContent>
