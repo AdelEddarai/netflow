@@ -10,7 +10,6 @@ interface BlockNoteViewClientProps {
   initialContent: Block[];
 }
 
-
 export default function BlockNoteViewClient({ initialContent }: BlockNoteViewClientProps) {
   const editor: BlockNoteEditor = useCreateBlockNote({
     initialContent: Array.isArray(initialContent) ? initialContent : [initialContent],

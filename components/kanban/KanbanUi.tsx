@@ -15,7 +15,12 @@ import { Calendar } from "@/components/ui/calendar"
 import { motion, AnimatePresence, Reorder } from "framer-motion"
 import { format } from 'date-fns'
 import { getUserBlockNotes, updateBlockNote } from '@/app/[locale]/dashboard/blocknote/action'
-import { Loader2, Plus, Calendar as CalendarIcon, User, Flag, MoreVertical, X } from 'lucide-react'
+import { Loader2, Plus, Calendar as CalendarIcon, User, Flag, MoreVertical, X, ChevronDown, ChevronUp } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Progress } from "@/components/ui/progress"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Badge } from "@/components/ui/badge"
 
 interface KanbanTask {
   id: string
@@ -32,6 +37,14 @@ interface Column {
   id: string
   title: string
   status: string
+}
+
+interface Sprint {
+  id: string
+  name: string
+  startDate: Date
+  endDate: Date
+  tasks: KanbanTask[]
 }
 
 const priorityColors = {
@@ -84,21 +97,24 @@ const KanbanCard: React.FC<{
           <CardDescription className="mt-2 line-clamp-2">{task.description}</CardDescription>
         </CardHeader>
         <CardContent className="p-4 pt-0">
-          <div className="flex items-center justify-between text-sm ">
+          <div className="flex items-center justify-between text-sm mb-2">
             <div className="flex items-center space-x-2">
-              <User className="h-4 w-4" />
+              <Avatar className="h-6 w-6">
+                <AvatarImage src={`https://avatar.vercel.sh/${task.assignee}.png`} alt={task.assignee} />
+                <AvatarFallback>{task.assignee.charAt(0)}</AvatarFallback>
+              </Avatar>
               <span>{task.assignee || 'Unassigned'}</span>
             </div>
-            <div className={`px-2 py-1 rounded-full text-xs font-medium ${priorityColors[task.priority]}`}>
+            <Badge variant={task.priority as "default" | "secondary" | "destructive"}>
               {task.priority}
-            </div>
+            </Badge>
           </div>
-          <div className="flex items-center justify-between mt-2 text-sm ">
+          <div className="flex items-center justify-between text-sm ">
             <div className="flex items-center space-x-2">
               <CalendarIcon className="h-4 w-4" />
               <span>{task.dueDate ? format(new Date(task.dueDate), 'PP') : 'No due date'}</span>
             </div>
-            <span>Updated: {format(new Date(task.updatedAt), 'PP')}</span>
+            <span className="text-xs ">Updated: {format(new Date(task.updatedAt), 'PP')}</span>
           </div>
         </CardContent>
       </Card>
@@ -130,11 +146,14 @@ const KanbanColumn: React.FC<{
       ref={drop} 
       className="p-4 rounded-lg w-full sm:w-80 min-h-[300px]"
       animate={{
-        backgroundColor: isOver ? 'rgb(226, 232, 240)' : 'rgb(241, 245, 249)',
+        backgroundColor: isOver ? '' : '',
         transition: { duration: 0.2 }
       }}
     >
-      <h2 className="text-xl font-bold mb-4">{column.title}</h2>
+      <h2 className="text-xl font-bold mb-4 flex items-center justify-between">
+        {column.title}
+        <Badge variant="outline">{tasks.length}</Badge>
+      </h2>
       <AnimatePresence>
         {tasks.map((task) => (
           <KanbanCard key={task.id} task={task} onMoveTask={onMoveTask} onEditTask={onEditTask} />
@@ -248,6 +267,9 @@ export default function EnhancedKanbanBoard() {
   const [editingTask, setEditingTask] = useState<KanbanTask | null>(null)
   const [isAddingColumn, setIsAddingColumn] = useState(false)
   const [newColumnTitle, setNewColumnTitle] = useState('')
+  const [sprints, setSprints] = useState<Sprint[]>([])
+  const [currentSprint, setCurrentSprint] = useState<Sprint | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     fetchTasks()
@@ -315,27 +337,7 @@ export default function EnhancedKanbanBoard() {
   }
 
   const addTask = async (newTask: Partial<KanbanTask>) => {
-    try {
-        // @ts-ignore
-      const result = await updateBlockNote(newTask.title || 'New Task', JSON.stringify(newTask))
-      if (result.success && result.blockNote) {
-        const createdTask: KanbanTask = {
-          id: result.blockNote.id,
-          title: result.blockNote.title,
-          description: newTask.description || '',
-          status: newTask.status || 'todo',
-          priority: newTask.priority || 'medium',
-          assignee: newTask.assignee || '',
-          dueDate: newTask.dueDate || null,
-          updatedAt: result.blockNote.updatedAt
-        }
-        setTasks(prevTasks => [...prevTasks, createdTask])
-      } else {
-        throw new Error(result.error || 'Failed to create task')
-      }
-    } catch (error) {
-      console.error('Error creating task:', error)
-    }
+    router.push('/dashboard/blocknote')
   }
 
   const addColumn = () => {
@@ -349,6 +351,10 @@ export default function EnhancedKanbanBoard() {
       setNewColumnTitle('')
       setIsAddingColumn(false)
     }
+  }
+
+  const addSprint = (sprint: Sprint) => {
+    setSprints(prevSprints => [...prevSprints, sprint])
   }
 
   const filteredAndSortedTasks = tasks
@@ -370,93 +376,111 @@ export default function EnhancedKanbanBoard() {
     <DndProvider backend={HTML5Backend}>
       <div className="p-4 sm:p-8">
         <h1 className="text-3xl font-bold mb-8">Enhanced Kanban Board</h1>
-        <div className="mb-4 flex flex-wrap gap-4">
-          <Input
-            placeholder="Search tasks..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full sm:w-64"
-          />
-          <Select onValueChange={setFilterStatus} defaultValue="all">
-            <SelectTrigger className="w-full sm:w-40">
-              <SelectValue placeholder="Filter by status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Statuses</SelectItem>
-              {columns.map(column => (
-                <SelectItem key={column.id} value={column.status}>{column.title}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select onValueChange={setFilterPriority} defaultValue="all">
-            <SelectTrigger className="w-full sm:w-40">
-              <SelectValue placeholder="Filter by priority" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Priorities</SelectItem>
-              <SelectItem value="low">Low</SelectItem>
-              <SelectItem value="medium">Medium</SelectItem>
-              <SelectItem value="high">High</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select onValueChange={setSortBy} defaultValue="updatedAt">
-            <SelectTrigger className="w-full sm:w-40">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="updatedAt">Last Updated</SelectItem>
-              <SelectItem value="dueDate">Due Date</SelectItem>
-            </SelectContent>
-          </Select>
-          <Dialog open={isAddingTask} onOpenChange={setIsAddingTask}>
-            <DialogTrigger asChild>
-              <Button><Plus className="mr-2 h-4 w-4" /> Add Task</Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add New Task</DialogTitle>
-              </DialogHeader>
-              <TaskForm onSubmit={addTask} onClose={() => setIsAddingTask(false)} />
-            </DialogContent>
-          </Dialog>
-        </div>
-        {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <Loader2 className="w-8 h-8 animate-spin" />
-          </div>
-        ) : (
-          <Reorder.Group
-            axis="x"
-            values={columns}
-            onReorder={setColumns}
-            className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
-          >
-            {columns.map((column) => (
-              <Reorder.Item key={column.id} value={column}>
-                <KanbanColumn
-                  column={column}
-                  tasks={filteredAndSortedTasks.filter((task) => task.status === column.status)}
-                  onMoveTask={moveTask}
-                  onEditTask={setEditingTask}
-                />
-              </Reorder.Item>
-            ))}
-            {isAddingColumn ? (
-              <div className="flex items-center space-x-2">
-                <Input
-                  value={newColumnTitle}
-                  onChange={(e) => setNewColumnTitle(e.target.value)}
-                  placeholder="New column title"
-                  className="w-40"
-                />
-                <Button onClick={addColumn}>Add</Button>
-                <Button variant="ghost" onClick={() => setIsAddingColumn(false)}><X className="h-4 w-4" /></Button>
+        <Tabs defaultValue="board" className="mb-8">
+          <TabsList>
+            <TabsTrigger value="board">Board</TabsTrigger>
+            <TabsTrigger value="backlog">Backlog</TabsTrigger>
+            <TabsTrigger value="sprints">Sprints</TabsTrigger>
+          </TabsList>
+          <TabsContent value="board">
+            <div className="mb-4 flex flex-wrap gap-4">
+              <Input
+                placeholder="Search tasks..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full sm:w-64"
+              />
+              <Select onValueChange={setFilterStatus} defaultValue="all">
+                <SelectTrigger className="w-full sm:w-40">
+                  <SelectValue placeholder="Filter by status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Statuses</SelectItem>
+                  {columns.map(column => (
+                    <SelectItem key={column.id} value={column.status}>{column.title}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select onValueChange={setFilterPriority} defaultValue="all">
+                <SelectTrigger className="w-full sm:w-40">
+                  <SelectValue placeholder="Filter by priority" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Priorities</SelectItem>
+                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="high">High</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select onValueChange={setSortBy} defaultValue="updatedAt">
+                <SelectTrigger className="w-full sm:w-40">
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="updatedAt">Last Updated</SelectItem>
+                  <SelectItem value="dueDate">Due Date</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button onClick={() => router.push('/dashboard/blocknote')}>
+                <Plus className="mr-2 h-4 w-4" /> Add Task
+              </Button>
+            </div>
+            {currentSprint && (
+              <div className="mb-4 p-4 rounded-lg">
+                <h2 className="text-xl font-bold mb-2">{currentSprint.name}</h2>
+                <div className="flex items-center justify-between">
+                  <span>{format(currentSprint.startDate, 'PP')} - {format(currentSprint.endDate, 'PP')}</span>
+                  <Progress value={66} className="w-1/3" />
+                </div>
+              </div>
+            )}
+            {isLoading ? (
+              <div className="flex justify-center items-center h-64">
+                <Loader2 className="w-8 h-8 animate-spin" />
               </div>
             ) : (
-              <Button variant="outline" onClick={() => setIsAddingColumn(true)}><Plus className="mr-2 h-4 w-4" /> Add Column</Button>
+              <Reorder.Group
+                axis="x"
+                values={columns}
+                onReorder={setColumns}
+                className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+              >
+                {columns.map((column) => (
+                  <Reorder.Item key={column.id} value={column}>
+                    <KanbanColumn
+                      column={column}
+                      tasks={filteredAndSortedTasks.filter((task) => task.status === column.status)}
+                      onMoveTask={moveTask}
+                      onEditTask={setEditingTask}
+                    />
+                  </Reorder.Item>
+                ))}
+                {isAddingColumn ? (
+                  <div className="flex items-center space-x-2">
+                    <Input
+                      value={newColumnTitle}
+                      onChange={(e) => setNewColumnTitle(e.target.value)}
+                      placeholder="New column title"
+                      className="w-40"
+                    />
+                    <Button onClick={addColumn}>Add</Button>
+                    <Button variant="ghost" onClick={() => setIsAddingColumn(false)}><X className="h-4 w-4" /></Button>
+                  </div>
+                ) : (
+                  <Button variant="outline" onClick={() => setIsAddingColumn(true)}><Plus className="mr-2 h-4 w-4" /> Add Column</Button>
+                )}
+              </Reorder.Group>
             )}
-          </Reorder.Group>
-        )}
+          </TabsContent>
+          <TabsContent value="backlog">
+            <h2 className="text-2xl font-bold mb-4">Backlog</h2>
+            {/* Add backlog content here */}
+          </TabsContent>
+          <TabsContent value="sprints">
+            <h2 className="text-2xl font-bold mb-4">Sprints</h2>
+            {/* Add sprint management content here */}
+          </TabsContent>
+        </Tabs>
       </div>
       <Dialog open={!!editingTask} onOpenChange={() => setEditingTask(null)}>
         <DialogContent>

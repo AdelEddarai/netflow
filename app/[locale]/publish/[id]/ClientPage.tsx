@@ -8,7 +8,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { BarChart as BarChartIcon, LineChart as LineChartIcon, Table as TableIcon, Clock, Download } from 'lucide-react'
 import { Footer } from '@/components/home/footer/Footer'
 import { Block } from '@blocknote/core'
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Skeleton } from "@/components/ui/skeleton"
 
 const BlockNoteViewClient = dynamic(
@@ -37,7 +36,6 @@ export default function PublicBlockNotePageClient({ blockNote, content }: Public
     }, 2000)
     return () => clearTimeout(timer)
   }, [])
-
 
   const tableToCSV = (table: HTMLTableElement): string => {
     const rows = Array.from(table.querySelectorAll('tr'))
@@ -84,51 +82,51 @@ export default function PublicBlockNotePageClient({ blockNote, content }: Public
   }
 
   return (
-    <div className="min-h-screen">
-      <header className="shadow-sm">
-        <div className="max-w-7xl mx-auto py-4 px-6">
+    <div className="min-h-screen ">
+      <header className=" shadow-sm">
+        <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
           {loading ? (
-            <Skeleton className="h-8 w-3/4" />
+            <Skeleton className="h-10 w-3/4 mb-2" />
           ) : (
-            <h1 className="text-2xl font-bold">{blockNote.title}</h1>
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100">{blockNote.title}</h1>
           )}
           {loading ? (
-            <Skeleton className="h-4 w-1/2 mt-2" />
+            <Skeleton className="h-5 w-1/2" />
           ) : (
-            <div className="mt-1 flex items-center text-sm">
+            <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-gray-400">
               <Clock className="mr-1 h-4 w-4" />
               <span>Last updated: {new Date(blockNote.updatedAt).toLocaleString()}</span>
             </div>
           )}
         </div>
       </header>
-      <main className="max-w-7xl mx-auto py-6 px-6">
-        <div className="space-y-6">
-          <div className="shadow-sm rounded-lg p-6">
-            {loading ? (
-              <div className="space-y-2">
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="h-4 w-5/6" />
-                <Skeleton className="h-4 w-4/6" />
-              </div>
-            ) : (
-              <ScrollArea className="h-[400px] w-full">
-                <BlockNoteViewClient initialContent={content} />
-              </ScrollArea>
-            )}
-          </div>
-          
-          <div className="shadow-sm rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4">Data Visualization</h2>
+      <main className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <article className="prose dark:prose-invert lg:prose-lg mx-auto">
+          {loading ? (
+            <div className="space-y-4">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-5/6" />
+              <Skeleton className="h-4 w-4/6" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-3/4" />
+            </div>
+          ) : (
+            <BlockNoteViewClient initialContent={content} />
+          )}
+        </article>
+        
+        <div className="mt-12 shadow sm:rounded-lg">
+          <div className="px-4 py-5 sm:p-6">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Data Visualization</h2>
             {loading ? (
               <Skeleton className="h-8 w-full mb-4" />
             ) : (
               <div className="space-y-4">
                 <div className="flex flex-wrap gap-2">
-                    <Button variant="outline" onClick={handleVisualize}>
-                      <TableIcon className="mr-2 h-4 w-4" />
-                      Visualize Table Data
-                    </Button>
+                  <Button variant="outline" onClick={handleVisualize}>
+                    <TableIcon className="mr-2 h-4 w-4" />
+                    Visualize Table Data
+                  </Button>
                   {showChart && (
                     <Button variant="outline" onClick={handleDownloadCSV}>
                       <Download className="mr-2 h-4 w-4" />

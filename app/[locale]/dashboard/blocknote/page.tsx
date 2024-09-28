@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import { LoadingState } from "@/components/ui/loading-state";
 import { Metadata } from "next";
 
-const Editor = dynamic(() => import("./__component/editor"), { ssr: false });
+const Editor = dynamic(() => import("../../../../components/BlocknoteCom/__component/editor"), { ssr: false });
 
 export const metadata: Metadata = {
   title: 'Netflow - Blocknote',

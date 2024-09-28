@@ -3,7 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import { useFormatter, useTranslations } from 'next-intl';
-import { CommandDialogDemo } from '@/app/[locale]/dashboard/blocknote/__component/SearchCommand';
+import { CommandDialogDemo } from '@/components/BlocknoteCom/__component/SearchCommand';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
 	hideOnMobile?: boolean;

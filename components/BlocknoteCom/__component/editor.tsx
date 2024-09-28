@@ -7,7 +7,7 @@ import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import './JsonBlock.css'
-import { getUserBlockNotes, saveBlockNote } from "../action";
+import { getUserBlockNotes, saveBlockNote } from "../../../app/[locale]/dashboard/blocknote/action";
 import { useTheme } from "next-themes";
 import TextareaAutosize from 'react-textarea-autosize';
 import TextAreabove from "./Textareaabove";
