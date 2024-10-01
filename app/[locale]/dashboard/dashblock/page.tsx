@@ -57,7 +57,7 @@ const BlockNoteCard = ({ note, onShareClick }: any) => (
         >
           <Share2Icon className="h-4 w-4 text-blue-500 group-hover:text-blue-600 transition-colors duration-300" />
         </Button>
-        <Link href={`/dashboard/blocknote/${note.id}/edit`} onClick={e => e.stopPropagation()}>
+        <Link href={`en/dashboard/blocknote/${note.id}/edit`} onClick={e => e.stopPropagation()}>
           <Button 
             size="icon" 
             variant="ghost" 
