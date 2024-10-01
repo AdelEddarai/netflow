@@ -561,3 +561,14 @@ export default function EnhancedKanbanBoard() {
     </DndProvider>
   )
 }
+
+// TODO make the board view more responsive
+// TODO make the board view more interactive
+// TODO add a sprint view
+// TODO add a backlog view
+// TODO add a calendar view
+// TODO add a burndown chart
+// TODO add a sprint report
+// TODO add a task report
+// TODO add a user report
+

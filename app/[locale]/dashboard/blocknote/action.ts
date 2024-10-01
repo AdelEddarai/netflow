@@ -71,7 +71,18 @@ export async function getBlockNoteById(id: string) {
       return { success: false, error: 'BlockNote not found' }
     }
 
-    return { success: true, blockNote }
+    // Parse the content if it's stored as a string
+    const parsedContent = typeof blockNote.content === 'string' 
+      ? JSON.parse(blockNote.content) 
+      : blockNote.content;
+
+    return { 
+      success: true, 
+      blockNote: {
+        ...blockNote,
+        content: parsedContent
+      }
+    }
   } catch (error) {
     console.error('Error fetching BlockNote:', error)
     return { success: false, error: String(error) }
