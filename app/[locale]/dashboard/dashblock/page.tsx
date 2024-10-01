@@ -32,7 +32,7 @@ const BlockNoteCard = ({ note, onShareClick }: any) => (
     transition={{ type: "spring", stiffness: 300 }}
   >
     <Card className="w-full h-48 group relative overflow-hidden bg-gradient-to-br from-white to-gray-100 dark:from-gray-800 dark:to-gray-900 backdrop-blur-lg border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition-all duration-300">
-      <Link href={`/publish/${note.id}`}>
+      <Link href={`en/publish/${note.id}`}>
         <CardHeader className="pb-2">
           <CardTitle className="text-lg truncate">{note.title}</CardTitle>
         </CardHeader>
@@ -57,7 +57,7 @@ const BlockNoteCard = ({ note, onShareClick }: any) => (
         >
           <Share2Icon className="h-4 w-4 text-blue-500 group-hover:text-blue-600 transition-colors duration-300" />
         </Button>
-        <Link href={`en/dashboard/blocknote/${note.id}/edit`} onClick={e => e.stopPropagation()}>
+        <Link href={`/dashboard/blocknote/${note.id}/edit`} onClick={e => e.stopPropagation()}>
           <Button 
             size="icon" 
             variant="ghost" 
