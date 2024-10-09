@@ -9,7 +9,6 @@ import { useTheme } from 'next-themes';
 
 interface BlockNoteViewClientProps {
   initialContent: Block[];
-  onChange?: (content: Block[]) => void;
 }
 
 const customDarkTheme = {
@@ -49,17 +48,11 @@ export default function BlockNoteViewClient({ initialContent, onChange }: BlockN
     initialContent: Array.isArray(initialContent) ? initialContent : [initialContent],
   });
 
-  const handleContentChange = (content: Block[]) => {
-    if (onChange) {
-      onChange(content);
-    }
-  };
 
   return (
     <BlockNoteView
       editor={editor}
       theme={resolvedTheme === "dark" ? customDarkTheme : "light"}
-      onChange={handleContentChange}
       editable={false}
       slashMenu={false}
       formattingToolbar={false}
