@@ -42,7 +42,7 @@ const customDarkTheme = {
   },
 };
 
-export default function BlockNoteViewClient({ initialContent, onChange }: BlockNoteViewClientProps) {
+export default function BlockNoteViewClient({ initialContent }: BlockNoteViewClientProps) {
   const { resolvedTheme } = useTheme();
   const editor: BlockNoteEditor = useCreateBlockNote({
     initialContent: Array.isArray(initialContent) ? initialContent : [initialContent],
